@@ -1,0 +1,222 @@
+@font-face {
+  font-family: "Tomorrow";
+  src: url("/Fonts/Tomorrow-Regular.ttf");
+}
+
+.alles {
+  padding: 20px;
+  text-align: center;
+  margin-top: 10%;
+  position: relative;
+  flex: 1;
+  width: 100%;
+}
+
+form {
+  width: 300px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.alles button {
+  padding: 10px;
+  background-color: #838383;
+  color: white;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  margin: 8px 4px;
+  transition:
+    clip-path 0.2s ease,
+    border-radius 0.2s ease;
+
+  &:hover {
+    clip-path: polygon(
+      12px 0,
+      calc(100% - 12px) 0,
+      100% 12px,
+      100% calc(100% - 12px),
+      calc(100% - 12px) 100%,
+      12px 100%,
+      0 calc(100% - 12px),
+      0 12px
+    );
+  }
+}
+
+.glassPanel {
+  position: relative;
+  background: rgba(255, 255, 255, 0.11);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(4.4px);
+  -webkit-backdrop-filter: blur(4.4px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 24px;
+  max-width: 400px;
+  margin: 20px auto;
+  text-align: left;
+}
+
+.glassPanel h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.glassPanel input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
+
+.glassPanel button {
+  width: 100%;
+  padding: 10px;
+  background-color: #797979;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 8px 0;
+  transition:
+    clip-path 0.2s ease,
+    border-radius 0.2s ease;
+
+  &:hover {
+    clip-path: polygon(
+      12px 0,
+      calc(100% - 12px) 0,
+      100% 12px,
+      100% calc(100% - 12px),
+      calc(100% - 12px) 100%,
+      12px 100%,
+      0 calc(100% - 12px),
+      0 12px
+    );
+  }
+}
+
+.glassPanel p {
+  text-align: center;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.formGroup label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #333;
+}
+
+.divider {
+  height: 1px;
+  background: rgba(0, 0, 0, 0.15);
+  margin: 20px 0;
+}
+
+.updateMsg {
+  text-align: center;
+  color: #4a90e2;
+  font-weight: 500;
+  margin-top: 12px;
+}
+
+h1 {
+  color: white;
+  mix-blend-mode: difference;
+}
+
+.content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  mix-blend-mode: difference;
+  pointer-events: none;
+  gap: 16px;
+}
+
+.loginBtn {
+  pointer-events: auto;
+  padding: 12px 32px;
+  background-color: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+  transition:
+    background-color 0.2s ease,
+    clip-path 0.2s ease;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.35);
+  }
+}
+
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  pointer-events: auto;
+}
+
+.glassPanel .closeBtn {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  font-size: 1.4rem;
+  padding: 0;
+  min-width: 0;
+  line-height: 1;
+  z-index: 1;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+  clip-path: none;
+  border-radius: 0;
+
+  width: 10%;
+  background-color: transparent;
+  color: black;
+  border: none;
+  cursor: pointer;
+  margin: 2px 0;
+
+  &:hover {
+    clip-path: none;
+  }
+}
+
+.alles :global(canvas) {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 0;
+}

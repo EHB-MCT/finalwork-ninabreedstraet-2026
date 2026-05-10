@@ -1,0 +1,71 @@
+@font-face {
+  font-family: "Tomorrow";
+  src: url("/Fonts/Tomorrow-Regular.ttf");
+}
+
+@font-face {
+  font-family: "TomorrowBold";
+  src: url("/Fonts/Tomorrow-Bold.ttf");
+}
+
+@font-face {
+  font-family: "Helvetica";
+  src: url("/Fonts/Helvetica.ttf");
+}
+
+@font-face {
+  font-family: "Helvetica";
+  src: url("/Fonts/Helvetica.ttf");
+}
+
+.oefeningBox {
+  margin-top: 15%;
+  padding: 5%;
+  font-family: "Tomorrow";
+  text-align: left;
+}
+
+p {
+  font-family: "Helvetica";
+}
+
+h3 {
+  font-family: "Tomorrow";
+}
+
+h2 {
+  font-family: "TomorrowBold";
+}
+
+strong {
+  font-style: italic;
+}
+
+.uitleg {
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: left;
+}
+
+th {
+  color: black;
+}
+
+tr:nth-child(even) {
+  background-color: none;
+}
+
+tr:hover {
+  background-color: none;
+}

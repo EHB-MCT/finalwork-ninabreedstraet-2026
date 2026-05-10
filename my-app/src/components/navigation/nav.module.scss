@@ -1,0 +1,177 @@
+@font-face {
+  font-family: "Tomorrow";
+  src: url("/Fonts/Tomorrow-Regular.ttf");
+}
+@font-face {
+  font-family: "TomorrowBold";
+  src: url("/Fonts/Tomorrow-Bold.ttf");
+}
+
+@font-face {
+  font-family: "Helvetica";
+  src: url("/Fonts/Helvetica.ttf");
+}
+
+@font-face {
+  font-family: "Helvetica";
+  src: url("/Fonts/Helvetica.ttf");
+}
+.alles {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+}
+
+.nav {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3rem;
+  z-index: 999;
+  padding: 1% 2%;
+  width: fit-content;
+
+  background: rgba(255, 255, 255, 0.11);
+  border-radius: 36px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(4.4px);
+  -webkit-backdrop-filter: blur(4.4px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+
+  & > * {
+    transition: none;
+  }
+}
+
+.footerContainer {
+  position: relative;
+  width: 100%;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 2%;
+  color: white;
+  text-align: center;
+  border-top: none;
+  margin-top: 5%;
+  z-index: 999;
+  position: relative;
+  background: rgba(255, 255, 255, 0.11);
+  backdrop-filter: blur(4.4px);
+  -webkit-backdrop-filter: blur(4.4px);
+
+  box-sizing: border-box !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  padding-left: 2% !important;
+  padding-right: 2% !important;
+}
+
+.footerLine {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 10px;
+  background: rgb(255, 255, 255);
+  mix-blend-mode: difference;
+  z-index: 1000;
+  opacity: 100;
+}
+
+.footerlinks {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  font-family: "Helvetica";
+  color: white;
+  gap: 6%;
+  list-style: none;
+  text-decoration: none;
+  mix-blend-mode: normal;
+}
+
+.copyright {
+  display: flex;
+  flex-direction: row;
+  color: black;
+  gap: 6%;
+  text-decoration: none;
+  border-bottom: none;
+  mix-blend-mode: normal;
+}
+
+.home {
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.button {
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.dropdownContainer {
+  position: relative;
+}
+
+.dropdown {
+  position: fixed;
+  top: 80px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #2d2d2d;
+  border-radius: 8px;
+  padding: 0.5rem 0;
+  min-width: 200px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  z-index: 1000;
+}
+
+.dropdownElement {
+  display: block;
+  text-decoration: none;
+  padding: 0.6rem 1rem;
+  color: white;
+  transition: background-color 0.2s ease;
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+}
+
+.maken {
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: bold;
+}
+
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+  margin-left: 0px;
+}
+
+.main {
+  flex: 1;
+  width: 100%;
+}
+
+.footerWrapper {
+  width: 100%;
+}

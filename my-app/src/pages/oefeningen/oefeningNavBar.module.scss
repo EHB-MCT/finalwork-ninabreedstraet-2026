@@ -1,0 +1,86 @@
+@font-face {
+  font-family: "Tomorrow";
+  src: url("/Fonts/Tomorrow-Regular.ttf");
+}
+
+.alles {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+}
+
+.nav {
+  position: fixed;
+  top: 13%;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  z-index: 998;
+  padding: 1% 2%;
+  width: max-content;
+
+  background: rgba(255, 255, 255, 0.11);
+  border-radius: 26px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(4.4px);
+  -webkit-backdrop-filter: blur(4.4px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+
+  & > * {
+    transition: clip-path 0.2s ease;
+  }
+}
+
+.link {
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: black;
+  background: none;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: clip-path 0.2s ease;
+
+  &:hover {
+    clip-path: polygon(
+      12px 0,
+      calc(100% - 12px) 0,
+      100% 12px,
+      100% calc(100% - 12px),
+      calc(100% - 12px) 100%,
+      12px 100%,
+      0 calc(100% - 12px),
+      0 12px
+    );
+  }
+}
+
+.active {
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #6e6e6e;
+  background: none;
+  border: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: clip-path 0.2s ease;
+
+  &:hover {
+    clip-path: polygon(
+      12px 0,
+      calc(100% - 12px) 0,
+      100% 12px,
+      100% calc(100% - 12px),
+      calc(100% - 12px) 100%,
+      12px 100%,
+      0 calc(100% - 12px),
+      0 12px
+    );
+  }
+}
