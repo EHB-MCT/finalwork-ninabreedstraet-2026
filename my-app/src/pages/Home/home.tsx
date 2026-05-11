@@ -1,7 +1,7 @@
 import style from "./home.module.scss";
 import { useAuth } from "../../context/AuthContext";
 import { useState } from "react";
-import Sketch from "./examples/sketch1";
+import Sketch from "./examples/sketch2";
 import LoginForm from "../../components/LoginForm";
 
 export default function Home() {

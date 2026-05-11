@@ -3,7 +3,7 @@ import Navigation from "./components/navigation/navigation";
 import Dashboard from "./pages/dashboard";
 import Home from "./pages/Home/home";
 import OefeningenHome from "./pages/oefeningen/oefeningHome";
-import Maken from "./pages/Maken/maken";
+import Maken from "./pages/Maken/maken2";
 import { useAuth } from "./context/AuthContext";
 import { FooterComponent } from "./components/navigation/footer";
 import Account from "./pages/Account/account";
