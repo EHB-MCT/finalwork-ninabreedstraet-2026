@@ -1,130 +1,125 @@
-const BGCOLOR = [23, 195, 50];
-const TGSTRING = "touch grass ";
+//Bronnen:
+// - https://www.youtube.com/watch?v=4IyeLc6J1Uo
 
-const CTHRESHOLD = 750;
+import { useEffect, useRef, useState } from "react";
+import p5 from "p5";
 
-let allGrassProfile = [];
-let gCOLOR;
-let fCOLORS;
-let touchMode = false;
+let img: p5.Image;
+const CANVAS_HEIGHT = 300;
 
-function setup() {
-  gCOLOR = color(41, 157, 0);
-  fCOLORS = {
-    t: color(119, 239, 255),
-    o: color(255, 187, 194),
-    u: color(255, 153, 0),
-    c: color(242, 18, 0),
-    h: color(221, 255, 123),
-    g: color(255, 255, 255),
-    r: color(255, 229, 0),
-    a: color(138, 97, 255),
-    $: color(255, 92, 0),
-    s: color(227, 192, 255),
-  };
+export default function Sketch() {
+  // verwijst naar div element waar p5 zijn sketch in gaat zetten
+  const sketchRef = useRef<HTMLDivElement>(null);
+  const p5InstanceRef = useRef<p5 | null>(null);
 
-  createCanvas(windowWidth, windowHeight);
-  background(BGCOLOR);
-  frameRate(60);
+  useEffect(() => {
+    let p5Instance: p5;
+    if (!sketchRef.current) return;
 
-  let field = select("field");
-  plantGrass();
+    const sketch = (p: p5) => {
+      // Dit zijn de instellingen van de visual
+      let asciiChar = "█▓▒░ ";
 
-  describe(
-    'Background of pattern created by repeating the phrase "touch grass". Hovering over the letters makes them morph into flowers.',
+      // "█▓▒░ ";
+      // "#$%&*+=−:;,. ";
+      // "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,^`'. ";
+
+      let size = 6;
+      let charWidth = size; // wordt hieronder overschreven na font-load
+
+      p.setup = () => {
+        p.createCanvas(p.windowWidth, p.windowHeight);
+
+        // Stel font in vóór meting
+        p.textSize(size);
+        p.textFont("/Fonts/Helvetica.ttf");
+        p.textAlign(p.LEFT, p.TOP);
+        p.noLoop();
+
+        // Laad eerst de afbeelding, dan pas canvas aanmaken met de juiste grootte
+        img = p.loadImage("/Images/Nina.jpg", (loaded) => {
+          img = loaded;
+          img.resize(300, 0);
+
+          // Meet de werkelijke tekenbreedte ná font-load
+          charWidth = p.textWidth("M");
+
+          const canvasWidth = img.width * size;
+          const canvasHeight = img.height * size;
+          p.resizeCanvas(canvasWidth, canvasHeight);
+
+          // Reset de inline stijl die p5 zet
+          const canvasEl = document.querySelector(
+            "canvas",
+          ) as HTMLCanvasElement;
+          canvasEl.style.width = "";
+          canvasEl.style.height = "";
+
+          p.redraw();
+        });
+      };
+
+      p.draw = () => {
+        if (!img) return;
+        p.fill(1);
+        p.background(500);
+        img.loadPixels();
+
+        for (let i = 0; i < img.width; i++) {
+          for (let j = 0; j < img.height; j++) {
+            let pixelsIndex = (i + j * img.width) * 4;
+            let r = img.pixels[pixelsIndex + 0];
+            let g = img.pixels[pixelsIndex + 1];
+            let b = img.pixels[pixelsIndex + 2];
+
+            // let bright = p.brightness(p.color(r, g, b));
+            let bright = (r + g + b) / 3;
+            let tIndex = p.floor(p.map(bright, 0, 100, 0, asciiChar.length));
+
+            let x = i * size + size / 2;
+            let y = j * size + size / 2;
+            p.textSize(size);
+            p.textAlign(p.CENTER, p.CENTER);
+            p.text(asciiChar.charAt(tIndex), x, y);
+          }
+        }
+
+        // for (let i = 0; i < img.width; i++) {
+        //   for (let j = 0; j < img.height; j++) {
+        //     let pixelVal = img.get(i, j);
+        //     console.log(pixelVal);
+        //     let c = p.brightness(pixelVal);
+        //     let tIndex = p.floor(p.map(c, 0, 100, 0, asciiChar.length));
+
+        //     let x = i * charWidth + size / 2;
+        //     let y = j * size + size / 2;
+        //     // let t = asciiChar.charAt(tIndex);
+        //     p.textSize(size);
+        //     p.textAlign(p.CENTER, p.CENTER);
+        //     p.text(asciiChar.charAt(tIndex), x, y);
+        //   }
+        // }
+      };
+    };
+    p5Instance = new p5(sketch, sketchRef.current!);
+    return () => p5Instance.remove();
+  }, []);
+
+  return (
+    <div style={{ display: "inline-block", color: "black" }}>
+      <div
+        ref={sketchRef}
+        style={{
+          lineHeight: 0,
+        }}
+      />
+      <style>{`
+      canvas {
+        width: auto !important;
+        height: auto !important;
+        display: block;
+      }
+    `}</style>
+    </div>
   );
 }
-
-function draw() {
-  if (!touchMode && touches.length > 0) {
-    touchMode = true;
-  }
-  for (let grassProfile of allGrassProfile) {
-    grassProfile.showGrowth();
-  }
-}
-
-function plantGrass() {
-  let grass;
-  let cycleCount = 0;
-
-  while (!grass || grass.elt.getBoundingClientRect().top < window.innerHeight) {
-    for (let curGrassType of TGSTRING) {
-      grass = createSpan(curGrassType + "&#8203");
-      grass.parent(field);
-      allGrassProfile.push(new GrassProfile(grass, curGrassType));
-    }
-  }
-}
-
-class GrassProfile {
-  constructor(grass, grassType) {
-    this.grass = grass;
-    this.grassType = grassType;
-    this.growth = 1;
-    this.position = this.getPosition();
-  }
-
-  showGrowth() {
-    if (this.grassType == " ") return;
-    if (touchMode) this.checkGrowthTM();
-    else this.checkGrowth();
-    this.grass.style("font-weight", this.growth);
-    this.grass.style("color", this.getColor());
-  }
-
-  checkGrowth() {
-    this.growth = Math.max(this.growth * 0.9, 1);
-    this.distToMouse = dist(mouseX, mouseY, this.position.x, this.position.y);
-    if (this.distToMouse < 300) {
-      this.growth = Math.min(this.growth + 2500 / (this.distToMouse + 2), 1000);
-    }
-    if (mouseIsPressed && this.distToMouse < 350) {
-      this.growth = Math.min(this.growth + (350 - this.distToMouse), 1000);
-    }
-    this.growth = Math.round(this.growth);
-  }
-
-  checkGrowthTM() {
-    this.growth = Math.max(this.growth * 0.95, 1);
-    let distToTouch;
-    for (let touch of touches) {
-      distToTouch = dist(touch.x, touch.y, this.position.x, this.position.y);
-      if (distToTouch < 175) {
-        // console.log('grass touched');
-        this.growth = Math.min(this.growth + (175 - distToTouch), 1000);
-      }
-    }
-    this.growth = Math.round(this.growth);
-  }
-
-  getPosition() {
-    return {
-      x:
-        (this.grass.elt.getBoundingClientRect().left +
-          this.grass.elt.getBoundingClientRect().right) /
-        2,
-      y:
-        (this.grass.elt.getBoundingClientRect().top +
-          this.grass.elt.getBoundingClientRect().bottom) /
-        2,
-    };
-  }
-
-  getColor() {
-    let color = gCOLOR;
-    if (this.growth > CTHRESHOLD) {
-      let amt = (this.growth - CTHRESHOLD) / (1000 - CTHRESHOLD);
-      color = lerpColor(gCOLOR, fCOLORS[this.grassType], amt);
-    }
-    return color;
-  }
-}
-
-function updateGrassPos() {
-  for (let grassProfile of allGrassProfile) {
-    grassProfile.position = grassProfile.getPosition();
-  }
-}
-
-setInterval(updateGrassPos, 500);
