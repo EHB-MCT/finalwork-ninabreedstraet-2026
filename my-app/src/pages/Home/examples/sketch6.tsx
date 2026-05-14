@@ -140,12 +140,15 @@ export default function Sketch() {
         canvas.parent(sketchRef.current!);
         p.noLoop(); // tijdelijk pauzeren tot afbeelding geladen is
 
-        p.loadImage("/Images/Nina.jpg", (loaded) => {
-          img = loaded;
-          img.resize(p.windowWidth, 0);
-          img.loadPixels();
-          p.loop(); // start animatie pas als afbeelding klaar is
-        });
+        p.loadImage(
+          "https://m.media-amazon.com/images/I/81nFcvY8zIL._AC_UF1000,1000_QL80_.jpg",
+          (loaded) => {
+            img = loaded;
+            img.resize(p.windowWidth, 0);
+            img.loadPixels();
+            p.loop(); // start animatie pas als afbeelding klaar is
+          },
+        );
       };
 
       p.draw = () => {

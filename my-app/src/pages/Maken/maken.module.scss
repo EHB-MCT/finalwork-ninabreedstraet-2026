@@ -266,27 +266,32 @@ button {
 /* ── PAGE ── */
 .page {
   width: 100vw;
-  margin-left: calc(-50vw + 50%);
-  min-height: 110vh;
+  height: 100vh;
   position: relative;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 /* ── TAB BAR ── */
 .tabBar {
-  height: var(--nav-h);
+  position: fixed;
+  top: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  z-index: 1000;
+
   display: flex;
   align-items: center;
   gap: 16px;
-  padding: 0 20px;
-  background: rgba(240, 240, 240, 0.6);
-  backdrop-filter: blur(12px);
-  flex-shrink: 0;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 20;
+
+  padding: 12px 18px;
+
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  border-radius: 999px;
 }
 
 .tabs {
@@ -318,38 +323,22 @@ button {
   border: none;
 }
 
-/* ── WORKSPACE ── */
-.workspace {
-  width: 100%;
-  height: 100vh;
-}
-
 /* ── CANVAS ── */
-.canvasPanel {
-  width: 100%;
-  height: 100vh;
-  position: relative;
-  z-index: 1;
-}
-
-.canvasWrap {
-  width: 100%;
-  height: 100%;
-  overflow: visible;
-}
-
 .canvas {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
   display: block;
+  z-index: 1;
 }
 
 /* ── RUN BAR ── */
 .runBar {
-  position: relative;
-  bottom: 10%;
-  left: 16px;
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   align-items: center;
   gap: 8px;
@@ -426,8 +415,9 @@ button {
 /* ── ERROR BOX ── */
 .errorBox {
   position: fixed;
-  bottom: 56px;
-  left: 16px;
+  bottom: 72px;
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 10;
   background: rgba(239, 68, 68, 0.1);
   border: 0.5px solid rgba(239, 68, 68, 0.3);

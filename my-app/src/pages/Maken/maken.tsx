@@ -1,18 +1,18 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { useSearchParams } from "react-router-dom";
-import { sketches } from "./sketches";
+import { SKETCHES } from "./sketches";
 import type { ParamValues } from "./sketches";
 import { useSketch } from "./useSketch";
 import styles from "./Maken.module.scss";
 
-function getDefaultParams(sketch: (typeof sketches)[number]): ParamValues {
+function getDefaultParams(sketch: (typeof SKETCHES)[number]): ParamValues {
   return Object.fromEntries(sketch.params.map((p) => [p.name, p.default]));
 }
 
 export default function Maken() {
   const [searchParams] = useSearchParams();
   // ?? = als de linkerkant null of undefined is, gebruik dan de rechterkant
-  const initialId = searchParams.get("sketch") ?? sketches[0].id;
+  const initialId = searchParams.get("sketch") ?? SKETCHES[0].id;
 
   // actieve sketch:
   const [activeId, setActiveId] = useState(initialId);
@@ -22,13 +22,13 @@ export default function Maken() {
 
   //De huidige parameterwaarde
   const [params, setParams] = useState<ParamValues>(() => {
-    const sketch = sketches.find((s) => s.id === initialId) ?? sketches[0];
+    const sketch = SKETCHES.find((s) => s.id === initialId) ?? SKETCHES[0];
     return getDefaultParams(sketch);
   });
 
   //Huidige code van de actieve sketch.
   const [code, setCode] = useState(() => {
-    const sketch = sketches.find((s) => s.id === initialId) ?? sketches[0];
+    const sketch = SKETCHES.find((s) => s.id === initialId) ?? SKETCHES[0];
     return sketch.code;
   });
 
@@ -40,7 +40,7 @@ export default function Maken() {
 
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
-  const sketch = sketches.find((s) => s.id === activeId) ?? sketches[0];
+  const sketch = SKETCHES.find((s) => s.id === activeId) ?? SKETCHES[0];
   const { run, stop } = useSketch(canvasRef, sketch, params);
 
   // Roept run aan uit de useSketch hook, en als er een fout is wordt die in state gezet zodat hij getoond kan worden.
@@ -59,6 +59,15 @@ export default function Maken() {
     executeSketch(code, params);
   }, [activeId, code, params, executeSketch]);
 
+  // canvas resize
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    // geen executeSketch hier — die loopt al via de andere useEffect
+  }, []);
+
   // Als de sketch geanimeerd is, wordt elke 200ms de frame teller verhoogd.
   // Dit is puur om de frame-teller in de UI te updaten (frame 1, frame 2, ...)
   // de echte animatie loopt via requestAnimationFrame in useSketch.
@@ -73,7 +82,7 @@ export default function Maken() {
     stop();
     setError(null);
     setActiveId(id);
-    const s = sketches.find((sk) => sk.id === id) ?? sketches[0];
+    const s = SKETCHES.find((sk) => sk.id === id) ?? SKETCHES[0];
     const newParams = getDefaultParams(s);
     setParams(newParams);
     setCode(s.code);
@@ -99,10 +108,12 @@ export default function Maken() {
 
   return (
     <div className={styles.page}>
-      {/* Tab bar */}
+      <canvas ref={canvasRef} className={styles.canvas} />
+
+      {/* Tab bar — schetsen bovenaan */}
       <div className={styles.tabBar}>
         <div className={styles.tabs}>
-          {sketches.map((s) => (
+          {SKETCHES.map((s) => (
             <button
               key={s.id}
               className={`${styles.tab} ${s.id === activeId ? styles.tabActive : ""}`}
@@ -114,46 +125,31 @@ export default function Maken() {
         </div>
       </div>
 
-      {/* Workspace */}
-      <div className={styles.workspace}>
-        {/* Canvas */}
-        <div className={styles.canvasPanel}>
-          <div className={styles.canvasWrap}>
-            <canvas
-              ref={canvasRef}
-              className={styles.canvas}
-              width={640}
-              height={480}
-            />
-          </div>
-        </div>
-
-        {/* Runbar — absoluut onderaan */}
-        <div className={styles.runBar}>
-          <button
-            className={styles.btnRun}
-            onClick={() => executeSketch(code, params)}
-          >
-            ▶ uitvoeren
-          </button>
-          <button className={styles.btnReset} onClick={handleReset}>
-            ↺ reset
-          </button>
-          {error ? (
-            <span className={styles.statusErr}>fout in code</span>
-          ) : (
-            <span className={styles.status}>
-              {sketch.animate ? `frame ${frame}` : "klaar"}
-            </span>
-          )}
-        </div>
-
-        {error && (
-          <div className={styles.errorBox}>
-            <span className={styles.errorPrefix}>Fout:</span> {error}
-          </div>
+      {/* Runbar — onderaan gecentreerd */}
+      <div className={styles.runBar}>
+        <button
+          className={styles.btnRun}
+          onClick={() => executeSketch(code, params)}
+        >
+          ▶ uitvoeren
+        </button>
+        <button className={styles.btnReset} onClick={handleReset}>
+          ↺ reset
+        </button>
+        {error ? (
+          <span className={styles.statusErr}>fout in code</span>
+        ) : (
+          <span className={styles.status}>
+            {sketch.animate ? `frame ${frame}` : "klaar"}
+          </span>
         )}
       </div>
+
+      {error && (
+        <div className={styles.errorBox}>
+          <span className={styles.errorPrefix}>Fout:</span> {error}
+        </div>
+      )}
 
       {/* Sidebar */}
       <div className={styles.sidebar}>
@@ -170,7 +166,6 @@ export default function Maken() {
         </div>
 
         <div className={styles.sidebarContent}>
-          {/* Parameters tab */}
           {sideTab === "params" && (
             <div className={styles.paramPanel}>
               <p className={styles.sectionLabel}>aanpassen</p>
@@ -221,7 +216,6 @@ export default function Maken() {
             </div>
           )}
 
-          {/* Code tab */}
           {sideTab === "code" && (
             <div className={styles.codeTab}>
               <textarea
@@ -236,7 +230,6 @@ export default function Maken() {
             </div>
           )}
 
-          {/* Info tab */}
           {sideTab === "info" && (
             <div className={styles.infoTab}>
               <div className={styles.infoCard}>

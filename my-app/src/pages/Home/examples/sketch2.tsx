@@ -44,7 +44,7 @@ export default function Sketch() {
     const sketch = (p: p5) => {
       // Dit zijn de instellingen van de visual
       const SPACING = 3;
-      const FONT_SIZE = 150;
+      const FONT_SIZE = 190;
       const MOUSE_RADIUS = 80;
       const MAX_GROW = 26;
       const LERP_SPEED = 0.15;
@@ -101,7 +101,7 @@ export default function Sketch() {
       }
 
       p.setup = () => {
-        p.createCanvas(p.windowWidth, CANVAS_HEIGHT);
+        p.createCanvas(p.windowWidth, p.windowHeight);
         p.frameRate(60);
       };
 
