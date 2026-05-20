@@ -7,7 +7,7 @@ import p5 from "p5";
 let img: p5.Image;
 const CANVAS_HEIGHT = 300;
 
-export default function Sketch() {
+export default function Sketch3() {
   // verwijst naar div element waar p5 zijn sketch in gaat zetten
   const sketchRef = useRef<HTMLDivElement>(null);
   const p5InstanceRef = useRef<p5 | null>(null);

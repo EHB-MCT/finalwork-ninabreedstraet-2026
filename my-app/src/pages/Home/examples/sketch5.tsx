@@ -130,7 +130,7 @@ function easeInQuad(t: number): number {
   return t * t;
 }
 
-export default function Sketch() {
+export default function Sketch5() {
   const sketchRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

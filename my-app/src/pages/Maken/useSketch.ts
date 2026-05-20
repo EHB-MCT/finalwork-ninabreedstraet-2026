@@ -25,10 +25,14 @@ export function useSketch(
   }, []);
 
   const run = useCallback(
-    (code: string, currentParams: ParamValues): Error | null => {
+    (
+      code: string,
+      currentParams: ParamValues,
+      resetState = true,
+    ): Error | null => {
       stop();
       tRef.current = 0;
-      stateRef.current = {};
+      if (resetState) stateRef.current = {};
 
       const canvas = canvasRef.current;
       if (!canvas) return null;

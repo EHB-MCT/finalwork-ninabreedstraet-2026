@@ -13,6 +13,17 @@ export default function Account() {
   const [password, setPassword] = useState("");
   const [updateMsg, setUpdateMsg] = useState("");
 
+  const [projects, setProjects] = useState<any[]>([]);
+
+  useEffect(() => {
+    if (!user) return;
+    supabase
+      .from("projects")
+      .select("*")
+      .order("created_at", { ascending: false })
+      .then(({ data }) => setProjects(data ?? []));
+  }, [user]);
+
   useEffect(() => {
     if (!loading && !user) {
       navigate("/login");
@@ -64,11 +75,9 @@ export default function Account() {
 
   return (
     <div className={style.alles}>
-      <div className={style.buttonGroup}>
-        <button onClick={handleLogout} className={style.logoutBtn}>
-          Uitloggen
-        </button>
-      </div>
+      <button onClick={handleLogout} className={style.tab}>
+        Uitloggen
+      </button>
       <div className={style.account}>
         <div className={style.settings}>
           <div className={style.accountForm}>
@@ -101,7 +110,9 @@ export default function Account() {
               />
             </div>
 
-            <button onClick={handleUpdateProfile}>Profiel bijwerken</button>
+            <button onClick={handleUpdateProfile} className={style.tab}>
+              Profiel bijwerken
+            </button>
 
             <div className={style.divider}></div>
 
@@ -115,13 +126,36 @@ export default function Account() {
               />
             </div>
 
-            <button onClick={handleUpdatePassword}>Wachtwoord wijzigen</button>
+            <button onClick={handleUpdatePassword} className={style.tab}>
+              Wachtwoord wijzigen
+            </button>
 
             {updateMsg && <p className={style.updateMsg}>{updateMsg}</p>}
           </div>
         </div>
         <div className={style.projects}>
           <h2>Projects</h2>
+          <div className={style.projectList}>
+            {projects.length === 0 ? (
+              <p>Nog geen projecten opgeslagen.</p>
+            ) : (
+              projects.map((project) => (
+                <div key={project.id} className={style.projectCard}>
+                  <p>{project.name}</p>
+                  <button
+                    onClick={() =>
+                      navigate(
+                        `/maken?sketch=${project.sketch_id}&project=${project.id}`,
+                      )
+                    }
+                    className={style.tabProject}
+                  >
+                    Openen
+                  </button>
+                </div>
+              ))
+            )}
+          </div>
         </div>
       </div>
     </div>

@@ -4,7 +4,7 @@
 import { useEffect, useRef, useState } from "react";
 import p5 from "p5";
 
-export default function Sketch() {
+export default function Sketch4() {
   // verwijst naar div element waar p5 zijn sketch in gaat zetten
   const sketchRef = useRef<HTMLDivElement>(null);
 

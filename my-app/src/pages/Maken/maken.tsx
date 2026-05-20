@@ -65,7 +65,6 @@ export default function Maken() {
     if (!canvas) return;
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-    // geen executeSketch hier — die loopt al via de andere useEffect
   }, []);
 
   // Als de sketch geanimeerd is, wordt elke 200ms de frame teller verhoogd.
@@ -108,162 +107,168 @@ export default function Maken() {
 
   return (
     <div className={styles.page}>
-      <canvas ref={canvasRef} className={styles.canvas} />
-
-      {/* Tab bar — schetsen bovenaan */}
-      <div className={styles.tabBar}>
-        <div className={styles.tabs}>
-          {SKETCHES.map((s) => (
-            <button
-              key={s.id}
-              className={`${styles.tab} ${s.id === activeId ? styles.tabActive : ""}`}
-              onClick={() => switchSketch(s.id)}
-            >
-              {s.name}
-            </button>
-          ))}
-        </div>
+      <div className={styles.canvasWrap}>
+        <canvas ref={canvasRef} className={styles.canvas} />
       </div>
 
-      {/* Runbar — onderaan gecentreerd */}
-      <div className={styles.runBar}>
-        <button
-          className={styles.btnRun}
-          onClick={() => executeSketch(code, params)}
-        >
-          ▶ uitvoeren
-        </button>
-        <button className={styles.btnReset} onClick={handleReset}>
-          ↺ reset
-        </button>
-        {error ? (
-          <span className={styles.statusErr}>fout in code</span>
-        ) : (
-          <span className={styles.status}>
-            {sketch.animate ? `frame ${frame}` : "klaar"}
-          </span>
-        )}
-      </div>
-
-      {error && (
-        <div className={styles.errorBox}>
-          <span className={styles.errorPrefix}>Fout:</span> {error}
-        </div>
-      )}
-
-      {/* Sidebar */}
-      <div className={styles.sidebar}>
-        <div className={styles.sidebarTabs}>
-          {(["params", "code", "info"] as const).map((t) => (
-            <button
-              key={t}
-              className={`${styles.stab} ${sideTab === t ? styles.stabActive : ""}`}
-              onClick={() => setSideTab(t)}
-            >
-              {t === "params" ? "parameters" : t === "code" ? "code" : "uitleg"}
-            </button>
-          ))}
-        </div>
-
-        <div className={styles.sidebarContent}>
-          {sideTab === "params" && (
-            <div className={styles.paramPanel}>
-              <p className={styles.sectionLabel}>aanpassen</p>
-              {sketch.params.map((param) => (
-                <div key={param.name} className={styles.paramRow}>
-                  <span className={styles.paramName}>{param.label}</span>
-                  {param.type === "range" && (
-                    <>
-                      <input
-                        type="range"
-                        min={param.min}
-                        max={param.max}
-                        step={param.step}
-                        value={params[param.name] as number}
-                        onChange={(e) =>
-                          handleParamChange(
-                            param.name,
-                            Number.parseFloat(e.target.value),
-                          )
-                        }
-                        className={styles.slider}
-                      />
-                      <span className={styles.paramVal}>
-                        {params[param.name] as number}
-                      </span>
-                    </>
-                  )}
-                  {param.type === "color" && (
-                    <>
-                      <input
-                        type="color"
-                        value={params[param.name] as string}
-                        onChange={(e) =>
-                          handleParamChange(param.name, e.target.value)
-                        }
-                        className={styles.colorInput}
-                      />
-                      <span
-                        className={styles.paramVal}
-                        style={{ fontSize: 10 }}
-                      >
-                        {(params[param.name] as string).toUpperCase()}
-                      </span>
-                    </>
-                  )}
-                </div>
+      <div className={styles.top}>
+        {/* Left panel: examples + sliders/info */}
+        <div className={styles.leftPanel}>
+          {/* Tab bar — schetsen */}
+          <div className={styles.tabBar}>
+            <div className={styles.tabs}>
+              {SKETCHES.map((s) => (
+                <button
+                  key={s.id}
+                  className={`${styles.tab} ${s.id === activeId ? styles.tabActive : ""}`}
+                  onClick={() => switchSketch(s.id)}
+                >
+                  {s.name}
+                </button>
               ))}
             </div>
-          )}
+          </div>
 
-          {sideTab === "code" && (
-            <div className={styles.codeTab}>
-              <textarea
-                className={styles.codeEditor}
-                value={code}
-                onChange={(e) => setCode(e.target.value)}
-                spellCheck={false}
-              />
-              <p className={styles.codeHint}>
-                Bewerk de code en klik uitvoeren ↑
-              </p>
-            </div>
-          )}
+          {/* Sidebar tabs voor params/info */}
+          <div className={styles.sidebarTabs}>
+            {(["params", "info"] as const).map((t) => (
+              <button
+                key={t}
+                className={`${styles.stab} ${sideTab === t ? styles.stabActive : ""}`}
+                onClick={() => setSideTab(t)}
+              >
+                {t === "params" ? "parameters" : "uitleg"}
+              </button>
+            ))}
+          </div>
 
-          {sideTab === "info" && (
-            <div className={styles.infoTab}>
-              <div className={styles.infoCard}>
-                <h3>{sketch.name}</h3>
-                <p>{sketch.desc}</p>
+          <div className={styles.sidebarContent}>
+            {sideTab === "params" && (
+              <div className={styles.paramPanel}>
+                <p className={styles.sectionLabel}>aanpassen</p>
+                {sketch.params.map((param) => (
+                  <div key={param.name} className={styles.paramRow}>
+                    <span className={styles.paramName}>{param.label}</span>
+                    {param.type === "range" && (
+                      <>
+                        <input
+                          type="range"
+                          min={param.min}
+                          max={param.max}
+                          step={param.step}
+                          value={params[param.name] as number}
+                          onChange={(e) =>
+                            handleParamChange(
+                              param.name,
+                              Number.parseFloat(e.target.value),
+                            )
+                          }
+                          className={styles.slider}
+                        />
+                        <span className={styles.paramVal}>
+                          {params[param.name] as number}
+                        </span>
+                      </>
+                    )}
+                    {param.type === "color" && (
+                      <>
+                        <input
+                          type="color"
+                          value={params[param.name] as string}
+                          onChange={(e) =>
+                            handleParamChange(param.name, e.target.value)
+                          }
+                          className={styles.colorInput}
+                        />
+                        <span
+                          className={styles.paramVal}
+                          style={{ fontSize: 10 }}
+                        >
+                          {(params[param.name] as string).toUpperCase()}
+                        </span>
+                      </>
+                    )}
+                  </div>
+                ))}
               </div>
-              <div className={styles.infoCard}>
-                <h3>beschikbare variabelen</h3>
-                <ul className={styles.varList}>
-                  <li>
-                    <code>W, H</code> — canvas breedte/hoogte
-                  </li>
-                  <li>
-                    <code>ctx</code> — 2D canvas context
-                  </li>
-                  <li>
-                    <code>t</code> — tijd in frames
-                  </li>
-                  <li>
-                    <code>mouse.x, mouse.y</code> — muispositie
-                  </li>
-                  <li>
-                    <code>state</code> — eigen data opslaan
-                  </li>
-                  {sketch.params.map((p) => (
-                    <li key={p.name}>
-                      <code>{p.name}</code> — {p.label}
+            )}
+
+            {sideTab === "info" && (
+              <div className={styles.infoTab}>
+                <div className={styles.infoCard}>
+                  <h3>{sketch.name}</h3>
+                  <p>{sketch.desc}</p>
+                </div>
+                <div className={styles.infoCard}>
+                  <h3>beschikbare variabelen</h3>
+                  <ul className={styles.varList}>
+                    <li>
+                      <code>W, H</code> — canvas breedte/hoogte
                     </li>
-                  ))}
-                </ul>
+                    <li>
+                      <code>ctx</code> — 2D canvas context
+                    </li>
+                    <li>
+                      <code>t</code> — tijd in frames
+                    </li>
+                    <li>
+                      <code>mouse.x, mouse.y</code> — muispositie
+                    </li>
+                    <li>
+                      <code>state</code> — eigen data opslaan
+                    </li>
+                    {sketch.params.map((p) => (
+                      <li key={p.name}>
+                        <code>{p.name}</code> — {p.label}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               </div>
-            </div>
+            )}
+          </div>
+        </div>
+
+        {/* Right panel: code */}
+        <div className={styles.rightPanel}>
+          <div className={styles.codeTab}>
+            <textarea
+              className={styles.codeEditor}
+              value={code}
+              onChange={(e) => setCode(e.target.value)}
+              spellCheck={false}
+            />
+            <p className={styles.codeHint}>
+              Bewerk de code en klik uitvoeren ↑
+            </p>
+          </div>
+        </div>
+
+        {/* Runbar — onderaan gecentreerd */}
+        <div className={styles.runBar}>
+          <button
+            className={styles.btnRun}
+            onClick={() => executeSketch(code, params)}
+          >
+            ▶ uitvoeren
+          </button>
+          <button className={styles.btnReset} onClick={handleReset}>
+            ↺ reset
+          </button>
+          {error ? (
+            <span className={styles.statusErr}>fout in code</span>
+          ) : (
+            <span className={styles.status}>
+              {sketch.animate ? `frame ${frame}` : "klaar"}
+            </span>
           )}
         </div>
+
+        {error && (
+          <div className={styles.errorBox}>
+            <span className={styles.errorPrefix}>Fout:</span> {error}
+          </div>
+        )}
       </div>
     </div>
   );

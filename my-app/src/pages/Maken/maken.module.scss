@@ -196,10 +196,31 @@ button {
   min-height: 20px;
   transition: background 0.15s;
   cursor: default;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
 
   &.codeLineHighlight {
     background: rgba(127, 119, 221, 0.12);
   }
+}
+
+.sliderExplainText {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  line-height: 15px;
+  text-align: left;
+  white-space: pre-wrap;
+}
+
+.sliderSnippet {
+  display: inline-block;
+  width: fit-content;
+  max-width: 100%;
+
+  padding: 0px;
+  border-radius: 8px;
+
+  overflow-x: auto;
 }
 
 .codeText {
@@ -266,32 +287,98 @@ button {
 /* ── PAGE ── */
 .page {
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   position: relative;
-  overflow: hidden;
+}
+
+/* ── CANVAS WRAP ── */
+.canvasWrap {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: all;
+}
+
+/* ── TOP OVERLAY ── */
+.top {
+  position: absolute;
+  inset: 0;
+  z-index: 99;
+  pointer-events: none;
+  display: flex;
+  flex-direction: row;
+  overflow-y: visible;
+}
+
+// /* ── LEFT PANEL ── */
+// .leftPanel {
+//   top: 16px;
+//   left: 16px;
+//   pointer-events: auto;
+//   width: 340px;
+//   background: rgba(255, 255, 255, 0.5);
+//   backdrop-filter: blur(12px);
+//   -webkit-backdrop-filter: blur(12px);
+//   border-radius: 16px;
+//   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+//   border: 1px solid rgba(255, 255, 255, 0.3);
+//   display: flex;
+//   flex-direction: column;
+//   gap: 12px;
+//   padding: 16px;
+
+//   height: 45%;
+//   overflow: visible;
+// }
+
+// /* ── RIGHT PANEL ── */
+// .rightPanel {
+//   top: 16px;
+//   right: 16px;
+//   pointer-events: auto;
+//   width: 400px;
+//   background: rgba(255, 255, 255, 0.5);
+//   backdrop-filter: blur(12px);
+//   -webkit-backdrop-filter: blur(12px);
+//   border-radius: 20px;
+//   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+//   border: 1px solid rgba(255, 255, 255, 0.3);
+//   display: flex;
+//   flex-direction: column;
+//   padding: 20px;
+//   overflow: visible;
+
+//   height: fit-content;
+// }
+
+.leftColumn {
+  height: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  padding: 30px;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  z-index: 11;
+}
+
+.rightColumn {
+  min-height: 100%;
+  overflow-x: hidden;
+  pointer-events: none;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  margin-left: auto;
+  z-index: 11;
 }
 
 /* ── TAB BAR ── */
 .tabBar {
-  position: fixed;
-  top: 16px;
-  left: 50%;
-  transform: translateX(-50%);
-
-  z-index: 1000;
-
   display: flex;
   align-items: center;
-  gap: 16px;
-
-  padding: 12px 18px;
-
-  background: rgba(255, 255, 255, 0.12);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  border-radius: 999px;
+  gap: 8px;
+  flex-shrink: 0;
 }
 
 .tabs {
@@ -309,30 +396,46 @@ button {
   border-radius: var(--radius-sm);
   font-size: 12px;
   font-weight: 500;
-  border: 0.5px solid var(--border);
   background: transparent;
-  color: var(--muted);
+  color: rgb(117, 56, 56);
   white-space: nowrap;
   cursor: pointer;
+  clip-path: polygon(
+    6px 0,
+    calc(100% - 6px) 0,
+    100% 3px,
+    100% calc(100% - 6px),
+    calc(100% - 6px) 100%,
+    6px 100%,
+    0 calc(100% - 6px),
+    0 3px
+  );
 }
 .tab:hover {
-  color: var(--text);
+  color: rgb(117, 56, 56);
+  background-color: rgb(206, 79, 79);
   border: none;
 }
 .tabActive {
-  border: none;
+  background-color: lightgrey;
+  color: rgb(206, 79, 79);
 }
 
 /* ── CANVAS ── */
 .canvas {
-  position: fixed;
-  inset: 0;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   display: block;
-  z-index: 1;
+  pointer-events: all;
 }
 
+.panelZone {
+  pointer-events: auto;
+  padding: 2%;
+  height: fit-content;
+  overflow-y: scroll;
+  width: 30%;
+}
 /* ── RUN BAR ── */
 .runBar {
   position: fixed;
@@ -343,6 +446,7 @@ button {
   align-items: center;
   gap: 8px;
   z-index: 10;
+  pointer-events: auto;
 }
 
 .btnRun {
@@ -419,6 +523,7 @@ button {
   left: 50%;
   transform: translateX(-50%);
   z-index: 10;
+  pointer-events: auto;
   background: rgba(239, 68, 68, 0.1);
   border: 0.5px solid rgba(239, 68, 68, 0.3);
   border-radius: var(--radius-sm);
@@ -461,35 +566,46 @@ button {
 .stab {
   flex: 1;
   padding: 5px 12px;
-  border-radius: var(--radius-sm);
+  clip-path: polygon(
+    6px 0,
+    calc(100% - 6px) 0,
+    100% 3px,
+    100% calc(100% - 6px),
+    calc(100% - 6px) 100%,
+    6px 100%,
+    0 calc(100% - 6px),
+    0 3px
+  );
+  border-color: black;
   font-size: 12px;
   font-weight: 500;
-  border: 0.5px solid var(--border);
+  inset: -1px;
   background: transparent;
-  color: var(--muted);
+  color: rgb(117, 56, 56);
   white-space: nowrap;
   cursor: pointer;
-  transition:
-    all 0.15s,
-    clip-path 0.2s ease;
 }
 .stab:hover {
-  background: var(--bg-3);
-  color: var(--text);
+  color: rgb(206, 79, 79);
+  background-color: rgb(117, 56, 56);
+}
+.stab::before {
   clip-path: polygon(
-    8px 0,
-    calc(100% - 8px) 0,
-    100% 8px,
-    100% calc(100% - 8px),
-    calc(100% - 8px) 100%,
-    8px 100%,
-    0 calc(100% - 8px),
-    0 8px
+    6px 0,
+    calc(100% - 6px) 0,
+    100% 3px,
+    100% calc(100% - 6px),
+    calc(100% - 6px) 100%,
+    6px 100%,
+    0 calc(100% - 6px),
+    0 3px
   );
+  inset: -1px;
+  border: 1px solid grey;
 }
 .stabActive {
-  background: var(--accent);
-  color: #fff;
+  background: lightgrey;
+  color: rgb(206, 79, 79);
   border-color: var(--accent);
 }
 
@@ -512,6 +628,7 @@ button {
   text-transform: uppercase;
   color: var(--muted);
   margin-bottom: 14px;
+  padding: 5px;
 }
 
 .paramRow {

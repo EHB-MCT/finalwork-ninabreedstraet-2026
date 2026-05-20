@@ -13,7 +13,7 @@ const FONT_URL = "/Fonts/Helvetica.ttf";
 
 const CANVAS_HEIGHT = 300;
 
-export default function Sketch() {
+export default function Sketch2() {
   // verwijst naar div element waar p5 zijn sketch in gaat zetten
   const sketchRef = useRef<HTMLDivElement>(null);
 

@@ -1,0 +1,184 @@
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  width: 100%;
+  height: fit-content;
+  max-height: 90vh;
+  background: rgba(15, 15, 15, 0.85);
+  backdrop-filter: blur(12px);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  overflow-y: scroll;
+  pointer-events: all;
+}
+
+/* ── Sketch selector ── */
+.sketchSelect {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 14px 16px 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+.sketchLabel {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.35);
+}
+
+.dropdown {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 7px;
+  color: #fff;
+  font-size: 13px;
+  padding: 6px 10px;
+  cursor: pointer;
+  outline: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24'%3E%3Cpath fill='rgba(255,255,255,0.4)' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 28px;
+
+  &:hover {
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  option {
+    background: #1a1a1a;
+    color: #fff;
+  }
+}
+
+/* ── Param list ── */
+.paramList {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Single row ── */
+.row {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &.rowOpen {
+    background: rgba(255, 255, 255, 0.03);
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  user-select: none;
+  transition: background 0.15s;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.04);
+  }
+}
+
+.arrow {
+  font-size: 9px;
+  color: rgba(255, 255, 255, 0.3);
+  width: 12px;
+  flex-shrink: 0;
+}
+
+.name {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.7);
+  flex-shrink: 0;
+  width: 90px;
+}
+
+.control {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+/* ── Controls ── */
+.slider {
+  width: 100%;
+  accent-color: #fff;
+  cursor: pointer;
+}
+
+.colorPicker {
+  width: 32px;
+  height: 22px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  background: none;
+  padding: 0;
+}
+
+.textInput {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  color: #fff;
+  font-size: 12px;
+  padding: 4px 8px;
+  outline: none;
+
+  &:focus {
+    border-color: rgba(255, 255, 255, 0.25);
+  }
+}
+
+/* ── Body: uitleg + code ── */
+.body {
+  padding: 0 14px 14px 34px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.explanation {
+  font-size: 12px;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.783);
+  white-space: pre-line;
+  text-align: left;
+}
+
+.code {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 7px;
+  font-size: 9px;
+  line-height: 1.6;
+  color: rgba(180, 220, 255, 0.8);
+  white-space: pre;
+  margin: 0;
+  width: 90%;
+  text-align: left;
+}
+
+code {
+  font-size: 10px;
+  width: 100%;
+  overflow-x: scroll;
+}
+
+.sketchExplanation {
+  font-size: 11px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.6);
+  text-align: left;
+}

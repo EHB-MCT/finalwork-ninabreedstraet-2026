@@ -123,7 +123,7 @@ function sortRow(y: number, img: p5.Image, p: p5) {
   }
 }
 
-export default function Sketch() {
+export default function Sketch6() {
   const sketchRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

@@ -23,32 +23,6 @@ input {
   border-radius: 5px;
 }
 
-.alles button {
-  padding: 10px;
-  background-color: #838383;
-  color: white;
-  border: none;
-  border-radius: 15px;
-  cursor: pointer;
-  margin: 8px 4px;
-  transition:
-    clip-path 0.2s ease,
-    border-radius 0.2s ease;
-
-  &:hover {
-    clip-path: polygon(
-      12px 0,
-      calc(100% - 12px) 0,
-      100% 12px,
-      100% calc(100% - 12px),
-      calc(100% - 12px) 100%,
-      12px 100%,
-      0 calc(100% - 12px),
-      0 12px
-    );
-  }
-}
-
 .buttonGroup {
   display: flex;
   gap: 10px;
@@ -76,36 +50,12 @@ input {
   box-sizing: border-box;
 }
 
-.accountForm button {
-  width: 100%;
-  padding: 10px;
-  background-color: #797979;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin: 8px 0;
-  transition:
-    clip-path 0.2s ease,
-    border-radius 0.2s ease;
-
-  &:hover {
-    clip-path: polygon(
-      12px 0,
-      calc(100% - 12px) 0,
-      100% 12px,
-      100% calc(100% - 12px),
-      calc(100% - 12px) 100%,
-      12px 100%,
-      0 calc(100% - 12px),
-      0 12px
-    );
-  }
-}
-
-.accountForm h2 {
+.accountForm h2,
+h2 {
   text-align: center;
   margin-bottom: 20px;
+  padding-bottom: 3%;
+  color: rgb(117, 56, 56);
 }
 
 .glassPanel {
@@ -119,11 +69,6 @@ input {
   max-width: 400px;
   margin: 20px auto;
   text-align: left;
-}
-
-.glassPanel h2 {
-  text-align: center;
-  margin-bottom: 20px;
 }
 
 .glassPanel input {
@@ -200,10 +145,90 @@ input {
 }
 
 .projects {
-  background-color: red;
   width: 45%;
+  padding: 2%;
 }
 
 .settings {
   width: 45%;
+  padding: 2%;
+}
+
+.projectList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5%;
+}
+
+.projectCard {
+  clip-path: polygon(
+    18px 0,
+    calc(100% - 18px) 0,
+    100% 18px,
+    100% calc(100% - 18px),
+    calc(100% - 18px) 100%,
+    18px 100%,
+    0 calc(100% - 18px),
+    0 18px
+  );
+  width: 26%;
+  background-color: rgb(206, 79, 79);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 2%;
+  margin-bottom: 3%;
+  color: lightgrey;
+}
+
+.tab {
+  padding: 5px 12px;
+  width: fit-content;
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-weight: 500;
+  background: transparent;
+  color: rgb(117, 56, 56);
+  white-space: nowrap;
+  cursor: pointer;
+  clip-path: polygon(
+    6px 0,
+    calc(100% - 6px) 0,
+    100% 3px,
+    100% calc(100% - 6px),
+    calc(100% - 6px) 100%,
+    6px 100%,
+    0 calc(100% - 6px),
+    0 3px
+  );
+}
+.tab:hover {
+  color: rgb(117, 56, 56);
+  background-color: rgb(206, 79, 79);
+  border: none;
+}
+
+.tabProject {
+  background-color: lightgrey;
+  padding: 5px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 12px;
+  font-weight: 500;
+  color: rgb(117, 56, 56);
+  white-space: nowrap;
+  cursor: pointer;
+  clip-path: polygon(
+    6px 0,
+    calc(100% - 6px) 0,
+    100% 3px,
+    100% calc(100% - 6px),
+    calc(100% - 6px) 100%,
+    6px 100%,
+    0 calc(100% - 6px),
+    0 3px
+  );
+  &:hover {
+    background-color: rgb(117, 56, 56);
+    color: lightgrey;
+  }
 }
