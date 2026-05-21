@@ -45,33 +45,16 @@ export const SKETCHES: Sketch[] = [
 const bn = (d[i]*299 + d[i+1]*587 + d[i+2]*114) / 1000 / 2.55;
 if (bn > threshold) break;
 y++;`,
-        explanation: `
-Deze code berekent eerst de helderheid van een pixel en gebruikt die helderheid daarna om te bepalen of de pixel deel uitmaakt van een licht of donker gebied in de afbeelding.
-De variabele d bevat alle pixelgegevens van de afbeelding. Elke pixel bestaat uit vier waarden: rood (R), groen (G), blauw (B) en alpha/transparantie (A). In de code verwijst d[i] naar de rode waarde van de huidige pixel, d[i+1] naar groen en d[i+2] naar blauw. Deze waarden liggen allemaal tussen 0 en 255.
+        explanation: `const bn = (d[i]*299 + d[i+1]*587 + d[i+2]*114) / 1000 / 2.55: Dit berekent hoe helder een pixel is, een getal tussen 0 (zwart) en 100 (wit).
 
-Met deze RGB-waarden wordt vervolgens een helderheidswaarde berekend:
+        'd' is de lijst van alle pixelwaarden van de afbeelding, eerder opgeslagen als state.d is de lijst van alle pixelwaarden van de afbeelding die eerder opgeslagen is. Het is gewoon een lange rij getallen waarbij elke 4 getallen samen één pixel voorstellen.
 
-const bn = (d[i]*299 + d[i+1]*587 + d[i+2]*114) / 1000 / 2.55;
+        d[i] is de rode waarde van de pixel, d[i+1] de groene en d[i+2] de blauwe. Elke pixel in de array heeft dus 4 plekjes naast elkaar: rood, groen, blauw en transparantie. De getallen 299, 587 en 114 zijn gewichten die bepalen hoe zwaar elke kleur meetelt voor de helderheid. Groen telt het zwaarst mee omdat ons oog daar het gevoeligst voor is.
 
-Dit is een standaardformule voor luminantie, waarbij groen zwaarder meetelt dan rood en blauw omdat het menselijk oog gevoeliger is voor groen licht. De formule komt overeen met:
+        if (bn > threshold) break: Dit is een if-statement, je zegt hier: als hetgeen tussen de haakjes klopt, voer dan deze opdracht uit. De opdracht staat dan meestal tussen collades eronder, hier staat de opdracht ernaast. Als de pixel te licht is, stop dan met verder gaan.
 
-0.299 × rood + 0.587 × groen + 0.114 × blauw
-
-De eerste berekening geeft een waarde tussen 0 en 255. Daarna wordt gedeeld door 2.55, zodat de uiteindelijke helderheid (bn) een schaal krijgt van 0 tot 100. Een zwarte pixel heeft dus ongeveer waarde 0, een witte pixel ongeveer 100 en grijstinten liggen daartussen.
-
-Daarna vergelijkt de code deze helderheid met een ingestelde drempelwaarde (threshold):
-
-if (bn > threshold) break;
-
-Als de pixel helderder is dan de drempel, stopt de lus onmiddellijk met break. Dat betekent dat de code een lichte pixel heeft gevonden en niet verder hoeft te zoeken.
-
-Wanneer de pixel nog niet helder genoeg is, wordt:
-
-y++;
-
-uitgevoerd. Hierdoor schuift de code één pixel verder naar beneden in dezelfde kolom van de afbeelding.
-
-Samen zorgt deze code er dus voor dat de afbeelding kolom per kolom wordt gescand totdat een helder segment wordt gevonden. Die segmenten worden later gebruikt voor het pixel-sorting effect waarbij pixels binnen een bepaald gebied opnieuw worden gesorteerd op helderheid.`,
+        y++: Ga één pixel naar beneden.
+`,
       },
       {
         name: "image",
@@ -83,7 +66,9 @@ Samen zorgt deze code er dus voor dat de afbeelding kolom per kolom wordt gescan
 const img = new Image();
 img.src = image;
 `,
-        explanation: "De afbeelding die wordt gebruikt voor pixel sorting.",
+        explanation: `new Image() maakt een leeg afbeelding-object aan in de browser, en img.src = image vertelt hem welke afbeelding hij moet laden door de URL in te stellen.
+        
+        Een object is een container voor meerdere waarden die bij elkaar horen, je groepeert ze onder één naam.`,
       },
     ],
     paramDocs: {
@@ -159,6 +144,7 @@ if (state.col < W) {
   const g = parseInt(hex.slice(3,5),16);
   const b = parseInt(hex.slice(5,7),16);
   return [r,g,b];
+}
 
   function colorAt(x) {
   const c1 = hexToRgb(color1);
@@ -168,15 +154,18 @@ if (state.col < W) {
   if (amt < 0.5) return lerpRgb(c1, c2, amt * 2);
   return lerpRgb(c2, c3, (amt - 0.5) * 2);
 }
-}
 `,
-        explanation: `Deze code doet eigenlijk twee dingen met kleuren.
+        explanation: `hexToRgb: Dit is een functie die een hexkleur zoals #FF8A00 opsplitst in drie losse getallen: rood, groen en blauw. Die drie getallen worden teruggegeven als een lijstje [r, g, b].
 
-Eerst neemt hij een kleur die geschreven is als een “webkleur” (zoals #ff6b6b) en breekt die op in drie losse getallen: rood, groen en blauw. Dat is wat hexToRgb doet. Het kijkt naar stukjes van de tekst en zet die om naar cijfers die de computer begrijpt.
+        colorAt(x): Dit geeft de kleur terug op een bepaalde x-positie op het scherm. Het scherm heeft drie kleuren (color1, color2, color3) die vloeiend in elkaar overlopen van links naar rechts.
 
-Daarna probeert de code een kleur te kiezen op basis van waar je bent op het scherm (x-positie). Hij zegt: “links is kleur 1, in het midden kleur 2, en rechts kleur 3.” En tussen die kleuren mengt hij langzaam zodat het niet plots verandert maar mooi vloeiend overgaat.
+        const amt = Math.max(0, Math.min(1, x / W)): Dit berekent hoe ver je bent op het scherm als een getal tussen 0 en 1. Helemaal links is 0, helemaal rechts is 1.
 
-Alleen: in deze code zit eigenlijk een foutje, want die tweede functie (colorAt) staat per ongeluk binnen de eerste functie. Normaal zouden dit twee aparte functies moeten zijn.`,
+        if (amt < 0.5) return lerpRgb(c1, c2, amt * 2): Dit is een if-statement, je zegt hier: als hetgeen tussen de haakjes klopt, voer dan deze opdracht uit. De opdracht staat dan meestal tussen collades eronder. Als je in de linkerhelft van het scherm zit, mix je tussen kleur 1 en kleur 2.
+
+        return lerpRgb(c2, c3, (amt - 0.5) * 2): In de rechterhelft mix je tussen kleur 2 en kleur 3.
+        
+        `,
       },
       {
         name: "color2",
@@ -188,6 +177,7 @@ Alleen: in deze code zit eigenlijk een foutje, want die tweede functie (colorAt)
   const g = parseInt(hex.slice(3,5),16);
   const b = parseInt(hex.slice(5,7),16);
   return [r,g,b];
+}
 
   function colorAt(x) {
   const c1 = hexToRgb(color1);
@@ -197,15 +187,18 @@ Alleen: in deze code zit eigenlijk een foutje, want die tweede functie (colorAt)
   if (amt < 0.5) return lerpRgb(c1, c2, amt * 2);
   return lerpRgb(c2, c3, (amt - 0.5) * 2);
 }
-}
 `,
-        explanation: `Deze code doet eigenlijk twee dingen met kleuren.
+        explanation: `hexToRgb: Dit is een functie die een hexkleur zoals #FF8A00 opsplitst in drie losse getallen: rood, groen en blauw. Die drie getallen worden teruggegeven als een lijstje [r, g, b].
 
-Eerst neemt hij een kleur die geschreven is als een “webkleur” (zoals #ff6b6b) en breekt die op in drie losse getallen: rood, groen en blauw. Dat is wat hexToRgb doet. Het kijkt naar stukjes van de tekst en zet die om naar cijfers die de computer begrijpt.
+        colorAt(x): Dit geeft de kleur terug op een bepaalde x-positie op het scherm. Het scherm heeft drie kleuren (color1, color2, color3) die vloeiend in elkaar overlopen van links naar rechts.
 
-Daarna probeert de code een kleur te kiezen op basis van waar je bent op het scherm (x-positie). Hij zegt: “links is kleur 1, in het midden kleur 2, en rechts kleur 3.” En tussen die kleuren mengt hij langzaam zodat het niet plots verandert maar mooi vloeiend overgaat.
+        const amt = Math.max(0, Math.min(1, x / W)): Dit berekent hoe ver je bent op het scherm als een getal tussen 0 en 1. Helemaal links is 0, helemaal rechts is 1.
 
-Alleen: in deze code zit eigenlijk een foutje, want die tweede functie (colorAt) staat per ongeluk binnen de eerste functie. Normaal zouden dit twee aparte functies moeten zijn.`,
+        if (amt < 0.5) return lerpRgb(c1, c2, amt * 2): Dit is een if-statement, je zegt hier: als hetgeen tussen de haakjes klopt, voer dan deze opdracht uit. De opdracht staat dan meestal tussen collades eronder. Als je in de linkerhelft van het scherm zit, mix je tussen kleur 1 en kleur 2.
+
+        return lerpRgb(c2, c3, (amt - 0.5) * 2): In de rechterhelft mix je tussen kleur 2 en kleur 3.
+        
+        `,
       },
       {
         name: "color3",
@@ -217,6 +210,7 @@ Alleen: in deze code zit eigenlijk een foutje, want die tweede functie (colorAt)
   const g = parseInt(hex.slice(3,5),16);
   const b = parseInt(hex.slice(5,7),16);
   return [r,g,b];
+}
 
   function colorAt(x) {
   const c1 = hexToRgb(color1);
@@ -226,15 +220,19 @@ Alleen: in deze code zit eigenlijk een foutje, want die tweede functie (colorAt)
   if (amt < 0.5) return lerpRgb(c1, c2, amt * 2);
   return lerpRgb(c2, c3, (amt - 0.5) * 2);
 }
-}
+
 `,
-        explanation: `Deze code doet eigenlijk twee dingen met kleuren.
+        explanation: `hexToRgb: Dit is een functie die een hexkleur zoals #FF8A00 opsplitst in drie losse getallen: rood, groen en blauw. Die drie getallen worden teruggegeven als een lijstje [r, g, b].
 
-Eerst neemt hij een kleur die geschreven is als een “webkleur” (zoals #ff6b6b) en breekt die op in drie losse getallen: rood, groen en blauw. Dat is wat hexToRgb doet. Het kijkt naar stukjes van de tekst en zet die om naar cijfers die de computer begrijpt.
+        colorAt(x): Dit geeft de kleur terug op een bepaalde x-positie op het scherm. Het scherm heeft drie kleuren (color1, color2, color3) die vloeiend in elkaar overlopen van links naar rechts.
 
-Daarna probeert de code een kleur te kiezen op basis van waar je bent op het scherm (x-positie). Hij zegt: “links is kleur 1, in het midden kleur 2, en rechts kleur 3.” En tussen die kleuren mengt hij langzaam zodat het niet plots verandert maar mooi vloeiend overgaat.
+        const amt = Math.max(0, Math.min(1, x / W)): Dit berekent hoe ver je bent op het scherm als een getal tussen 0 en 1. Helemaal links is 0, helemaal rechts is 1.
 
-Alleen: in deze code zit eigenlijk een foutje, want die tweede functie (colorAt) staat per ongeluk binnen de eerste functie. Normaal zouden dit twee aparte functies moeten zijn.`,
+        if (amt < 0.5) return lerpRgb(c1, c2, amt * 2): Dit is een if-statement, je zegt hier: als hetgeen tussen de haakjes klopt, voer dan deze opdracht uit. De opdracht staat dan meestal tussen collades eronder. Als je in de linkerhelft van het scherm zit, mix je tussen kleur 1 en kleur 2.
+
+        return lerpRgb(c2, c3, (amt - 0.5) * 2): In de rechterhelft mix je tussen kleur 2 en kleur 3.
+        
+        `,
       },
       {
         name: "circleCount",
@@ -244,10 +242,9 @@ Alleen: in deze code zit eigenlijk een foutje, want die tweede functie (colorAt)
         max: 20,
         step: 1,
         default: 7,
-        codeSnippet: `if (!state.circles || state.circleCount !== circleCount) {
-  state.circleCount = circleCount;
+        codeSnippet: `state.circleCount = circleCount;
 
-  state.circles = Array.from({ length: circleCount }, (_, i) => {
+    state.circles = Array.from({ length: circleCount }, (_, i) => {
     const angle = (i / circleCount) * Math.PI * 2;
 
     return {
@@ -258,14 +255,16 @@ Alleen: in deze code zit eigenlijk een foutje, want die tweede functie (colorAt)
       oy: 0,
     };
   });
-}`,
-        explanation: `Deze code kijkt eerst of er al cirkels bestaan, of dat het aantal cirkels veranderd is. Als dat zo is, maakt hij alles opnieuw aan.
+`,
+        explanation: `state.state.circleCount = circleCount: Dit slaat het huidige aantal cirkels op in het project, zodat de code later kan controleren of het aantal veranderd is.
+        Array.from({ length: circleCount }, (_, i) => ...): Dit maakt een lijst aan van de aantal cirkels die de gebruiker heeft aangeduid. Voor elk item wordt de opdracht uitgevoerd, waarbij i het volgnummer is (0, 1, 2...). De _ is gewoon een leeg argument dat we niet gebruiken.
 
-        Daarna zegt hij eigenlijk: “ik ga een rondje maken en daar allemaal cirkels op zetten.” Hij verdeelt ze netjes in een cirkelvorm door elke cirkel een hoek te geven (alsof je ze op een klok zet). Met die hoek berekent hij waar elke cirkel moet staan op het canvas.
+        const angle = (i / circleCount) * Math.PI * 2: Dit verdeelt een volledige cirkel eerlijk over alle cirkels. Als er 4 cirkels zijn krijgen ze hoeken 0°, 90°, 180° en 270°.
 
-Elke cirkel krijgt ook een grootte (soms groot, soms wat kleiner) en een beetje extra ruimte om later te kunnen bewegen. De ox en oy zijn als “verborgen duwtjes” die later gebruikt worden om de cirkels te laten verschuiven.
+        return { x, y, r, ox, oy }: Dit maakt een object aan voor elke cirkel met 5 eigenschappen: x en y is de startpositie, r is de straal (grootte), ox en oy is de verschuiving door muis of botsingen, begint op 0.
 
-Kort gezegd: de code maakt een groep cirkels die netjes in een ronde vorm staan, en klaar zijn om daarna te bewegen.`,
+        Een object is een container voor meerdere waarden die bij elkaar horen, je groepeert ze onder één naam.
+        `,
       },
       {
         name: "blurAmount",
@@ -279,7 +278,13 @@ Kort gezegd: de code maakt een groep cirkels die netjes in een ronde vorm staan,
 `,
         explanation: `Het blur-effect pas je normaal toe in de styling, in deze programmeertaal wordt het toegepast op de context van het canvas. Dat is wat er wordt bedoeld met ctx. 
         
-Door er een punt achter te zetten en te verwijzen naar de filter, verwijs je naar welke filter er op de context/canvas moet worden toegepast. Door 'blur(10px)' te doen wordt er een blur-effect toegepast op de 10 pixels van de randen van elke cirkel.`,
+        Door er een punt achter te zetten en te verwijzen naar de filter, verwijs je naar welke filter er op de context/canvas moet worden toegepast. Door 'blur(10px)' te doen wordt er een blur-effect toegepast op de 10 pixels van de randen van elke cirkel.
+
+        Het dollarteken en de accolade's worden gebruikt om en waarde in een tekst te plakken. Als we zonder die opstelling het woord 'size' in de code zouden plakken, zou dit niet herkend worden.
+
+        De slashes worden nu gebruikt zodat ik deze tekens aan jullie kan tonene, zondat dat het foutmeldingen geeft in mijn code. Als ik dit niet zou doen, zou mijn code verwachten dat hier nog een waarde in komt. Terwijl deze code enkel ter demonstratie is. 
+        
+`,
       },
     ],
     paramDocs: {
@@ -397,8 +402,16 @@ for (const c of state.circles) {
         max: 120,
         step: 5,
         default: 60,
-        codeSnippet: undefined,
-        explanation: undefined,
+        codeSnippet: `const cols = Math.floor(W / spacing);
+const rows = Math.floor(H / spacing);`,
+        explanation: `Met const duid je aan dat je een waarde, zoals een cijfer of een kleur, wilt koppelen aan een specifiek woord, waardoor het makkelijker opgeroepen kan worden in later code.
+        
+        W / spacing berekent hoeveel vakjes er horizontaal passen, als het scherm 800px breed is en spacing 20, dan is dat 40. Math.floor rond dat naar beneden af want je kan geen half vakje hebben.
+
+        Hetzelfde geldt voor rows maar dan verticaal met de hoogte H.
+
+        De spacing is hetgeen de gebruiker met de slider zelf aanpast.
+        `,
       },
       {
         name: "scale",
@@ -408,8 +421,27 @@ for (const c of state.circles) {
         max: 200,
         step: 5,
         default: 80,
-        codeSnippet: undefined,
-        explanation: undefined,
+        codeSnippet: `const size = Math.max(4, maxSize * Math.min(1, dist / (scale * 2)));
+`,
+        explanation: `Met const duid je aan dat je een waarde, zoals een cijfer of een kleur, wilt koppelen aan een specifiek woord, waardoor het makkelijker opgeroepen kan worden in later code.
+        
+        Je gaat het woord 'size' koppelen aan de effectieve grootte van de vakjes. Dit bereken je op deze manier: Math.max(4, maxSize * Math.min(1, dist / (scale * 2)))
+
+        Laten we dit ontleden: 
+
+      dist / (scale * 2): dit berekent hoe ver de muis is als een verhouding. Als de muis heel dichtbij is, is dit een klein getal. Ver weg geeft een groot getal. Scale is dus hetgeen de gebruiker met de slider aanduidt.
+
+      Math.min(1, ...): die verhouding mag nooit groter zijn dan 1, want anders zou het vierkantje groter worden dan het vakje zelf.
+
+      vakje = de ruimte die gereserveerd is in het raster voor één element, bepaald door spacing.
+      
+      vierkantje = het witte afgeronde vierkant dat binnen dat vakje getekend wordt, bepaald door size.
+
+      maxSize * ...: die verhouding wordt vermenigvuldigd met de maximale grootte van het vakje, zodat je de echte grootte in pixels krijgt.
+
+      Math.max(4, ...): het resultaat mag nooit kleiner zijn dan 4 pixels, want anders zou het vierkantje bijna onzichtbaar worden.
+
+        `,
       },
     ],
     paramDocs: {
@@ -475,8 +507,15 @@ for (let i = 0; i < cols; i++) {
         max: 20,
         step: 1,
         default: 8,
-        codeSnippet: undefined,
-        explanation: undefined,
+        codeSnippet: `ctx.font = \`\${size}px monospace\`;
+`,
+        explanation: `Aangezien de afbeelding gewoon uit tekens, zoals we op ons toetsenbord kunnen zien, is opgebouwd, kunnen we de grootte vanb de tekens instellen door gewoon de grootte van het lettertype in te stellen.
+        Dat is wat je hier ziet. Daarnaast zie je ook veel '\' en een dollarteken en accolade's. 
+
+        Het dollarteken en de accolade's worden gebruikt om en waarde in een tekst te plakken. Als we zonder die opstelling het woord 'size' in de code zouden plakken, zou dit niet herkend worden.
+
+        De slashes worden nu gebruikt zodat ik deze tekens aan jullie kan tonene, zondat dat het foutmeldingen geeft in mijn code. Als ik dit niet zou doen, zou mijn code verwachten dat hier nog een waarde in komt. Terwijl deze code enkel ter demonstratie is. 
+        `,
       },
       {
         name: "charset",
@@ -486,16 +525,35 @@ for (let i = 0; i < cols; i++) {
         max: 2,
         step: 1,
         default: 0,
-        codeSnippet: undefined,
-        explanation: undefined,
+        codeSnippet: `const charsets = [
+  '█▓▒░ ',
+  '#$%&*+=−:;,. ',
+  '$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/|()1{}[]?-_+~<>i!lI;:,^. ',
+];
+
+const asciiChar = charsets[Math.min(Math.floor(charset), 2)];
+
+`,
+        explanation: `charsets is een lijst van 3 verschillende sets van tekens, van donker naar licht gerangschikt. 
+        
+        Die tekens worden later gebruikt om pixels voor te stellen als ASCII-kunst.
+        
+        charsets[Math.min(Math.floor(charset), 2)] kiest één van die drie sets op basis van 'charset'. 
+
+        Charset is hetgeen de gebruiker aangeeft, dit is ofwel: 0, 1 of 2. Waarin 0 de eerste optie voorstelt. 
+        
+        charsets[...] gebruikt dat getal om de juiste set uit de lijst te halen, zoals charsets[0] de eerste set geeft.
+        
+        Math.floor rond het getal af naar beneden en Math.min(..., 2) zorgt dat je nooit boven index 2 gaat (want de lijst heeft maar 3 items: 0, 1 en 2).`,
       },
       {
         name: "color1",
         label: "tekstkleur",
         type: "color",
         default: "#ffffff",
-        codeSnippet: undefined,
-        explanation: undefined,
+        codeSnippet: `ctx.fillStyle = color1;
+`,
+        explanation: `ctx staat voor 'context' Je zegt hier dus dat de fillStyle van de context, color1 moet zijn. Color1 staat voor de kleur die de gebruiker aangeeft door de slider.`,
       },
       {
         name: "image",
@@ -507,7 +565,10 @@ for (let i = 0; i < cols; i++) {
 const img = new Image();
 img.src = image;
 `,
-        explanation: "De afbeelding die wordt gebruikt voor pixel sorting.",
+        explanation: `new Image() maakt een leeg afbeelding-object aan in de browser, en img.src = image vertelt hem welke afbeelding hij moet laden door de URL in te stellen.
+        
+        Een object is een container voor meerdere waarden die bij elkaar horen, je groepeert ze onder één naam.
+        `,
       },
     ],
     paramDocs: {
@@ -582,8 +643,27 @@ for (let i = 0; i < imgW; i++) {
         max: 8,
         step: 1,
         default: 3,
-        codeSnippet: undefined,
-        explanation: undefined,
+        codeSnippet: `state.dots = buildDots(state.word, spacing);
+
+        for (let y = sp / 2; y < H; y += sp) {
+          for (let x = sp / 2; x < W; x += sp) {
+            const idx = (Math.round(y) * W + Math.round(x)) * 4;
+            if (imgData[idx + 3] > 128) {
+              newDots.push({ x, y, baseR: sp * 0.8, r: sp * 0.8 });
+            }
+          }
+        }    
+`,
+        explanation: `Hier stel je het woord dots gelijk aan de effectieve bolletjes die je zal zien verschijnen op het scherm. Door het woord hieraan te verbinden, wordt het makkelijker om deze later in de code te gebruiken.
+        
+        buildDots is hetgeen dat de bolletjes aanmaakt, dit noemen ze een functie. Deze functie heeft twee elementen nodig, het woord dat de bolletjes moeten vormen en de grootte van de bolletjes. 
+
+        Verder zie je twee for-loops staan. for-loops ga je gebruiken als je wilt dat er bepaalde elementen zich moeten herhalen. Als je een rij van vakjes wilt, gebruik je een for-loop. Als je een raster/grid wilt, gebruik je twee for-loops in elkaar, zodat de verticale rijen zich ook horizontaal herhalen, of omgekeerd. 
+
+        Je ziet in de eerste for-loop dus duidelijk de 'y' en in de tweede functie duidelijk de 'x'. De 'W' en 'H' staan dan voor width en height. 
+
+        Als je meer wilt leren over hoe for-loops in elkaar steken, kijk dan zeker naar de oefeningen!
+        `,
       },
       {
         name: "mouseRadius",
@@ -593,8 +673,18 @@ for (let i = 0; i < imgW; i++) {
         max: 200,
         step: 10,
         default: 80,
-        codeSnippet: undefined,
-        explanation: undefined,
+        codeSnippet: `const influence = Math.max(0, 1 - dist / mouseRadius);
+`,
+        explanation: `Hier berekenen we de invloed die de muis heeft op de bolletjes. Met 'invloed' wordt er verwezen naar hoe groot de straal is van het oppervlak onder de muis, waar de bolletjes groter worden.
+        
+        Dist is de afstand tussenhet bolletje en de muis. mouseRadius wordt ingesteld door de gebruiker met de slider en bepaalt dus hoe groot die straal is. 
+
+        dist / mouseRadius berekent hoe ver de muis is als een verhouding: als de muis op de rand van de cirkel zit is dat 1, als hij er middenin zit is dat 0.
+
+        Door 1 - ervoor te zetten draai je dat om: dicht bij de muis = hoge influence, ver weg = lage influence. 
+        
+        De Math.max(0, ...) zorgt ervoor dat de influence nooit negatief wordt als de muis buiten de cirkel is.
+        `,
       },
       {
         name: "maxGrow",
@@ -604,24 +694,52 @@ for (let i = 0; i < imgW; i++) {
         max: 50,
         step: 1,
         default: 26,
-        codeSnippet: undefined,
-        explanation: undefined,
+        codeSnippet: `const targetR = d.baseR + influence * maxGrow`,
+        explanation: `Met const duid je aan dat je een waarde, zoals een cijfer of een kleur, wilt koppelen aan een specifiek woord, waardoor het makkelijker opgeroepen kan worden in later code.
+        
+        Hier gaan we de target-radius berekenen, met target wordt de muis bedoeld. Met de radius wordt er verwezen naar straal van de oppervlakte waar de muis invloed op heeft.
+        
+        Nu gaan we over naar de berekening. d.baseR staat voor de normale straal van de bolletjes die letters opmaken, de influence staat voor de invloed die de muis heeft en de maxGrow is hetgeen de gebruiker instelt aan de hand van de sliders en verwijst dus naar de maximale grootte van de bolletjes.
+        
+        Je doet influence maal de maxGrow om te berekenen hoeveel het bolletje extra groeit op basis van hoe dicht de muis is, daar tel je dan de basis groote van het bolletje bij op.
+        `,
       },
       {
         name: "color1",
         label: "kleur",
         type: "color",
         default: "#4db43c",
-        codeSnippet: undefined,
-        explanation: undefined,
+        codeSnippet: `const r0 = parseInt(color1.slice(1,3),16);
+const g0 = parseInt(color1.slice(3,5),16);
+const b0 = parseInt(color1.slice(5,7),16);`,
+        explanation: `Met const duid je aan dat je een waarde, zoals een cijfer of een kleur, wilt koppelen aan een specifiek woord, waardoor het makkelijker opgeroepen kan worden in later code. 
+          
+          Hier zie je dus een 'const' met r, g en b. Dit staat voor: rood, groen en blauw. 
+
+          Color1 stelt de waarde voor die de gebruiker aanduidt met de slider. Een kleurwaarde kan je op verschillende manier voorstellen, hier geeft de slider dit soort kleurwaarde mee: #FF8A00.
+
+          In deze code hebben we echter een kleurwaarde als de deze nodig: rgb(255, 138, 0), hierin staat de eerste waarde voor de hoeveelheid rood, de tweede voor de hoeveelheid groen, en zo verder.
+          
+          Eerst voeren we een slice functie uit op de kleurwaarde die we krijgen door de slider. Dit betekent dat er een specifiek deel uit een geheel wordt geknipt, gekopieert of geselecteert.
+          
+          Daarna voeren we een parse functie uit. Dit betekent dat de geselecteerde waardes, die nog hexadecimaal zijn (dit zijn deze tekens: 0 1 2 3 4 5 6 7 8 9 A B C D E F), omzetten naar een normaal decimaal getal. 
+
+          Deze kunnen we dan verder gebruiken in de code. 
+          `,
       },
       {
         name: "text",
         label: "Tekst",
         type: "text",
         default: "Hello",
-        codeSnippet: undefined,
-        explanation: undefined,
+        explanation: `Het woord 'text' staat hier voor het woord dat ingetypt wordt. Je stelt dat woord in de code voor als 'word', zodat je er in de code makkelijk naar kan verwijzen. 
+          
+        Hetzelfde doe je voor de ruimte tussen de bolletjes, de bolletjes die de letters opbouwen, de spacing dus.
+          
+          Daarna roep je de functie op die de bolletjes opstelt en hierin vermeld je het woord en de spacing.`,
+        codeSnippet: `state.word = text;
+  state.lastSpacing = spacing;
+  state.dots = buildDots(state.word, spacing);`,
       },
     ],
     paramDocs: {
