@@ -26,3 +26,22 @@
 - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/from
 - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseInt
 - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math
+- https://supabase.com/docs/reference/javascript/eq
+- https://www.typescriptlang.org/docs/handbook/utility-types.html#readonlytype
+- https://react.dev/learn/passing-props-to-a-component#how-props-change-over-time
+- https://react.dev/reference/react-dom/components/option
+- https://dev.to/itsmearka/whats-the-return-type-of-a-function-that-returns-nothing-in-typescript-54k3
+- https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/span
+- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Conditional_operator
+- https://stackoverflow.com/questions/17837106/space-between-td-why-and-how-can-i-remove
+- https://stackoverflow.com/questions/46592833/how-to-use-switch-statement-inside-a-component
+- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/switch
+- https://react.dev/learn/conditional-rendering
+- https://developer.mozilla.org/en-US/docs/Web/API/Event/stopPropagation
+- https://react.dev/learn/responding-to-events#stopping-propagation
+- https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Attributes/aria-label
+- https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/textarea
+- https://react.dev/reference/react-dom/components/textarea
+- https://stackoverflow.com/questions/71324797/react-typescript-what-does-dispatchsetstateactionboolean-stand-for
+- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/parseFloat
+
