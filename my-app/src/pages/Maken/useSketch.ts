@@ -1,6 +1,7 @@
 import { useEffect, useRef, useCallback } from "react";
 import type { Sketch, ParamValues } from "./sketches";
 
+// hetgeen dat deze functie moet ontvangen voor muis-animaties
 interface MousePos {
   x: number;
   y: number;
@@ -12,11 +13,16 @@ export function useSketch(
   sketch: Sketch,
   params: ParamValues,
 ) {
+  // id van het huidige animatie-frame zodat die gestopt kan worden
   const animRef = useRef<number | null>(null);
+  // de frame-teller
   const tRef = useRef<number>(0);
+  // een leeg object waar de gebruikerscode zelf dingen in kan opslaan tussen frames
   const stateRef = useRef<Record<string, unknown>>({});
+  // de huidige muispositie en of de knop ingedrukt is, hier wordt een default waarde megegeven als false, dus de startende waarde is dat die niet is ingedrukt
   const mouseRef = useRef<MousePos>({ x: 0, y: 0, down: false });
 
+  // een stop-functie die later kan gebruikt worden, als dit wordt ingezet, stopt de animatie
   const stop = useCallback(() => {
     if (animRef.current !== null) {
       cancelAnimationFrame(animRef.current);
@@ -28,8 +34,9 @@ export function useSketch(
     (
       code: string,
       currentParams: ParamValues,
-      resetState = true,
+      resetState = true, // de functie geeft altijd één van deze dingen mee: error als er iets fout is en null als het goed is
     ): Error | null => {
+      //eerst stopt het de vorige animatie en wordt de timer op 0 gezet, haalt de canvas context op en de width en height van het canvas
       stop();
       tRef.current = 0;
       if (resetState) stateRef.current = {};
@@ -54,6 +61,7 @@ export function useSketch(
         const paramVals = Object.values(currentParams);
 
         // sketch.animate komt van interface in sketches.ts
+        // als de sketch geanimeert is dan wordt er een loop gemaakt, zo niet, dan wordt die één keer uitgevoerd
         if (sketch.animate) {
           const loop = () => {
             try {

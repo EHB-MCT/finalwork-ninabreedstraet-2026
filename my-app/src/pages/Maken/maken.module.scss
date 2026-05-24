@@ -24,15 +24,19 @@
 
 .link,
 button {
-  color: black;
+  padding: 3%;
   text-decoration: none;
-  font-size: 0.95rem;
   font-weight: bold;
   background: none;
   border: none;
   cursor: pointer;
   white-space: nowrap;
   transition: all 0.2s ease;
+  text-transform: uppercase;
+  font-size: 11px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.6);
+  text-align: left;
 
   &:hover {
     color: #606060;
@@ -427,6 +431,7 @@ button {
   height: 100%;
   display: block;
   pointer-events: all;
+  align-self: flex-start;
 }
 
 .panelZone {

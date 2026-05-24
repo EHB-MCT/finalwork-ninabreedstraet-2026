@@ -17,6 +17,7 @@ export default function Maken() {
   const initialId = searchParams.get("sketch") ?? SKETCHES[0].id;
   const projectParam = searchParams.get("project");
 
+  // Geheugen van het project, onthoudt wat de actieve parameter is die moet worden opgengeklapt bijvoorbeeld
   const [activeId, setActiveId] = useState(initialId);
   const [codeTab, setCodeTab] = useState<"full" | "explained" | "slider">(
     "slider",
@@ -33,6 +34,7 @@ export default function Maken() {
   const [error, setError] = useState<string | null>(null);
   const [frame, setFrame] = useState(0);
 
+  // koppelt code aan het actieve canvas.
   const paramsRef = useRef<ParamValues>(params);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const paneContainerRef = useRef<HTMLDivElement>(null);
@@ -43,11 +45,13 @@ export default function Maken() {
     paramsRef.current = params;
   }, [params]);
 
+  // project laden, als er vanuit de projects in het account een project wordt geopent, dan laadt deze functie dat project (code, parameters, etc)
   useEffect(() => {
     if (!projectParam) return;
     supabase
       .from("projects")
       .select("*")
+      // eq is een filter van supabase, die doet eigenlijk dit in SQL: WHERE id = projectParam
       .eq("id", projectParam)
       .single()
       .then(({ data }) => {
@@ -62,6 +66,7 @@ export default function Maken() {
       });
   }, [projectParam]);
 
+  // uitvoering op canvas en executeSketch voert het effectief uit, en vangt fouten op.
   const { run, stop } = useSketch(canvasRef, sketch, params);
 
   const executeSketch = useCallback(
@@ -74,10 +79,12 @@ export default function Maken() {
     [run],
   );
 
+  // elke keer als de code of parameters worden aangepast, wordt het canvas geüpadatet door dit stukje code
   useEffect(() => {
     executeSketch(code, params);
   }, [activeId, code, params, executeSketch]);
 
+  // het canvas initialiseren, zoals je bij p5.js altijd moet doen, daar moet je ook altijd je canvas aanmaken.
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -85,12 +92,14 @@ export default function Maken() {
     canvas.height = window.innerHeight;
   }, []);
 
+  // als het een animatie is, verhoogt dit elke 200ms de frameteller waardoor de sketch opnieuw wordt gerendert.
   useEffect(() => {
     if (!sketch.animate) return;
     const id = setInterval(() => setFrame((f) => f + 1), 200);
     return () => clearInterval(id);
   }, [sketch.animate]);
 
+  // dit gaat de UI opbouwen voor de parameters, alle nodige informatie, zoals dus de sketch, parameters, worden hierin meegegeven
   useTweakpane(
     paneContainerRef,
     sketch,
@@ -104,6 +113,7 @@ export default function Maken() {
     "params",
   );
 
+  // switchSketch wordt opgeroepen als de gebruiker switcht van voorbeeld, dan wordt alles gereset
   function switchSketch(id: string) {
     stop();
     setError(null);
@@ -116,6 +126,7 @@ export default function Maken() {
     setCodeTab("full");
   }
 
+  // dit gaat de huidge state opslaan op het account van de huidige gebruiker.
   async function handleSave() {
     const {
       data: { user },
@@ -132,6 +143,7 @@ export default function Maken() {
     });
   }
 
+  // dit is wat er wordt uitgevoerd als de gebruiker op de reset knop drukt.
   function handleReset() {
     const newParams = getDefaultParams(sketch);
     setParams(newParams);
@@ -142,6 +154,7 @@ export default function Maken() {
   const activeParamData = sketch.params.find((p) => p.name === activeParam);
 
   return (
+    // dit is wat er effectief wordt getoond
     <div className={styles.page}>
       <div className={styles.canvasWrap}>
         <canvas ref={canvasRef} className={styles.canvas} />
@@ -172,6 +185,9 @@ export default function Maken() {
             params={params}
             setParams={setParams}
             onSwitchSketch={switchSketch}
+            code={code}
+            onCodeChange={setCode}
+            onExecute={executeSketch}
           />
         </div>
         <NEWRunBar

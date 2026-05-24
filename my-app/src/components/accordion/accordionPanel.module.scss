@@ -13,7 +13,7 @@
   pointer-events: all;
 }
 
-/* ── Sketch selector ── */
+//  Sketch selector
 .sketchSelect {
   display: flex;
   flex-direction: column;
@@ -56,15 +56,14 @@
   }
 }
 
-/* ── Param list ── */
 .paramList {
   display: flex;
   flex-direction: column;
 }
 
-/* ── Single row ── */
 .row {
   border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  text-align: left;
 
   &:last-child {
     border-bottom: none;
@@ -77,7 +76,7 @@
 
 .header {
   display: flex;
-  align-items: center;
+  align-items: left;
   gap: 8px;
   padding: 10px 14px;
   user-select: none;
@@ -109,7 +108,7 @@
   justify-content: flex-end;
 }
 
-/* ── Controls ── */
+//  Controls
 .slider {
   width: 100%;
   accent-color: #fff;
@@ -141,7 +140,7 @@
   }
 }
 
-/* ── Body: uitleg + code ── */
+// Body: uitleg + code
 .body {
   padding: 0 14px 14px 34px;
   display: flex;
@@ -153,8 +152,11 @@
   font-size: 12px;
   line-height: 1.6;
   color: rgba(255, 255, 255, 0.783);
-  white-space: pre-line;
+  // white-space: pre-line;
   text-align: left;
+  & b {
+    font-weight: 700 !important;
+  }
 }
 
 .code {
@@ -177,8 +179,154 @@ code {
 }
 
 .sketchExplanation {
-  font-size: 11px;
+  font-size: 13px;
   line-height: 1.5;
   color: rgba(255, 255, 255, 0.6);
   text-align: left;
+}
+
+.codeModalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 100;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 0 0 0;
+  animation: overlayIn 0.18s ease;
+}
+
+@keyframes overlayIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.codeModal {
+  height: 200vh;
+  background: #111;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  box-shadow: 0 -8px 48px rgba(0, 0, 0, 0.5);
+  animation: modalUp 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+  border-radius: 0;
+
+  width: 100vw;
+  max-width: unset;
+}
+
+@keyframes modalUp {
+  from {
+    transform: translateY(60px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.codeModalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  flex-shrink: 0;
+}
+
+.codeModalTitle {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.codeModalClose {
+  background: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: color 0.15s;
+
+  &:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.08);
+  }
+}
+
+.codeEditor {
+  flex: 1;
+  width: 100%;
+  background: #0d0d0d;
+  color: #e8e8e2;
+  font-family: "JetBrains Mono", "Fira Code", "Menlo", monospace;
+  font-size: 13px;
+  line-height: 1.65;
+  padding: 20px;
+  border: none;
+  resize: none;
+  outline: none;
+  tab-size: 2;
+  white-space: pre;
+  overflow: auto;
+
+  &::selection {
+    background: rgba(99, 179, 237, 0.3);
+  }
+}
+
+.codeModalFooter {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  padding: 12px 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  flex-shrink: 0;
+}
+
+.codeModalCancel {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(255, 255, 255, 0.6);
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: color 0.15s;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+  }
+}
+
+.codeModalApply {
+  background: #fff;
+  border: none;
+  color: #000;
+  padding: 8px 18px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform 0.1s;
+
+  &:hover {
+    background: #e8e8e8;
+  }
+
+  &:active {
+    transform: scale(0.97);
+  }
 }
