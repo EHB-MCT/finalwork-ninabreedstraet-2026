@@ -1,9 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import style from "./nav.module.scss";
-import HomeIcon from "../SymbolsNav/HomeIcon";
-import ExcerciseIcon from "../SymbolsNav/ExcerciseIcon";
-import CreateIcon from "../SymbolsNav/CreateIcon";
-import ProfileIcon from "../SymbolsNav/ProfileIcon";
+import { BracketItem } from "../bracketItem/bracketItem";
 
 const Navigation = () => {
   const location = useLocation();
@@ -20,7 +17,8 @@ const Navigation = () => {
               width: "30px",
             }}
           /> */}
-          <HomeIcon color="white" size={30} />
+          <BracketItem>Home</BracketItem>
+          {/* <HomeIcon color="white" size={30} /> */}
         </Link>
 
         <Link to="/oefeningen" className={style.maken}>
@@ -31,7 +29,8 @@ const Navigation = () => {
               width: "30px",
             }}
           /> */}
-          <ExcerciseIcon color="white" size={30} />
+          {/* <ExcerciseIcon color="white" size={30} /> */}
+          <BracketItem>Oefeningen</BracketItem>
         </Link>
 
         <Link to="/maken" className={style.maken}>
@@ -42,7 +41,8 @@ const Navigation = () => {
               width: "30px",
             }}
           /> */}
-          <CreateIcon color="white" size={30} />
+          {/* <CreateIcon color="white" size={30} /> */}
+          <BracketItem>Create</BracketItem>
         </Link>
         <Link to="/accountsettings" className={style.maken}>
           {/* <img
@@ -52,7 +52,8 @@ const Navigation = () => {
               width: "30px",
             }}
           /> */}
-          <ProfileIcon color="white" size={30} />
+          {/* <ProfileIcon color="white" size={30} /> */}
+          <BracketItem>Account</BracketItem>
         </Link>
       </nav>
     </div>
