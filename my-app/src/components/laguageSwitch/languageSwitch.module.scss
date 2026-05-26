@@ -1,0 +1,94 @@
+@font-face {
+  font-family: "Tomorrow";
+  src: url("/Fonts/Tomorrow-Regular.ttf");
+}
+@font-face {
+  font-family: "TomorrowBold";
+  src: url("/Fonts/Tomorrow-Bold.ttf");
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99;
+}
+
+.dropdown {
+  position: fixed;
+  top: 80px;
+  right: 192px;
+  z-index: 100;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  min-width: 160px;
+
+  background: rgb(0, 0, 0);
+  border: 5px solid #ffffff;
+  mix-blend-mode: difference;
+  font-family: "Tomorrow", sans-serif;
+}
+
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.6rem 1rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.9rem;
+  text-align: left;
+  font-family: "Tomorrow", sans-serif;
+}
+
+.dropdownItemActive {
+  font-weight: 600;
+}
+
+.floater {
+  position: fixed;
+  top: 28px;
+  right: 192px;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.6rem;
+  background: rgb(0, 0, 0);
+  // border: 5px solid #ffffff;
+  // border-radius: 2rem;
+  &::before {
+    content: "[";
+    left: 0;
+    color: white;
+    font-size: 3em;
+    // transform: translateX(-4px);
+  }
+  &::after {
+    content: "]";
+    color: white;
+    right: 0;
+    font-size: 3em;
+    // transform: translateX(4px);
+  }
+  cursor: pointer;
+  user-select: none;
+  mix-blend-mode: difference;
+
+  color: white;
+  font-family: "Tomorrow", sans-serif;
+  font-size: 0.95rem;
+  font-weight: bold;
+}
+
+.flag {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.code {
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
