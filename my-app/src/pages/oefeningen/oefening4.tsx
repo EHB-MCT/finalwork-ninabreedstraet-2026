@@ -1,43 +1,41 @@
 import { CodeEditor } from "../../components/codeEditor";
 import NextButton from "../../components/nextButton";
+import { useTranslation } from "react-i18next";
 import style from "./oefeningen.module.scss";
 
 export default function Oefening4() {
+  const { t } = useTranslation();
+
   return (
     <div className={style.oefeningBox}>
-      <h2>Arrays</h2>
+      <h2>{t("exercises.oefening4.title")}</h2>
 
       <div
         style={{ padding: "15px", borderRadius: "8px", marginBottom: "20px" }}
       >
-        <h3>Uitleg</h3>
-        <p>
-          Een <strong>array</strong> is een lijst van waarden die je kunt
-          opslaan en benaderen via een index.
-        </p>
+        <h3>{t("exercises.common.explanation")}</h3>
+        <p>{t("exercises.oefening4.arrayDesc")}</p>
         <ul>
           <li>
-            <strong>Aanmaken:</strong> <code>const arr = [1, 2, 3];</code>
+            <strong>{t("exercises.oefening4.create")}</strong> <code>const arr = [1, 2, 3];</code>
           </li>
           <li>
-            <strong>Index:</strong> Arrays starten bij 0 (eerste element is
-            index 0)
+            <strong>{t("exercises.oefening4.index")}</strong>
           </li>
           <li>
-            <strong>length:</strong> <code>arr.length</code> geeft het aantal
-            elementen
+            <strong>{t("exercises.oefening4.length")}</strong> <code>arr.length</code>
           </li>
           <li>
-            <strong>push():</strong> Voeg element toe aan het einde
+            <strong>{t("exercises.oefening4.push")}</strong>
           </li>
           <li>
-            <strong>pop():</strong> Verwijder laatste element
+            <strong>{t("exercises.oefening4.pop")}</strong>
           </li>
           <li>
-            <strong>map():</strong> Transformeer elk element
+            <strong>{t("exercises.oefening4.map")}</strong>
           </li>
           <li>
-            <strong>filter():</strong> Filter elementen op voorwaarde
+            <strong>{t("exercises.oefening4.filter")}</strong>
           </li>
         </ul>
         <pre
@@ -62,21 +60,17 @@ console.log(dubbels); // ["appelappel", "peerpeer", ...]`}
       </div>
 
       <div style={{ marginBottom: "40px" }}>
-        <h3>Oefening 1: Array aanmaken en benaderen</h3>
-        <p>
-          Maak een array <code>getallen</code> met de waarden [5, 10, 15].
-          <br />
-          Print het eerste element (index 0).
-        </p>
+        <h3>{t("exercises.oefening4.exercise1Title")}</h3>
+        <p>{t("exercises.oefening4.exercise1Desc")}</p>
         <CodeEditor
-          initialCode={`// Maak hier je array en print het eerste element
+          initialCode={`// ${t("exercises.oefening1.placeholder")}
 
 `}
           validation={(code) => {
             if (!code.includes("[") || !code.includes("]")) {
               return {
                 valid: false,
-                message: "Maak een array met vierkante haken",
+                message: t("exercises.oefening4.valBrackets"),
               };
             }
             if (
@@ -86,52 +80,48 @@ console.log(dubbels); // ["appelappel", "peerpeer", ...]`}
             ) {
               return {
                 valid: false,
-                message: "Zorg dat de array de waarden 5, 10 en 15 bevat",
+                message: t("exercises.oefening4.valValues"),
               };
             }
             if (!code.includes("[0]")) {
               return {
                 valid: false,
-                message: "Gebruik index [0] om het eerste element te benaderen",
+                message: t("exercises.oefening4.valIndex0"),
               };
             }
             if (!code.includes("console.log")) {
               return {
                 valid: false,
-                message: "Gebruik console.log om het element te printen",
+                message: t("exercises.oefening4.valConsoleLog"),
               };
             }
             return {
               valid: true,
-              message:
-                "Goed gedaan! Je hebt de array correct aangemaakt en benaderd.",
+              message: t("exercises.oefening4.valSuccess1"),
             };
           }}
         />
       </div>
 
       <div>
-        <h3>Oefening 2: Array methodes</h3>
+        <h3>{t("exercises.oefening4.exercise2Title")}</h3>
         <p>
-          Gegeven: <code>const namen = ["Anna", "Bob"];</code>
+          {t("exercises.oefening4.exercise2Desc1")} <code>const namen = ["Anna", "Bob"];</code>
           <br />
-          Gebruik <code>push()</code> om "Chris" toe te voegen.
-          <br />
-          Gebruik <code>console.log(namen)</code> om de array te printen.
+          {t("exercises.oefening4.exercise2Desc2")}
         </p>
         <CodeEditor
           initialCode={`const namen = ["Anna", "Bob"];
 
-// Gebruik push() om Chris toe te voegen
-// Print daarna de hele array
+// ${t("exercises.oefening1.placeholder")}
 
 `}
           validation={(code) => {
             if (!code.includes("push")) {
-              return { valid: false, message: "Gebruik de push() methode" };
+              return { valid: false, message: t("exercises.oefening4.valPush") };
             }
             if (!code.includes("Chris")) {
-              return { valid: false, message: "Voeg 'Chris' toe met push" };
+              return { valid: false, message: t("exercises.oefening4.valChris") };
             }
             if (
               !code.includes("console.log") &&
@@ -139,12 +129,12 @@ console.log(dubbels); // ["appelappel", "peerpeer", ...]`}
             ) {
               return {
                 valid: false,
-                message: "Gebruik console.log om de array te printen",
+                message: t("exercises.oefening4.valConsoleLog"),
               };
             }
             return {
               valid: true,
-              message: "Goed gedaan! Je hebt push() correct gebruikt.",
+              message: t("exercises.oefening4.valSuccess2"),
             };
           }}
         />

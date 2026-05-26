@@ -3,6 +3,7 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.tsx";
 import { AuthProvider } from "./context/AuthContext";
+import "./i18n";
 
 // Dit zoekt het <div id="root"> element in index.html en plakt daar de hele React app in.
 // Het uitroepteken zegt: "ik ben zeker dat dit element bestaat".

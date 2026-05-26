@@ -1,47 +1,47 @@
 import { CodeEditor } from "../../components/codeEditor";
 import NextButton from "../../components/nextButton";
+import { useTranslation } from "react-i18next";
 import style from "./oefeningen.module.scss";
 
 export default function Oefening5() {
+  const { t } = useTranslation();
+
   return (
     <div className={style.oefeningBox}>
-      <h2>Boolean: true / false</h2>
+      <h2>{t("exercises.oefening5.title")}</h2>
 
       <div
         style={{ padding: "15px", borderRadius: "8px", marginBottom: "20px" }}
       >
-        <h3>Uitleg</h3>
-        <p>
-          Een <strong>boolean</strong> is een data type dat alleen twee waarden
-          kan hebben: <code>true</code> (waar) of <code>false</code> (onwaar).
-        </p>
+        <h3>{t("exercises.common.explanation")}</h3>
+        <p>{t("exercises.oefening5.booleanDesc")}</p>
         <ul>
           <li>
-            <strong>true:</strong> iets dat waar is
+            <strong>true:</strong> {t("exercises.oefening5.trueDesc")}
           </li>
           <li>
-            <strong>false:</strong> iets dat onwaar is
+            <strong>false:</strong> {t("exercises.oefening5.falseDesc")}
           </li>
           <li>
-            <strong> Vergelijkingen:</strong> leveren een boolean op
+            <strong> {t("exercises.oefening5.comparisons")}</strong>
           </li>
           <li>
-            <strong>===</strong> is gelijk aan
+            <strong>===</strong> {t("exercises.oefening5.eq")}
           </li>
           <li>
-            <strong>!==</strong> is niet gelijk aan
+            <strong>!==</strong> {t("exercises.oefening5.neq")}
           </li>
           <li>
-            <strong>&gt;</strong> groter dan
+            <strong>&gt;</strong> {t("exercises.oefening5.gt")}
           </li>
           <li>
-            <strong>&lt;</strong> kleiner dan
+            <strong>&lt;</strong> {t("exercises.oefening5.lt")}
           </li>
           <li>
-            <strong>&gt;=</strong> groter of gelijk aan
+            <strong>&gt;=</strong> {t("exercises.oefening5.gte")}
           </li>
           <li>
-            <strong>&lt;=</strong> kleiner of gelijk aan
+            <strong>&lt;=</strong> {t("exercises.oefening5.lte")}
           </li>
         </ul>
         <pre
@@ -62,80 +62,69 @@ console.log(10 >= 10); // true`}
       </div>
 
       <div style={{ marginBottom: "40px" }}>
-        <h3>Oefening 1: Boolean waarden</h3>
-        <p>
-          Maak een variabele <code>isActief</code> met de waarde{" "}
-          <code>true</code>.
-          <br />
-          Maak een variabele <code>isUitgeschakeld</code> met de waarde{" "}
-          <code>false</code>.
-        </p>
+        <h3>{t("exercises.oefening5.exercise1Title")}</h3>
+        <p>{t("exercises.oefening5.exercise1Desc")}</p>
         <CodeEditor
-          initialCode={`// Maak hier de twee boolean variabelen
+          initialCode={`// ${t("exercises.oefening1.placeholder")}
 
 `}
           validation={(code: string | string[]) => {
             if (!code.includes("true")) {
               return {
                 valid: false,
-                message: "Gebruik de waarde true",
+                message: t("exercises.oefening5.valUseTrue"),
               };
             }
             if (!code.includes("false")) {
               return {
                 valid: false,
-                message: "Gebruik de waarde false",
+                message: t("exercises.oefening5.valUseFalse"),
               };
             }
             if (!code.includes("isActief")) {
               return {
                 valid: false,
-                message: "Maak een variabele met de naam isActief",
+                message: t("exercises.oefening5.valIsActief"),
               };
             }
             if (!code.includes("isUitgeschakeld")) {
               return {
                 valid: false,
-                message: "Maak een variabele met de naam isUitgeschakeld",
+                message: t("exercises.oefening5.valIsUitgeschakeld"),
               };
             }
             return {
               valid: true,
-              message:
-                "Goed gedaan! Je hebt beide boolean variabelen correct aangemaakt.",
+              message: t("exercises.oefening5.valSuccess1"),
             };
           }}
         />
       </div>
 
       <div>
-        <h3>Oefening 2: Vergelijkingen</h3>
-        <p>
-          Controleer of 15 groter is dan 10 en print het resultaat.
-          <br />
-          Gebruik een vergelijking met <code>&gt;</code>.
-        </p>
+        <h3>{t("exercises.oefening5.exercise2Title")}</h3>
+        <p>{t("exercises.oefening5.exercise2Desc")}</p>
         <CodeEditor
-          initialCode={`// Vergelijk 15 en 10 en het resultaat
+          initialCode={`// ${t("exercises.oefening1.placeholder")}
 
 `}
           validation={(code: string | string[]) => {
             if (!code.includes(">")) {
               return {
                 valid: false,
-                message: "Gebruik de > operator om te vergelijken",
+                message: t("exercises.oefening5.valUseGt"),
               };
             }
             if (!code.includes("15")) {
               return {
                 valid: false,
-                message: "Gebruik het getal 15",
+                message: t("exercises.oefening5.valUse15"),
               };
             }
             if (!code.includes("10")) {
               return {
                 valid: false,
-                message: "Gebruik het getal 10",
+                message: t("exercises.oefening5.valUse10"),
               };
             }
             if (
@@ -144,13 +133,12 @@ console.log(10 >= 10); // true`}
             ) {
               return {
                 valid: false,
-                message: "Gebruik console.log om het resultaat te printen",
+                message: t("exercises.oefening4.valConsoleLog"),
               };
             }
             return {
               valid: true,
-              message:
-                "Goed gedaan! Je hebt de vergelijking correct uitgevoerd.",
+              message: t("exercises.oefening5.valSuccess2"),
             };
           }}
         />

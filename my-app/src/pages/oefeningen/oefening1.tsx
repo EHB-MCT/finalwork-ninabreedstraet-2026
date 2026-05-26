@@ -1,43 +1,41 @@
 import { CodeEditor } from "../../components/codeEditor";
 import NextButton from "../../components/nextButton";
+import { useTranslation } from "react-i18next";
 import style from "./oefeningen.module.scss";
 
 export default function Oefening1() {
+  const { t } = useTranslation();
+
   return (
     <div className={style.oefeningBox}>
-      <h2>Basis HTML</h2>
+      <h2>{t("exercises.oefening1.title")}</h2>
 
       <div
         style={{ padding: "15px", borderRadius: "8px", marginBottom: "20px" }}
       >
-        <h3>Uitleg</h3>
-        <p>
-          HTML (HyperText Markup Language) is de taal voor het bouwen van
-          webpagina's.
-        </p>
+        <h3>{t("exercises.common.explanation")}</h3>
+        <p>{t("exercises.oefening1.htmlDesc")}</p>
         <ul>
           <li>
-            <strong>&lt;html&gt;</strong> - Hoofdelement van elke HTML pagina
+            <strong>&lt;html&gt;</strong> - {t("exercises.oefening1.html")}
           </li>
           <li>
-            <strong>&lt;head&gt;</strong> - Bevat meta-informatie (titel,
-            styles, scripts)
+            <strong>&lt;head&gt;</strong> - {t("exercises.oefening1.head")}
           </li>
           <li>
-            <strong>&lt;body&gt;</strong> - Zichtbare content van de pagina
+            <strong>&lt;body&gt;</strong> - {t("exercises.oefening1.body")}
           </li>
           <li>
-            <strong>&lt;h1&gt; t/m &lt;h6&gt;</strong> - Koppen (h1 is
-            belangrijkste)
+            <strong>&lt;h1&gt; t/m &lt;h6&gt;</strong> - {t("exercises.oefening1.headings")}
           </li>
           <li>
-            <strong>&lt;p&gt;</strong> - Paragraaf/alinea
+            <strong>&lt;p&gt;</strong> - {t("exercises.oefening1.paragraph")}
           </li>
           <li>
-            <strong>&lt;div&gt;</strong> - Block-level container
+            <strong>&lt;div&gt;</strong> - {t("exercises.oefening1.div")}
           </li>
           <li>
-            <strong>&lt;span&gt;</strong> - Inline container
+            <strong>&lt;span&gt;</strong> - {t("exercises.oefening1.span")}
           </li>
         </ul>
         <pre
@@ -62,32 +60,32 @@ export default function Oefening1() {
       </div>
 
       <div style={{ marginBottom: "40px" }}>
-        <h3>Oefening 1: Basis HTML structuur</h3>
+        <h3>{t("exercises.oefening1.exercise1Title")}</h3>
         <p>
-          Maak een basis HTML pagina met:
-          <br />- Een &lt;head&gt; met een &lt;title&gt; "Mijn Eerste Pagina"
-          <br />- Een &lt;h1&gt; met tekst "Hallo Wereld"
+          {t("exercises.oefening1.exercise1Desc")}
+          <br />- {t("exercises.oefening1.exercise1Req1")}
+          <br />- {t("exercises.oefening1.exercise1Req2")}
         </p>
         <CodeEditor
           language="html"
-          initialCode={`<!-- Schrijf hier je HTML -->
+          initialCode={`<!-- ${t("exercises.oefening1.placeholder")} -->
 
 `}
           validation={(code: string) => {
             if (!code.includes("<html>") && !code.includes("<html")) {
-              return { message: "Voeg een html element toe" };
+              return { message: t("exercises.oefening1.valHtml") };
             }
             if (!code.includes("<head>") && !code.includes("<head")) {
-              return { message: "Voeg een head element toe" };
+              return { message: t("exercises.oefening1.valHead") };
             }
             if (!code.includes("<title>") && !code.includes("<title")) {
-              return { message: "Voeg een title element toe" };
+              return { message: t("exercises.oefening1.valTitle") };
             }
             if (!code.includes("<body>") && !code.includes("<body")) {
-              return { message: "Voeg een body element toe" };
+              return { message: t("exercises.oefening1.valBody") };
             }
             if (!code.includes("<h1>") && !code.includes("<h1")) {
-              return { message: "Voeg een h1 element toe" };
+              return { message: t("exercises.oefening1.valH1") };
             }
             if (
               !code.toLowerCase().includes("hallowereld") &&
@@ -95,23 +93,22 @@ export default function Oefening1() {
               !code.toLowerCase().includes("h1")
             ) {
               return {
-                message: "Voeg de tekst 'Hallo Wereld' toe aan de h1",
+                message: t("exercises.oefening1.valH1Text"),
               };
             }
             return {
-              message: "Goed gedaan! Je basis HTML structuur is compleet.",
+              message: t("exercises.oefening1.valSuccess1"),
             };
           }}
         />
       </div>
 
       <div>
-        <h3>Oefening 2: Meer HTML elementen</h3>
+        <h3>{t("exercises.oefening1.exercise2Title")}</h3>
         <p>
-          Voeg aan de vorige oefening toe:
-          <br />- Een &lt;p&gt; element met tekst "Dit is mijn eerste
-          webpagina."
-          <br />- Een &lt;span&gt; element binnen de paragraaf met "geweldige"
+          {t("exercises.oefening1.exercise2Desc")}
+          <br />- {t("exercises.oefening1.exercise2Req1")}
+          <br />- {t("exercises.oefening1.exercise2Req2")}
         </p>
         <CodeEditor
           language="html"
@@ -122,30 +119,29 @@ export default function Oefening1() {
   </head>
   <body>
     <h1>Hallo Wereld</h1>
-    <!-- Voeg hier je p en span toe -->
+    <!-- ${t("exercises.oefening1.placeholder")} -->
 
   </body>
 </html>`}
-          validation={(code: string) => {
+          validation={(code: string | string[]) => {
             if (!code.includes("<p>") && !code.includes("<p ")) {
-              return { message: "Voeg een p element toe" };
+              return { message: t("exercises.oefening1.valP") };
             }
             if (!code.includes("<span>") && !code.includes("<span ")) {
-              return { message: "Voeg een span element toe" };
+              return { message: t("exercises.oefening1.valSpan") };
             }
             if (!code.toLowerCase().includes("eerste webpagina")) {
               return {
-                message: "Voeg de tekst 'Dit is mijn eerste webpagina.' toe",
+                message: t("exercises.oefening1.valPText"),
               };
             }
             if (!code.toLowerCase().includes("geweldig")) {
               return {
-                message: "Voeg het woord 'geweldige' toe aan de span",
+                message: t("exercises.oefening1.valSpanText"),
               };
             }
             return {
-              message:
-                "Goed gedaan! Je hebt alle HTML elementen correct gebruikt.",
+              message: t("exercises.oefening1.valSuccess2"),
             };
           }}
         />

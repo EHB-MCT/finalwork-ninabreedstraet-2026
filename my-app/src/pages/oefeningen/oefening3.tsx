@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import * as monaco from "monaco-editor";
+import { useTranslation } from "react-i18next";
 import style from "./oefeningen.module.scss";
 import NextButton from "../../components/nextButton";
 
@@ -29,6 +30,7 @@ const btnStyle = {
 };
 
 function Oefening3() {
+  const { t } = useTranslation();
   const editorRef = useRef<monaco.editor.IStandaloneCodeEditor | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const [feedback, setFeedback] = useState("");
@@ -69,17 +71,17 @@ function Oefening3() {
       const result = logs.join("\n");
 
       if (code.includes("if") && code.includes(">=")) {
-        if (result.includes("Volwassen") || result.includes("Niet volwassen")) {
-          setFeedback("Goed gedaan! Je if statement werkt correct!");
+        if (result.includes("Volwassen") || result.includes("Niet volwassen") || result.includes("Adult") || result.includes("volwassen")) {
+          setFeedback(t("exercises.oefening3.valSuccess"));
         } else {
-          setFeedback("Gebruik console.log() om iets te tonen.");
+          setFeedback(t("exercises.common.useConsoleLog"));
         }
       } else {
-        setFeedback("Gebruik een if statement met de >= operator.");
+        setFeedback(t("exercises.oefening3.valUseIf"));
       }
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : String(err);
-      setFeedback(`Fout: ${errorMessage}`);
+      setFeedback(`${t("exercises.common.error")} ${errorMessage}`);
     }
   }
 
@@ -94,79 +96,57 @@ function Oefening3() {
 
   return (
     <div className={style.oefeningBox}>
-      <h2>If Statement</h2>
+      <h2>{t("exercises.oefening3.title")}</h2>
 
       <div
         style={{ padding: "15px", borderRadius: "8px", marginBottom: "20px" }}
       >
-        <h3>Uitleg</h3>
+        <h3>{t("exercises.common.explanation")}</h3>
         <p>
-          Eerst wat uitleg over waar dit vooral gebruikt wordt: <br /> <br />
-          Stel je een website voor als een restaurant.
+          {t("exercises.oefening3.introTitle")} <br /> <br />
+          {t("exercises.oefening3.restaurantAnalogy")}
           <br /> <br />
-          Wat je ziet (de front-end) is de eetzaal: de tafels, het menu, de
-          decoratie. Dat is wat de bezoeker ziet en aanraakt — de knoppen, de
-          tekst, de kleuren. <br /> <br />
-          Wat achter de schermen gebeurt (de back-end) is de keuken: de plek
-          waar het echte werk gedaan wordt, maar die de klant nooit ziet.
+          {t("exercises.oefening3.frontendDesc")} <br /> <br />
+          {t("exercises.oefening3.backendDesc")}
           <br />
           <br />
-          De back-end bestaat grofweg uit drie dingen: <br /> <br />
-          1. De server — dit is een computer die altijd aanstaat en wacht op
-          verzoeken. Als jij op een knop klikt, stuurt de browser een berichtje
-          naar de server: "geef mij die data" of "sla dit op". De server
-          verwerkt dat verzoek en stuurt een antwoord terug. <br /> <br />
-          2. De applicatielogica — dit is de code die bepaalt wat er precies
-          moet gebeuren. Mag deze gebruiker inloggen? Wat is de prijs na
-          korting? Welke berichten mag hij zien? Al die regels zitten hier.{" "}
+          {t("exercises.oefening3.backendThreeThings")} <br /> <br />
+          {t("exercises.oefening3.serverDesc")} <br /> <br />
+          {t("exercises.oefening3.logicDesc")} <br /> <br />
+          {t("exercises.oefening3.databaseDesc")} <br /> <br />
+          {t("exercises.oefening3.flowDesc")} <br /> <br />
+          {t("exercises.oefening3.upcomingExercises")} <br /> <br />
+          {t("exercises.oefening3.ifIntro")}
           <br /> <br />
-          3. De database — dit is waar alle gegevens worden bewaard.
-          Gebruikersnamen, wachtwoorden, bestellingen, berichten... alles wat de
-          website moet onthouden staat hier opgeslagen. <br /> <br />
-          De flow is simpel: jij klikt op iets → de browser stuurt een verzoek
-          naar de server → de server voert logica uit en raadpleegt eventueel de
-          database → de server stuurt een antwoord terug → de browser toont het
-          resultaat. <br /> <br />
-          In de komende oefeningen gaan we een aantal basisbegrippen bekijken
-          die je in bijna elke back-end tegenkomt, zoals variabelen, functies,
-          en hoe je met een database praat. <br /> <br />
-          Om te beginnen dus, het if-statement.
-          <br /> <br />
-          Voordat we beginnen: <br /> <br />
-          console.log() is een manier om iets af te drukken in de console (die
-          open je zo: bij Windows druk je op F12 of Ctrl + Shift + I en voor Mac
-          druk je op Cmd + Option + I), zodat jij als ontwikkelaar kan zien wat
-          er gebeurt in je code.
+          {t("exercises.oefening3.consoleLogNote")} <br /> <br />
+          {t("exercises.oefening3.consoleLogDesc")}
           <br /> <br />
         </p>
-        <p>
-          Een <strong>if statement</strong> wordt gebruikt om beslissingen te
-          maken in je code op basis van een voorwaarde.
-        </p>
+        <p>{t("exercises.oefening3.ifStatementDesc")}</p>
         <ul>
           <li key="if">
-            <strong>if (voorwaarde)</strong> - controleer of iets waar is
+            <strong>if (voorwaarde)</strong> - {t("exercises.oefening3.ifKeyword")}
           </li>
           <li key="else">
-            <strong>else</strong> - wat te doen als de voorwaarde niet waar is
+            <strong>else</strong> - {t("exercises.oefening3.elseKeyword")}
           </li>
           <li key="gt">
-            <strong>&gt;</strong> - groter dan
+            <strong>&gt;</strong> - {t("exercises.oefening3.gt")}
           </li>
           <li key="gte">
-            <strong>&gt;=</strong> - groter of gelijk aan
+            <strong>&gt;=</strong> - {t("exercises.oefening3.gte")}
           </li>
           <li key="lt">
-            <strong>&lt;</strong> - kleiner dan
+            <strong>&lt;</strong> - {t("exercises.oefening3.lt")}
           </li>
           <li key="lte">
-            <strong>&lt;=</strong> - kleiner of gelijk aan
+            <strong>&lt;=</strong> - {t("exercises.oefening3.lte")}
           </li>
           <li key="eq">
-            <strong>===</strong> - is gelijk aan
+            <strong>===</strong> - {t("exercises.oefening3.eq")}
           </li>
           <li key="neq">
-            <strong>!==</strong> - is niet gelijk aan
+            <strong>!==</strong> - {t("exercises.oefening3.neq")}
           </li>
         </ul>
         <pre
@@ -188,19 +168,18 @@ if (leeftijd >= 18) {
       </div>
 
       <p>
-        <strong>Opgave:</strong> Schrijf een if statement dat controleert of
-        iemand volwassen is.
+        <strong>Opgave:</strong> {t("exercises.oefening3.assignment")}
       </p>
 
       <ul>
         <li key="var">
-          De variabele <code>leeftijd</code> is al gedefinieerd
+          {t("exercises.oefening3.varDefined")}
         </li>
         <li key="check">
-          Controleer of <code>leeftijd &gt;= 18</code>
+          {t("exercises.oefening3.checkAge")}
         </li>
         <li key="show">
-          Toon "Volwassen" als dat zo is, anders "Niet volwassen"
+          {t("exercises.oefening3.showResult")}
         </li>
       </ul>
 
@@ -215,13 +194,13 @@ if (leeftijd >= 18) {
 
       <div style={{ display: "flex", gap: "10px" }}>
         <button onClick={runCode} style={btnStyle}>
-          Run Code
+          {t("exercises.common.runCode")}
         </button>
         <button onClick={resetCode} style={btnStyle}>
-          Reset
+          {t("exercises.common.reset")}
         </button>
         <button onClick={showAnswer} style={btnStyle}>
-          Toon Oplossing
+          {t("exercises.common.showSolution")}
         </button>
       </div>
 
@@ -230,7 +209,7 @@ if (leeftijd >= 18) {
           style={{
             marginTop: "15px",
             padding: "10px",
-            backgroundColor: feedback.includes("Goed") ? "#d4edda" : "#f8d7da",
+            backgroundColor: feedback.includes("Goed") || feedback.includes("Well") || feedback.includes("Bien") ? "#d4edda" : "#f8d7da",
             borderRadius: "5px",
           }}
         >

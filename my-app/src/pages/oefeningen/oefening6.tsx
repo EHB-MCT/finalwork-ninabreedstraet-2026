@@ -1,31 +1,32 @@
 import { CodeEditor } from "../../components/codeEditor";
 import NextButton from "../../components/nextButton";
+import { useTranslation } from "react-i18next";
 import style from "./oefeningen.module.scss";
 
 export default function Oefening6() {
+  const { t } = useTranslation();
+
   return (
     <div className={style.oefeningBox}>
-      <h2>Data Structuren</h2>
+      <h2>{t("exercises.oefening6.title")}</h2>
 
       <div
         style={{ padding: "15px", borderRadius: "8px", marginBottom: "20px" }}
       >
-        <h3>Uitleg</h3>
-        <p>
-          In JavaScript zijn er verschillende manieren om data te organiseren.
-        </p>
+        <h3>{t("exercises.common.explanation")}</h3>
+        <p>{t("exercises.oefening6.dataStructuresDesc")}</p>
         <ul>
           <li>
-            <strong>Array:</strong> Een geordende lijst van waarden
+            <strong>Array:</strong> {t("exercises.oefening6.arrayDesc")}
           </li>
           <li>
-            <strong>Object:</strong> Key-value paren
+            <strong>Object:</strong> {t("exercises.oefening6.objectDesc")}
           </li>
           <li>
-            <strong>Map:</strong> Collection van key-value paren
+            <strong>Map:</strong> {t("exercises.oefening6.mapDesc")}
           </li>
           <li>
-            <strong>Set:</strong> Unieke waarden
+            <strong>Set:</strong> {t("exercises.oefening6.setDesc")}
           </li>
         </ul>
         <pre
@@ -52,77 +53,61 @@ const mensen = [
       </div>
 
       <div style={{ marginBottom: "40px" }}>
-        <h3>Oefening 1: Objecten</h3>
-        <p>
-          Maak een object <code>auto</code> met:
-          <br />
-          - merk: "Toyota"
-          <br />
-          - bouwjaar: 2020
-          <br />
-          Print het merk met <code>console.log</code>.
-        </p>
+        <h3>{t("exercises.oefening6.exercise1Title")}</h3>
+        <p>{t("exercises.oefening6.exercise1Desc")}</p>
         <CodeEditor
-          initialCode={`// Maak hier het auto object en print het merk
+          initialCode={`// ${t("exercises.oefening1.placeholder")}
 
 `}
           validation={(code: string | string[]) => {
             if (!code.includes("{")) {
               return {
-                message: "Maak een object met curly braces",
+                message: t("exercises.oefening6.valCurlyBraces"),
               };
             }
             if (!code.includes("Toyota")) {
               return {
-                message: "Gebruik Toyota als merk",
+                message: t("exercises.oefening6.valToyota"),
               };
             }
             if (!code.includes("2020")) {
               return {
-                message: "Gebruik 2020 als bouwjaar",
+                message: t("exercises.oefening6.val2020"),
               };
             }
-            if (!code.includes("merkt")) {
+            if (!code.includes("merk") && !code.includes("brand") && !code.includes("marque")) {
               return {
-                message: "Gebruik de naam 'merk' als property",
+                message: t("exercises.oefening6.valMerkProperty"),
               };
             }
             return {
-              message: "Goed gedaan! Je hebt het object correct aangemaakt.",
+              message: t("exercises.oefening6.valSuccess1"),
             };
           }}
         />
       </div>
 
       <div>
-        <h3>Oefening 2: Geneste data</h3>
-        <p>
-          Maak een array <code>studenten</code> met twee objecten:
-          <br />
-          - eerste student: naam "Anna", cijfer 8
-          <br />
-          - tweede student: naam "Bob", cijfer 7
-          <br />
-          Print de hele array.
-        </p>
+        <h3>{t("exercises.oefening6.exercise2Title")}</h3>
+        <p>{t("exercises.oefening6.exercise2Desc")}</p>
         <CodeEditor
-          initialCode={`// Maak de studenten array met twee studenten en print deze
+          initialCode={`// ${t("exercises.oefening1.placeholder")}
 
 `}
           validation={(code: string | string[]) => {
             if (!code.includes("[")) {
               return {
-                message: "Maak een array met vierkante haken",
+                message: t("exercises.oefening6.valSquareBrackets"),
               };
             }
             if (!code.includes("Anna")) {
               return {
-                message: "Voeg Anna toe als eerste student",
+                message: t("exercises.oefening6.valAnna"),
               };
             }
             if (!code.includes("Bob")) {
               return {
-                message: "Voeg Bob toe als tweede student",
+                message: t("exercises.oefening6.valBob"),
               };
             }
             if (
@@ -130,12 +115,11 @@ const mensen = [
               !code.includes("console . log")
             ) {
               return {
-                message: "Gebruik console.log om de array te printen",
+                message: t("exercises.oefening4.valConsoleLog"),
               };
             }
             return {
-              message:
-                "Goed gedaan! Je hebt de geneste data structuur correct aangemaakt.",
+              message: t("exercises.oefening6.valSuccess2"),
             };
           }}
         />

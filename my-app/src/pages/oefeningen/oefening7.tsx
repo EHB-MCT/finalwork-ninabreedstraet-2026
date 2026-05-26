@@ -1,31 +1,29 @@
 import { CodeEditor } from "../../components/codeEditor";
 import NextButton from "../../components/nextButton";
+import { useTranslation } from "react-i18next";
 import style from "./oefeningen.module.scss";
 
 export default function Oefening7() {
+  const { t } = useTranslation();
+
   return (
     <div className={style.oefeningBox}>
-      <h2>Variabelen: let, var en const</h2>
+      <h2>{t("exercises.oefening7.title")}</h2>
 
       <div
         style={{ padding: "15px", borderRadius: "8px", marginBottom: "20px" }}
       >
-        <h3>Uitleg</h3>
-        <p>
-          In JavaScript zijn er drie manieren om variabelen te declareren:{" "}
-          <code>let</code>, <code>var</code> en <code>const</code>.
-        </p>
+        <h3>{t("exercises.common.explanation")}</h3>
+        <p>{t("exercises.oefening7.variablesDesc")}</p>
         <ul>
           <li>
-            <strong>let:</strong> block-scoped, kan wel herdeclareerd worden
-            maar niet in hetzelfde block
+            <strong>let:</strong> {t("exercises.oefening7.letDesc")}
           </li>
           <li>
-            <strong>var:</strong> function-scoped, kan herbruikt worden
+            <strong>var:</strong> {t("exercises.oefening7.varDesc")}
           </li>
           <li>
-            <strong>const:</strong> kan niet opnieuw worden toegewezen na
-            initialisatie (onveranderlijk)
+            <strong>const:</strong> {t("exercises.oefening7.constDesc")}
           </li>
         </ul>
         <pre
@@ -48,72 +46,61 @@ const pi = 3.14;
       </div>
 
       <div style={{ marginBottom: "40px" }}>
-        <h3>Oefening 1: let gebruiken</h3>
-        <p>
-          Declareer een variabele met <code>let</code> genaamd{" "}
-          <code>temperatuur</code> met de waarde 20.
-          <br />
-          Wijs daarna een nieuwe waarde 25 toe aan dezelfde variabele.
-        </p>
+        <h3>{t("exercises.oefening7.exercise1Title")}</h3>
+        <p>{t("exercises.oefening7.exercise1Desc")}</p>
         <CodeEditor
-          initialCode={`// Declareer temperatuur met let en geef een nieuwe waarde
+          initialCode={`// ${t("exercises.oefening1.placeholder")}
 
 `}
           validation={(code: string | string[]) => {
             if (!code.includes("let")) {
               return {
-                message: "Gebruik let om de variabele te declareren",
+                message: t("exercises.oefening7.valUseLet"),
               };
             }
-            if (!code.includes("temperatuur")) {
+            if (!code.includes("temperatuur") && !code.includes("temperature")) {
               return {
-                message: "Gebruik de naam temperatuur",
+                message: t("exercises.oefening7.valTemperatuur"),
               };
             }
             if (!code.includes("20")) {
               return {
-                message: "Geef eerst de waarde 20",
+                message: t("exercises.oefening7.val20"),
               };
             }
             if (!code.includes("25")) {
               return {
-                message: "Wijs daarna de waarde 25 toe",
+                message: t("exercises.oefening7.val25"),
               };
             }
             return {
-              message:
-                "Goed gedaan! Je hebt let correct gebruikt met hertoewijzing.",
+              message: t("exercises.oefening7.valSuccess1"),
             };
           }}
         />
       </div>
 
       <div>
-        <h3>Oefening 2: const gebruiken</h3>
-        <p>
-          Declareer een constante variabele met <code>const</code> genaamd{" "}
-          <code>maxScore</code> met de waarde 100.
-          <br />
-          Print de constante met <code>console.log</code>.
-        </p>
+        <h3>{t("exercises.oefening7.exercise2Title")}</h3>
+        <p>{t("exercises.oefening7.exercise2Desc")}</p>
         <CodeEditor
-          initialCode={`// Declareer maxScore als const en print het
+          initialCode={`// ${t("exercises.oefening1.placeholder")}
 
 `}
           validation={(code: string | string[]) => {
             if (!code.includes("const")) {
               return {
-                message: "Gebruik const om de variabele te declareren",
+                message: t("exercises.oefening7.valUseConst"),
               };
             }
             if (!code.includes("maxScore")) {
               return {
-                message: "Gebruik de naam maxScore",
+                message: t("exercises.oefening7.valMaxScore"),
               };
             }
             if (!code.includes("100")) {
               return {
-                message: "Geef de waarde 100",
+                message: t("exercises.oefening7.val100"),
               };
             }
             if (
@@ -121,11 +108,11 @@ const pi = 3.14;
               !code.includes("console . log")
             ) {
               return {
-                message: "Gebruik console.log om de waarde te printen",
+                message: t("exercises.oefening4.valConsoleLog"),
               };
             }
             return {
-              message: "Goed gedaan! Je hebt const correct gebruikt.",
+              message: t("exercises.oefening7.valSuccess2"),
             };
           }}
         />

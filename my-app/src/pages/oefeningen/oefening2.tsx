@@ -1,25 +1,23 @@
 import { CodeEditor } from "../../components/codeEditor";
 import NextButton from "../../components/nextButton";
+import { useTranslation } from "react-i18next";
 import style from "./oefeningen.module.scss";
 
 export default function Oefening2() {
+  const { t } = useTranslation();
+
   return (
     <div className={style.oefeningBox}>
-      <h2>Classes en IDs in CSS</h2>
+      <h2>{t("exercises.oefening2.title")}</h2>
       <div className={style.uitleg}>
-        <h3>Uitleg</h3>
-        <p>
-          <strong>Classes</strong> en <strong>IDs</strong> zijn manieren om
-          HTML-elementen te identificeren en te stylen.
-        </p>
+        <h3>{t("exercises.common.explanation")}</h3>
+        <p>{t("exercises.oefening2.classIdDesc")}</p>
         <ul>
           <li>
-            <strong>Class</strong> (.naam): Kan meerdere keren gebruikt worden
-            op dezelfde pagina. Gebruik een punt (.) voor de klassenaam.
+            <strong>Class</strong> (.naam): {t("exercises.oefening2.classDesc")}
           </li>
           <li>
-            <strong>ID</strong> (#naam): Moet uniek zijn op een pagina. Gebruik
-            een hashtag (#) voor het ID.
+            <strong>ID</strong> (#naam): {t("exercises.oefening2.idDesc")}
           </li>
         </ul>
         <pre
@@ -41,29 +39,29 @@ export default function Oefening2() {
       </div>
 
       <div style={{ marginBottom: "40px" }}>
-        <h3>Oefening 1: Class selector</h3>
+        <h3>{t("exercises.oefening2.exercise1Title")}</h3>
         <p>
-          Er is een HTML element:{" "}
+          {t("exercises.oefening2.exercise1Desc1")}{" "}
           <code>&lt;div class="knop"&gt;Klik hier&lt;/div&gt;</code>
           <br />
-          Schrijf CSS om de class "knop" te stijlen met een rode achtergrond.
+          {t("exercises.oefening2.exercise1Desc2")}
         </p>
         <CodeEditor
           language="css"
-          initialCode={`/* Schrijf hier je CSS voor de class "knop" */
+          initialCode={`/* ${t("exercises.oefening2.placeholder")} */
 
 `}
           validation={(code: string | string[]) => {
             if (!code.includes(".knop")) {
               return {
-                message: "Gebruik een class selector met .knop",
+                message: t("exercises.oefening2.valClassSelector"),
               };
             }
             if (
               !code.includes("background-color") &&
               !code.includes("background")
             ) {
-              return { message: "Voeg een background-color toe" };
+              return { message: t("exercises.oefening2.valBgColor") };
             }
             if (
               code.includes("red") ||
@@ -71,43 +69,42 @@ export default function Oefening2() {
               code.includes("rgb(255, 0, 0)")
             ) {
               return {
-                message: "Goed gedaan! Je hebt de class correct gestyled.",
+                message: t("exercises.oefening2.valSuccess1"),
               };
             }
-            return { message: "Goed! De class is gestyled." };
+            return { message: t("exercises.oefening2.valGood") };
           }}
         />
       </div>
 
       <div>
-        <h3>Oefening 2: ID selector</h3>
+        <h3>{t("exercises.oefening2.exercise2Title")}</h3>
         <p>
-          Er is een HTML element:{" "}
+          {t("exercises.oefening2.exercise2Desc1")}{" "}
           <code>&lt;header id="masthead"&gt;Site Titel&lt;/header&gt;</code>
           <br />
-          Schrijf CSS om het ID "masthead" te stijlen met een lettergrootte van
-          32px.
+          {t("exercises.oefening2.exercise2Desc2")}
         </p>
         <CodeEditor
           language="css"
-          initialCode={`/* Schrijf hier je CSS voor het ID "masthead" */
+          initialCode={`/* ${t("exercises.oefening2.placeholder2")} */
 
 `}
           validation={(code: string | string[]) => {
             if (!code.includes("#masthead")) {
               return {
-                message: "Gebruik een ID selector met #masthead",
+                message: t("exercises.oefening2.valIdSelector"),
               };
             }
             if (!code.includes("font-size")) {
-              return { message: "Voeg een font-size toe" };
+              return { message: t("exercises.oefening2.valFontSize") };
             }
             if (code.includes("32px") || code.includes("32")) {
               return {
-                message: "Goed gedaan! Je hebt het ID correct gestyled.",
+                message: t("exercises.oefening2.valSuccess2"),
               };
             }
-            return { message: "Goed! Het ID is gestyled." };
+            return { message: t("exercises.oefening2.valGood2") };
           }}
         />
       </div>
