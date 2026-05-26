@@ -1,6 +1,7 @@
 import style from "./home.module.scss";
 import { useAuth } from "../../context/AuthContext";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import Sketch2 from "./examples/sketch2";
 import Sketch3 from "./examples/sketch3";
 import Sketch4 from "./examples/sketch4";
@@ -10,6 +11,7 @@ import LoginForm from "../../components/LoginForm";
 import { BracketItem } from "../../components/bracketItem/bracketItem";
 
 export default function Home() {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const [showLogin, setShowLogin] = useState(false);
   const [Sketch] = useState(() => {
@@ -19,14 +21,16 @@ export default function Home() {
 
   const [uitlegOpen, setUitlegOpen] = useState(false);
 
+  const displayName = user?.user_metadata?.first_name || user?.email || "";
+
   return (
     <div className={style.alles}>
       <Sketch />
       <div className={style.welcome}>
         <h1>
           {user
-            ? `Welkom ${user.user_metadata?.first_name || user.email}!`
-            : "Welkom bij Visual Learning!"}
+            ? t("home.welcomeUser", { name: displayName })
+            : t("home.welcomeGuest")}
         </h1>
       </div>
 
@@ -35,7 +39,7 @@ export default function Home() {
         className={style.uitlegBtn}
       >
         <BracketItem>
-          {uitlegOpen ? "Sluit uitleg" : "Klik hier voor een woordje uitleg!"}
+          {uitlegOpen ? t("home.closeExplanation") : t("home.openExplanation")}
         </BracketItem>
       </button>
 
@@ -44,38 +48,27 @@ export default function Home() {
           <div className={style.generalExplan}>
             <div className={style.startEx}>
               <div className={style.text}>
-                Hallo! Welkom bij Glimpse! Een platform waar je tijdens het
-                maken van visuals, een introductie krijgt tot coderen.
+                {t("home.intro1")}
                 <br />
                 <br />
-                Er zijn twee pagina's en je hebt de volledige vrijheid om te
-                starten waar je zin in in hebt.
+                {t("home.intro2")}
               </div>
             </div>
             <br />
             <br />
             <div className={style.columns}>
               <div className={style.left}>
-                Eerst ga je de oefeningen-pagina zien. Hierop is een korte,
-                eenvoudige uitleg te volgen over hoe je kan beginnen met
-                coderen. Daarna worden er een paar belangrijke concepten binnen
-                het coderen toegelicht.
+                {t("home.oefeningenExplanation")}
               </div>
               <div className={style.right}>
-                Als je geen zin hebt in coderen, kan je ook direct beginnen met
-                het maken van visuals. Dit kan je doen op de create-pagina.
+                {t("home.createExplanation")}
                 <div className={style.sketchExplanation}>
-                  Zo werkt het:
+                  {t("home.howItWorks")}
                   <ol>
-                    <li>Kies een voorbeeld uit de lijst.</li>
-                    <li>
-                      Klik op ▶ naast een parameter om de bijbehorende code te
-                      bekijken.
-                    </li>
-                    <li>
-                      Wil je alles zien? Klik op "Toon de hele code" onderaan.
-                    </li>
-                    <li>Maak je eigen visuals!</li>
+                    <li>{t("home.step1")}</li>
+                    <li>{t("home.step2")}</li>
+                    <li>{t("home.step3")}</li>
+                    <li>{t("home.step4")}</li>
                   </ol>
                 </div>
               </div>
@@ -85,7 +78,7 @@ export default function Home() {
 
         {!user && (
           <button className={style.loginBtn} onClick={() => setShowLogin(true)}>
-            Inloggen
+            <BracketItem>{t("home.login")}</BracketItem>
           </button>
         )}
       </div>

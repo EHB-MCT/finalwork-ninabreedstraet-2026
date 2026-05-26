@@ -2,6 +2,7 @@ import { useState } from "react";
 import { supabase } from "../lib/supabaseClient";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { useTranslation } from "react-i18next";
 import style from "../pages/Home/home.module.scss";
 
 interface LoginFormProps {
@@ -9,6 +10,7 @@ interface LoginFormProps {
 }
 
 export default function LoginForm({ onClose }: LoginFormProps) {
+  const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -32,7 +34,7 @@ export default function LoginForm({ onClose }: LoginFormProps) {
         },
       });
       if (error) return setError(error.message);
-      alert("Registratie gelukt! Check je e-mail.");
+      alert(t("login.registrationSuccess"));
     } else {
       const { error } = await supabase.auth.signInWithPassword({
         email,
@@ -50,23 +52,27 @@ export default function LoginForm({ onClose }: LoginFormProps) {
 
   return (
     <div className={style.glassPanel}>
-      <button className={style.closeBtn} onClick={onClose} aria-label="Sluiten">
+      <button
+        className={style.closeBtn}
+        onClick={onClose}
+        aria-label={t("login.close")}
+      >
         ×
       </button>
-      <h2>{isRegistering ? "Registreren" : "Inloggen"}</h2>
+      <h2>{isRegistering ? t("login.register") : t("login.login")}</h2>
       {error && <p style={{ color: "red" }}>{error}</p>}
 
       {isRegistering && (
         <>
           <input
             type="text"
-            placeholder="Voornaam"
+            placeholder={t("login.firstName")}
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
           />
           <input
             type="text"
-            placeholder="Achternaam"
+            placeholder={t("login.lastName")}
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
           />
@@ -75,28 +81,28 @@ export default function LoginForm({ onClose }: LoginFormProps) {
 
       <input
         type="email"
-        placeholder="E-mail"
+        placeholder={t("login.email")}
         value={email}
         onChange={(e) => setEmail(e.target.value)}
       />
       <input
         type="password"
-        placeholder="Wachtwoord"
+        placeholder={t("login.password")}
         value={password}
         onChange={(e) => setPassword(e.target.value)}
       />
 
       <button onClick={handleSubmit}>
-        {isRegistering ? "Registreren" : "Inloggen"}
+        {isRegistering ? t("login.register") : t("login.login")}
       </button>
 
       <p>
-        {isRegistering ? "Al een account?" : "Nog geen account?"}
+        {isRegistering ? t("login.haveAccount") : t("login.noAccount")}
         <span
           onClick={() => setIsRegistering(!isRegistering)}
-          style={{ color: "blue", cursor: "pointer" }}
+          style={{ color: "grey", cursor: "pointer" }}
         >
-          {isRegistering ? " Inloggen" : " Registreren"}
+          {isRegistering ? ` ${t("login.login")}` : ` ${t("login.register")}`}
         </span>
       </p>
     </div>

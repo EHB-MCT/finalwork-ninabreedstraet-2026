@@ -11,6 +11,10 @@
   flex: 1;
   width: 100%;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 form {
@@ -23,33 +27,37 @@ form {
 
 input {
   padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  border: 5px solid #ffffff;
+  border-radius: 25px;
+  background-color: black;
 }
 
 .alles button {
   padding: 10px;
   color: white;
-  background: black;
-  mix-blend-mode: difference;
   border: none;
-  border-bottom: black 1px solid;
   cursor: pointer;
   margin: 8px 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
 }
 
 .glassPanel {
   position: relative;
-  background: rgba(255, 255, 255, 0.11);
+  border: solid rgb(255, 255, 255) 5px;
   border-radius: 16px;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(4.4px);
   -webkit-backdrop-filter: blur(4.4px);
-  border: 1px solid rgba(255, 255, 255, 0.3);
   padding: 24px;
   max-width: 400px;
   margin: 20px auto;
   text-align: left;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .glassPanel h2 {
@@ -60,41 +68,29 @@ input {
 .glassPanel input {
   width: 100%;
   padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  border: 5px solid #ffffff;
+  border-radius: 25px;
   margin-bottom: 10px;
   box-sizing: border-box;
+  background-color: transparent !important;
+  color: white !important;
 }
 
 .glassPanel button {
-  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
   padding: 10px;
-  background-color: #797979;
-  color: white;
+  color: rgb(255, 255, 255);
   border: none;
-  border-radius: 5px;
   cursor: pointer;
   margin: 8px 0;
-  transition:
-    clip-path 0.2s ease,
-    border-radius 0.2s ease;
-
-  &:hover {
-    clip-path: polygon(
-      12px 0,
-      calc(100% - 12px) 0,
-      100% 12px,
-      100% calc(100% - 12px),
-      calc(100% - 12px) 100%,
-      12px 100%,
-      0 calc(100% - 12px),
-      0 12px
-    );
-  }
 }
 
 .glassPanel p {
   text-align: center;
+  font-family: "Tomorrow", sans-serif;
 }
 
 .formGroup {
@@ -125,7 +121,6 @@ input {
 
 .welcome h1 {
   color: white;
-  mix-blend-mode: difference;
 }
 
 .content {
@@ -139,27 +134,15 @@ input {
   pointer-events: none;
   gap: 16px;
   width: 100%;
-
-  // mix-blend-mode: difference;
+  mix-blend-mode: difference;
 }
 
 .loginBtn {
   pointer-events: auto;
-  padding: 12px 32px;
-  background-color: rgba(255, 255, 255, 0.2);
   color: white;
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  border-radius: 20px;
   cursor: pointer;
   font-size: 1rem;
   font-weight: bold;
-  transition:
-    background-color 0.2s ease,
-    clip-path 0.2s ease;
-
-  &:hover {
-    background-color: rgba(255, 255, 255, 0.35);
-  }
 }
 
 .modalOverlay {
@@ -172,6 +155,12 @@ input {
   align-items: center;
   z-index: 9999;
   pointer-events: auto;
+
+  &input {
+    border-radius: 25px;
+    background-color: black;
+    border: white 5px solid;
+  }
 }
 
 .glassPanel .closeBtn {
@@ -190,7 +179,7 @@ input {
 
   width: 10%;
   background-color: transparent;
-  color: black;
+  color: white;
   border: none;
   cursor: pointer;
   margin: 2px 0;
@@ -211,10 +200,10 @@ input {
 
 .generalExplan {
   width: 50vw;
-  border: solid black 5px;
+  border: solid white 5px;
   isolation: isolate;
   position: relative;
-  color: black;
+  color: white;
   font-size: smaller;
   line-height: normal;
   font-weight: bold;
@@ -267,6 +256,8 @@ input {
 
 .uitlegBtn {
   position: relative;
+  mix-blend-mode: difference;
   z-index: 1;
   pointer-events: all;
+  color: white;
 }

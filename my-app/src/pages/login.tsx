@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { supabase } from "../lib/supabaseClient";
 import { useNavigate } from "react-router-dom";
+import style from "../pages/Home/home.module.scss";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -35,7 +36,9 @@ export default function Login() {
         placeholder="Wachtwoord"
         onChange={(e) => setPassword(e.target.value)}
       />
-      <button onClick={handleLogin}>Inloggen</button>
+      <button className={style.login} onClick={handleLogin}>
+        Inloggen
+      </button>
     </div>
   );
 }
