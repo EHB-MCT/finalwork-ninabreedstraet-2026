@@ -1,7 +1,9 @@
 import { Link, useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { exercises } from "./codeEditor";
 
 export default function NextButton() {
+  const { t } = useTranslation();
   const location = useLocation();
   const currentIndex = exercises.indexOf(location.pathname);
 
@@ -24,7 +26,7 @@ export default function NextButton() {
           display: "inline-block",
         }}
       >
-        Volgende ▸
+        {t("oefeningen.next")}
       </Link>
     </div>
   );
