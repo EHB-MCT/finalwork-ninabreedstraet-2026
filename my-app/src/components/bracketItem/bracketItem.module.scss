@@ -33,15 +33,29 @@
     transform: scale(0.97);
   }
 
-  // square brackets [ ]
   &--square {
     &::before {
-      content: "[";
+      content: "{";
       left: 0;
       transform: translateY(-50%) translateX(-4px);
     }
     &::after {
-      content: "]";
+      content: "}";
+      right: 0;
+      transform: translateY(-50%) translateX(4px);
+    }
+  }
+
+  &--curly {
+    &::before {
+      content: "{";
+      left: 0;
+      color: white;
+      transform: translateY(-50%) translateX(-4px);
+    }
+    &::after {
+      content: "}";
+      color: white;
       right: 0;
       transform: translateY(-50%) translateX(4px);
     }
