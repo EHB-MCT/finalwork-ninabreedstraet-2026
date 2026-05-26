@@ -2,9 +2,12 @@ import { useEffect, useState } from "react";
 import { supabase } from "../../lib/supabaseClient";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import { useTranslation } from "react-i18next";
 import style from "./account.module.scss";
+import { BracketItem } from "../../components/bracketItem/bracketItem";
 
 export default function Account() {
+  const { t } = useTranslation();
   const { user, loading } = useAuth();
   const navigate = useNavigate();
   const [firstName, setFirstName] = useState("");
@@ -51,9 +54,9 @@ export default function Account() {
     });
 
     if (error) {
-      setUpdateMsg("Fout: " + error.message);
+      setUpdateMsg(t("account.error", { message: error.message }));
     } else {
-      setUpdateMsg("Profiel succesvol bijgewerkt!");
+      setUpdateMsg(t("account.profileUpdated"));
     }
   };
 
@@ -62,29 +65,27 @@ export default function Account() {
     if (!password) return;
     const { error } = await supabase.auth.updateUser({ password });
     if (error) {
-      setUpdateMsg("Fout: " + error.message);
+      setUpdateMsg(t("account.error", { message: error.message }));
     } else {
-      setUpdateMsg("Wachtwoord succesvol bijgewerkt!");
+      setUpdateMsg(t("account.passwordUpdated"));
       setPassword("");
     }
   };
 
-  if (loading) return <div>Laden...</div>;
-
-  const displayName = user?.user_metadata?.first_name || user?.email || "";
+  if (loading) return <div>{t("account.loading")}</div>;
 
   return (
     <div className={style.alles}>
       <button onClick={handleLogout} className={style.tab}>
-        Uitloggen
+        <BracketItem>{t("account.logout")}</BracketItem>
       </button>
       <div className={style.account}>
         <div className={style.settings}>
           <div className={style.accountForm}>
-            <h2>Accountgegevens</h2>
+            <h2>{t("account.accountData")}</h2>
 
             <div className={style.formGroup}>
-              <label>Voornaam</label>
+              <label>{t("account.firstName")}</label>
               <input
                 type="text"
                 value={firstName}
@@ -93,7 +94,7 @@ export default function Account() {
             </div>
 
             <div className={style.formGroup}>
-              <label>Achternaam</label>
+              <label>{t("account.lastName")}</label>
               <input
                 type="text"
                 value={lastName}
@@ -102,7 +103,7 @@ export default function Account() {
             </div>
 
             <div className={style.formGroup}>
-              <label>E-mail</label>
+              <label>{t("account.email")}</label>
               <input
                 type="email"
                 value={email}
@@ -111,33 +112,31 @@ export default function Account() {
             </div>
 
             <button onClick={handleUpdateProfile} className={style.tab}>
-              Profiel bijwerken
+              <BracketItem>{t("account.updateProfile")}</BracketItem>
             </button>
 
-            <div className={style.divider}></div>
-
             <div className={style.formGroup}>
-              <label>Nieuw wachtwoord</label>
+              <label>{t("account.newPassword")}</label>
               <input
                 type="password"
-                placeholder="Nieuw wachtwoord"
+                placeholder={t("account.newPassword")}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
 
             <button onClick={handleUpdatePassword} className={style.tab}>
-              Wachtwoord wijzigen
+              <BracketItem>{t("account.changePassword")}</BracketItem>
             </button>
 
             {updateMsg && <p className={style.updateMsg}>{updateMsg}</p>}
           </div>
         </div>
         <div className={style.projects}>
-          <h2>Projects</h2>
+          <h2>{t("account.projects")}</h2>
           <div className={style.projectList}>
             {projects.length === 0 ? (
-              <p>Nog geen projecten opgeslagen.</p>
+              <p>{t("account.noProjects")}</p>
             ) : (
               projects.map((project) => (
                 <div key={project.id} className={style.projectCard}>
@@ -150,7 +149,7 @@ export default function Account() {
                     }
                     className={style.tabProject}
                   >
-                    Openen
+                    <BracketItem>{t("account.open")}</BracketItem>
                   </button>
                 </div>
               ))

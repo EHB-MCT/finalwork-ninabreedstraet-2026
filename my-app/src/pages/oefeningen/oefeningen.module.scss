@@ -19,22 +19,26 @@
 }
 
 .oefeningBox {
-  margin-top: 15%;
+  margin-top: 10%;
   padding: 5%;
   font-family: "Tomorrow";
   text-align: left;
+  color: white;
 }
 
 p {
   font-family: "Helvetica";
+  color: white;
 }
 
 h3 {
   font-family: "Tomorrow";
+  color: white;
 }
 
 h2 {
   font-family: "TomorrowBold";
+  color: white;
 }
 
 strong {
@@ -68,4 +72,56 @@ tr:nth-child(even) {
 
 tr:hover {
   background-color: none;
+}
+
+.layout {
+  display: flex;
+  flex-direction: row;
+  min-height: 100vh;
+}
+
+.sidebar {
+  position: sticky;
+  top: 100px;
+  align-self: flex-start;
+
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  padding: 1rem;
+  min-width: 160px;
+  color: white;
+  mix-blend-mode: difference;
+  border: solid white 5px;
+  border-radius: 20px;
+  margin: 2%;
+}
+
+.tabBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: "Tomorrow", sans-serif;
+  font-size: 0.95rem;
+  font-weight: bold;
+  color: white;
+  padding: 0;
+  opacity: 0.45;
+  transition: opacity 0.15s ease;
+  mix-blend-mode: difference;
+
+  &:hover {
+    opacity: 0.75;
+  }
+}
+
+.active {
+  opacity: 1;
+}
+
+.content {
+  flex: 1;
+  min-width: 0;
+  mix-blend-mode: difference;
 }
