@@ -52,5 +52,11 @@
 - https://www.typescriptlang.org/docs/handbook/utility-types.html
 - https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Drawing_shapes
 - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
-- https://react.dev/reference/react/useCallback 
-
+- https://react.dev/reference/react/useCallback
+- https://claude.ai/share/ae92454c-5d1d-499a-bcb2-b794211564c3
+- https://p5js.org/examples/3d-materials/
+- https://www.google.com/search?sca_esv=4521476c5740f22a&udm=2&sxsrf=ANbL-n6b_9XhnL-lUktpn_OM9-pWpsOyNg:1779897918933&q=metal+materiaal+3D+image&spell=1&sa=X&ved=2ahUKEwjx4sa57NmUAxVVOfsDHb1bICYQBSgAegQIChAB&biw=1440&bih=782&dpr=2#sv=CAMSVhoyKhBlLVJscW9BNnJfbTlEZWRNMg5SbHFvQTZyX205RGVkTToOUVBtTElQS2NuUGlrdk0gBCocCgZtb3NhaWMSEGUtUmxxb0E2cl9tOURlZE0YADABGAcgrs304gJKCBABGAEgASgB
+- https://p5js.org/reference/p5/normalMaterial/
+- https://p5js.org/reference/p5/texture/
+- https://p5js.org/examples/3d-geometries/
+- https://p5js.org/examples/3d-materials/
