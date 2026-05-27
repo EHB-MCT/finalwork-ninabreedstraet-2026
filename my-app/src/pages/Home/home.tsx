@@ -2,20 +2,23 @@ import style from "./home.module.scss";
 import { useAuth } from "../../context/AuthContext";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import Sketch2 from "./examples/sketch2";
-import Sketch3 from "./examples/sketch3";
-import Sketch4 from "./examples/sketch4";
-import Sketch5 from "./examples/sketch5";
-import Sketch6 from "./examples/sketch6";
+// import Sketch2 from "./examples/sketch2";
+// import Sketch3 from "./examples/sketch3";
+// import Sketch4 from "./examples/sketch4";
+// import Sketch5 from "./examples/sketch5";
+// import Sketch6 from "./examples/sketch6";
+// import Sketch7 from "./examples/sketch7";
 import LoginForm from "../../components/LoginForm";
 import { BracketItem } from "../../components/bracketItem/bracketItem";
+import Sketch8 from "./examples/sketch8";
 
 export default function Home() {
   const { t } = useTranslation();
   const { user } = useAuth();
   const [showLogin, setShowLogin] = useState(false);
   const [Sketch] = useState(() => {
-    const sketchArr = [Sketch2, Sketch3, Sketch4, Sketch5, Sketch6];
+    // const sketchArr = [Sketch2, Sketch3, Sketch4, Sketch5, Sketch6, sketch7];
+    const sketchArr = [Sketch8];
     return sketchArr[Math.floor(Math.random() * sketchArr.length)];
   });
 
@@ -34,14 +37,14 @@ export default function Home() {
         </h1>
       </div>
 
-      <button
+      {/* <button
         onClick={() => setUitlegOpen(!uitlegOpen)}
         className={style.uitlegBtn}
       >
         <BracketItem>
           {uitlegOpen ? t("home.closeExplanation") : t("home.openExplanation")}
         </BracketItem>
-      </button>
+      </button> */}
 
       <div className={style.content}>
         {uitlegOpen && (

@@ -3,7 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import { SKETCHES } from "./sketches";
 import type { ParamValues } from "./sketches";
 import { useSketch } from "./useSketch";
-import { useTweakpane } from "../../hooks/NEWuseTweakpane";
+import { useTweakpane } from "../../hooks/useTweakpane";
 import { NEWLeftPanel } from "../../components/NEWLeftPanel";
 import { NEWRightPanel } from "../../components/NEWRightPanel";
 import { NEWRunBar } from "../../components/NEWRunBar";

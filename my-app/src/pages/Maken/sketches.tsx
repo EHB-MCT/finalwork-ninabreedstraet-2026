@@ -22,6 +22,7 @@ export interface Sketch {
   paramDocs: Record<string, string>;
   animate: boolean;
   code: string;
+  previewImage: string;
 }
 
 export type ParamValues = Record<string, number | string>;
@@ -156,6 +157,7 @@ if (state.col < W) {
   ctx.putImageData(state.pixels, 0, 0);
 }
   `,
+    previewImage: "/Images/pixelsorting.png",
   },
   {
     id: "gradient",
@@ -497,6 +499,7 @@ for (const c of state.circles) {
   ctx.restore();
 }
   `,
+    previewImage: "/Images/circles.png",
   },
   {
     id: "grid",
@@ -636,6 +639,7 @@ for (let i = 0; i < cols; i++) {
   }
 }
  `,
+    previewImage: "/Images/grid.png",
   },
   {
     id: "ascii",
@@ -818,6 +822,7 @@ for (let i = 0; i < imgW; i++) {
   }
 }
   `,
+    previewImage: "/Images/ascii.png",
   },
   {
     id: "dottext",
@@ -1126,5 +1131,165 @@ for (const d of state.dots) {
   ctx.fill();
 }
   `,
+    previewImage: "/Images/letters.png",
+  },
+  {
+    id: "grid3d",
+    name: "3D Grid",
+    desc: "Een 3D-raster van vormen die groter worden naarmate ze dichter bij het midden zitten. Draai met je muis.",
+    animate: true,
+    params: [
+      {
+        name: "num",
+        label: "aantal",
+        type: "range",
+        min: 1,
+        max: 15,
+        step: 1,
+        default: 5,
+        codeSnippet: `for (let i = 0; i < num; i++) {
+  for (let j = 0; j < num; j++) {
+    for (let k = 0; k < num; k++) {
+      // ...
+    }
+  }
+}`,
+        explanation: (
+          <>
+            Hier gebruik je drie <em>for-loops</em> in elkaar om een 3D-raster
+            te maken. De eerste loop gaat over de x-as, de tweede over de y-as
+            en de derde over de z-as.
+            <br />
+            <br />
+            <em>num</em> bepaalt hoeveel vormen er op elke as staan. Als num 5
+            is, krijg je 5×5×5 = 125 vormen in totaal.
+          </>
+        ),
+      },
+      {
+        name: "divider",
+        label: "verhouding",
+        type: "range",
+        min: 1,
+        max: 15,
+        step: 0.5,
+        default: 5,
+        codeSnippet: `let sphereSize = spacing - distance / divider;`,
+        explanation: (
+          <>
+            <em>distance</em> is hoe ver een vorm van het middelpunt staat.
+            <br />
+            <br />
+            Door die afstand te delen door <em>divider</em> bepaal je hoe snel
+            de vormen kleiner worden richting de randen. Een grotere waarde =
+            vormen worden minder snel kleiner.
+          </>
+        ),
+      },
+      {
+        name: "shape",
+        label: "vorm",
+        type: "range",
+        min: 0,
+        max: 6,
+        step: 1,
+        default: 1,
+        codeSnippet: `const shapes = ['torus', 'sphere', 'cylinder', 'plane', 'box', 'cone', 'ellipsoid'];
+const shapeName = shapes[Math.floor(shape)];
+
+if (shapeName === 'torus') p.torus(s, s * 0.4, 6, 4);
+else if (shapeName === 'sphere') p.sphere(s, 6, 4);
+// ...`,
+        explanation: (
+          <>
+            <em>shapes</em> is een lijst van alle beschikbare 3D-vormen. Op
+            basis van het getal dat de gebruiker kiest via de slider, wordt de
+            bijhorende vorm geselecteerd.
+            <br />
+            <br />
+            <em>Math.floor</em> zorgt ervoor dat het getal altijd naar beneden
+            wordt afgerond zodat je altijd een geldige index krijgt.
+          </>
+        ),
+      },
+      {
+        name: "material",
+        label: "materiaal",
+        type: "range",
+        min: 0,
+        max: 3,
+        step: 1,
+        default: 0,
+        codeSnippet: `const materials = ['normalMaterial', 'ambientMaterial', 'specularMaterial', 'emissiveMaterial'];
+const matName = materials[Math.floor(material)];
+
+if (matName === 'normalMaterial') p.normalMaterial();
+else if (matName === 'ambientMaterial') p.ambientMaterial(150, 100, 200);
+// ...`,
+        explanation: (
+          <>
+            Het <em>materiaal</em> bepaalt hoe licht de vormen weerkaatsen.
+            <br />
+            <br />
+            <em>normalMaterial</em> kleurt elke zijde op basis van zijn
+            richting. <em>ambientMaterial</em> reageert op omgevingslicht.{" "}
+            <em>specularMaterial</em> geeft glanzende highlights.{" "}
+            <em>emissiveMaterial</em> straalt zelf licht uit, onafhankelijk van
+            lichtbronnen.
+          </>
+        ),
+      },
+    ],
+    paramDocs: {
+      num: "Aantal vormen per as. 5 = 5×5×5 = 125 vormen.",
+      divider: "Hoe snel vormen kleiner worden naar de randen toe.",
+      shape:
+        "0=torus, 1=sphere, 2=cylinder, 3=plane, 4=box, 5=cone, 6=ellipsoid",
+      material:
+        "0=normalMaterial, 1=ambientMaterial, 2=specularMaterial, 3=emissiveMaterial",
+    },
+    code: `
+const shapes = ['torus', 'sphere', 'cylinder', 'plane', 'box', 'cone', 'ellipsoid'];
+const materials = ['normalMaterial', 'ambientMaterial', 'specularMaterial', 'emissiveMaterial'];
+const shapeName = shapes[Math.min(Math.floor(shape), shapes.length - 1)];
+const matName = materials[Math.min(Math.floor(material), materials.length - 1)];
+const spacing = 25;
+
+p.background(220);
+p.orbitControl();
+p.ambientLight(100);
+p.directionalLight(255, 255, 255, 0, -1, -1);
+
+for (let i = 0; i < num; i++) {
+  for (let j = 0; j < num; j++) {
+    for (let k = 0; k < num; k++) {
+      p.push();
+      const offset = (-spacing * num) / 2 + spacing / 2;
+      const x = i * spacing + offset;
+      const y = j * spacing + offset;
+      const z = k * spacing + offset;
+      const distance = p.sqrt(p.pow(x,2) + p.pow(y,2) + p.pow(z,2));
+      const s = Math.max(1, spacing - distance / divider);
+      p.translate(x, y, z);
+
+      if (matName === 'normalMaterial') p.normalMaterial();
+      else if (matName === 'ambientMaterial') p.ambientMaterial(150, 100, 200);
+      else if (matName === 'specularMaterial') { p.specularMaterial(200, 150, 50); p.shininess(50); }
+      else if (matName === 'emissiveMaterial') p.emissiveMaterial(100, 180, 255);
+
+      if (shapeName === 'torus') p.torus(s, s * 0.4, 6, 4);
+      else if (shapeName === 'sphere') p.sphere(s, 6, 4);
+      else if (shapeName === 'cylinder') p.cylinder(s, s * 1.2, 6);
+      else if (shapeName === 'plane') p.plane(s * 2, s * 2);
+      else if (shapeName === 'box') p.box(s * 1.5);
+      else if (shapeName === 'cone') p.cone(s, s * 2, 6);
+      else if (shapeName === 'ellipsoid') p.ellipsoid(s, s * 1.5, s * 0.8, 6, 4);
+
+      p.pop();
+    }
+  }
+}
+`,
+    previewImage: "/Images/3D.png",
   },
 ];
