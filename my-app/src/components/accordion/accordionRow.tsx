@@ -67,11 +67,14 @@ export function AccordionRow({
       {/* Body: uitleg + code: alleen zichtbaar als die open is en details heeft */}
       {isOpen && hasDetails && (
         <div className={styles.body}>
+          <span className={styles.sketchLabel}>1. Code</span>
           {param.codeSnippet && (
             <pre className={styles.code}>
               <code>{param.codeSnippet}</code>
             </pre>
           )}
+          <span className={styles.sketchLabel}>2. Uitleg</span>
+
           {param.explanation && (
             <div className={styles.explanation}>{param.explanation}</div>
           )}
