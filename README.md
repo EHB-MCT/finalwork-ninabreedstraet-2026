@@ -48,4 +48,9 @@
 - https://claude.ai/share/2654e16b-6142-48b3-bfe3-4da879efce52 (muis-interactie werkte niet)
 - https://claude.ai/share/4c448c01-33c5-46c2-8823-51b9f87fcc60 (randomizer van de sketches werktte niet)
 - https://react.i18next.com/getting-started#typescript-1
-- https://stackoverflow.com/questions/65789785/how-do-i-change-language-in-react-i18next 
+- https://stackoverflow.com/questions/65789785/how-do-i-change-language-in-react-i18next
+- https://www.typescriptlang.org/docs/handbook/utility-types.html
+- https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Drawing_shapes
+- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+- https://react.dev/reference/react/useCallback 
+

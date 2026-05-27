@@ -1,0 +1,115 @@
+.floater {
+  position: fixed;
+  top: 28px;
+  right: 110px;
+
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+
+  background-color: rgba(0, 0, 0, 0.5);
+  // border: 5px solid rgba(255, 255, 255, 1);
+  // border-radius: 36px;
+  padding: 0.3rem 0.6rem;
+
+  mix-blend-mode: difference;
+  color: white;
+  font-family: "Tomorrow", sans-serif;
+  font-size: 0.95rem;
+  font-weight: bold;
+  cursor: pointer;
+
+  user-select: none;
+
+  &::before {
+    content: "[";
+    left: 0;
+    color: white;
+    font-size: 3em;
+    // transform: translateX(-4px);
+  }
+  &::after {
+    content: "]";
+    color: white;
+    right: 0;
+    font-size: 3em;
+    // transform: translateX(4px);
+  }
+}
+
+.activeSwatch {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid white;
+  flex-shrink: 0;
+  mix-blend-mode: normal;
+}
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+}
+
+.dropdown {
+  position: fixed;
+  top: 80px;
+  right: 110px;
+
+  background-color: rgba(0, 0, 0, 0.85);
+  border: 5px solid rgba(253, 253, 253, 0.9);
+  border-radius: 16px;
+  padding: 0.4rem;
+  max-width: fit-content;
+  z-index: 9998;
+  pointer-events: all;
+
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  mix-blend-mode: difference;
+}
+
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 0.45rem 0.7rem;
+  border-radius: 10px;
+  border: none;
+  background: transparent;
+  color: white;
+  font-family: "Tomorrow", sans-serif;
+  font-size: 0.88rem;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.12);
+  }
+}
+
+.dropdownItemActive {
+  background: rgba(255, 255, 255, 0.18);
+
+  &::before {
+    content: "›";
+    margin-right: -4px;
+  }
+}
+
+.swatch {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  flex-shrink: 0;
+  mix-blend-mode: normal;
+}

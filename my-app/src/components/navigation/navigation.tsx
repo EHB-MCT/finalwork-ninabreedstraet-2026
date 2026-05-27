@@ -1,59 +1,36 @@
 import { Link, useLocation } from "react-router-dom";
 import style from "./nav.module.scss";
 import { BracketItem } from "../bracketItem/bracketItem";
+import { CursorEffectFloater } from "../cursorEffect/cursorEffect";
+import { BgEffect } from "../bgEffect/bgEffect";
+import { useTranslation } from "react-i18next";
+import { LanguageSwitcher } from "../laguageSwitch/languageSwitch";
 
 const Navigation = () => {
   const location = useLocation();
   const isActive = (path: string) => location.pathname === path;
+  const { t, i18n } = useTranslation();
 
   return (
     <div className={style.alles}>
+      <CursorEffectFloater />
+      <BgEffect />
+      <LanguageSwitcher />
+
       <nav className={style.nav}>
         <Link to="/" className={style.home}>
-          {/* <img
-            src="/Images/Stijlgids3.png"
-            alt=""
-            style={{
-              width: "30px",
-            }}
-          /> */}
-          <BracketItem>Home</BracketItem>
-          {/* <HomeIcon color="white" size={30} /> */}
+          <BracketItem>{t("nav.home")}</BracketItem>
         </Link>
 
         <Link to="/oefeningen" className={style.maken}>
-          {/* <img
-            src="/Images/Symbols2.png"
-            alt=""
-            style={{
-              width: "30px",
-            }}
-          /> */}
-          {/* <ExcerciseIcon color="white" size={30} /> */}
-          <BracketItem>Oefeningen</BracketItem>
+          <BracketItem>{t("nav.oef")}</BracketItem>
         </Link>
 
         <Link to="/maken" className={style.maken}>
-          {/* <img
-            src="/Images/Symbols22.png"
-            alt=""
-            style={{
-              width: "30px",
-            }}
-          /> */}
-          {/* <CreateIcon color="white" size={30} /> */}
-          <BracketItem>Create</BracketItem>
+          <BracketItem>{t("nav.create")}</BracketItem>
         </Link>
         <Link to="/accountsettings" className={style.maken}>
-          {/* <img
-            src="/Images/Stijlgids.png"
-            alt=""
-            style={{
-              width: "30px",
-            }}
-          /> */}
-          {/* <ProfileIcon color="white" size={30} /> */}
-          <BracketItem>Account</BracketItem>
+          <BracketItem>{t("nav.account")}</BracketItem>
         </Link>
       </nav>
     </div>

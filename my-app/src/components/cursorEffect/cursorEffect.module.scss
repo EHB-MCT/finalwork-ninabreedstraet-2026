@@ -1,0 +1,122 @@
+.canvas {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9998;
+}
+
+.floater {
+  position: fixed;
+  top: 28px;
+  right: 28px;
+  z-index: 9999;
+
+  display: flex;
+  align-items: center;
+  gap: 0.2rem;
+
+  background-color: rgba(0, 0, 0, 0.5);
+  // border: 5px solid rgba(255, 255, 255, 1);
+  // border-radius: 36px;
+  padding: 0.3rem 0.6rem;
+
+  mix-blend-mode: difference;
+  color: white;
+  font-family: "Tomorrow", sans-serif;
+  font-size: 0.95rem;
+  font-weight: bold;
+
+  &::before {
+    content: "[";
+    left: 0;
+    color: white;
+    font-size: 3em;
+    // transform: translateX(-4px);
+  }
+  &::after {
+    content: "]";
+    color: white;
+    right: 0;
+    font-size: 3em;
+    // transform: translateX(4px);
+  }
+}
+
+.toggleBtn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: 1;
+}
+
+.dropdownWrap {
+  position: relative;
+  cursor: pointer;
+  mix-blend-mode: normal;
+}
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + 14px);
+  right: 0;
+
+  background-color: rgba(0, 0, 0, 0.85);
+  border: 5px solid rgba(253, 253, 253, 0.9);
+  border-radius: 16px;
+  padding: 0.4rem;
+  max-width: fit-content;
+  z-index: 10;
+
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+
+  mix-blend-mode: difference;
+}
+
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 0.45rem 0.7rem;
+  border-radius: 10px;
+  border: none;
+  background: transparent;
+  color: white;
+  font-family: "Tomorrow", sans-serif;
+  font-size: 0.88rem;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.15s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.12);
+  }
+}
+
+.dropdownItemActive {
+  background: rgba(255, 255, 255, 0.18);
+
+  &::before {
+    content: "›";
+    margin-right: -4px;
+  }
+}
+
+.itemIcon {
+  font-size: 1.1rem;
+  line-height: 1;
+  width: 24px;
+  text-align: center;
+  // reset blend mode for emoji so they render in colour
+  mix-blend-mode: normal;
+}
