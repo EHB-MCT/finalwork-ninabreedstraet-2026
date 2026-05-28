@@ -60,3 +60,10 @@
 - https://p5js.org/reference/p5/texture/
 - https://p5js.org/examples/3d-geometries/
 - https://p5js.org/examples/3d-materials/
+- https://p5js.org/reference/p5/noise/
+- https://editor.p5js.org/codingtrain/sketches/JzvYF8WwT
+- https://editor.p5js.org/codingtrain/sketches/wwB-AA4i-
+- https://thecodingtrain.com/challenges/c5-marching-squares
+- https://www.youtube.com/watch?v=0ZONMNUKTfU
+- https://thecodingtrain.com/challenges/28-metaballs 
+- 
