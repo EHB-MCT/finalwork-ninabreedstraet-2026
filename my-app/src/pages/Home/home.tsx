@@ -8,17 +8,19 @@ import { useTranslation } from "react-i18next";
 // import Sketch5 from "./examples/sketch5";
 // import Sketch6 from "./examples/sketch6";
 // import Sketch7 from "./examples/sketch7";
+// import Sketch8 from "./skecthes/sketch8";
+
 import LoginForm from "../../components/LoginForm";
 import { BracketItem } from "../../components/bracketItem/bracketItem";
-import Sketch8 from "./examples/sketch8";
+import Sketch10 from "./skecthes/sketch10";
 
 export default function Home() {
   const { t } = useTranslation();
   const { user } = useAuth();
   const [showLogin, setShowLogin] = useState(false);
   const [Sketch] = useState(() => {
-    // const sketchArr = [Sketch2, Sketch3, Sketch4, Sketch5, Sketch6, sketch7];
-    const sketchArr = [Sketch8];
+    // const sketchArr = [Sketch2, Sketch3, Sketch4, Sketch5, Sketch6, sketch7, sketch8, sketch9];
+    const sketchArr = [Sketch10];
     return sketchArr[Math.floor(Math.random() * sketchArr.length)];
   });
 
