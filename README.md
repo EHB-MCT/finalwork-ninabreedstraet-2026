@@ -65,5 +65,5 @@
 - https://editor.p5js.org/codingtrain/sketches/wwB-AA4i-
 - https://thecodingtrain.com/challenges/c5-marching-squares
 - https://www.youtube.com/watch?v=0ZONMNUKTfU
-- https://thecodingtrain.com/challenges/28-metaballs 
-- 
+- https://thecodingtrain.com/challenges/28-metaballs
+- https://www.w3schools.com/cssref/css_pr_aspect-ratio.php

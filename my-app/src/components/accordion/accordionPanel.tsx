@@ -60,7 +60,6 @@ export function AccordionPanel({
     <div className={styles.panel}>
       {/* Sketch selector */}
       <div className={styles.sketchSelect}>
-        <span className={styles.sketchLabel}>Voorbeelden</span>
         <div className={styles.sketchExplanation}>
           Zo werkt het:
           <ol>
@@ -73,7 +72,7 @@ export function AccordionPanel({
           </ol>
         </div>
         {/* Dropdown menu waarmee je tussen de sketches kan kiezen: */}
-        <select
+        {/* <select
           className={styles.dropdown}
           value={activeId}
           onChange={(e) => onSwitchSketch(e.target.value)}
@@ -83,7 +82,31 @@ export function AccordionPanel({
               {s.name}
             </option>
           ))}
-        </select>
+        </select> */}
+        <span className={styles.sketchLabel}>Voorbeelden</span>
+        <div className={styles.sketchScrollWrapper}>
+          {/* ipv een dropdown-menu een horizontaal menu met previewbeelden, 
+          die beelden zitten ook in de database en hier wordt erover gemapt.
+          Dezelfde functie onSwitchSketch wordt gebruikt om van skecth te switchen, maakt gebruik van de id 
+          die functie wordt aangeroepen in de Maken pagina. De rest is css
+          */}
+          {SKETCHES.map((s) => (
+            <button
+              key={s.id}
+              className={`${styles.sketchCard} ${activeId === s.id ? styles.sketchCardActive : ""}`}
+              onClick={() => onSwitchSketch(s.id)}
+            >
+              <div className={styles.sketchThumb}>
+                {s.previewImage ? (
+                  <img src={s.previewImage} alt={s.name} />
+                ) : (
+                  <span className={styles.sketchThumbPlaceholder} />
+                )}
+              </div>
+              <span className={styles.sketchCardName}>{s.name}</span>
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* Params accordion */}
