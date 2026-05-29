@@ -140,7 +140,7 @@ export default function Account() {
             ) : (
               projects.map((project) => (
                 <div key={project.id} className={style.projectCard}>
-                  <p>{project.name}</p>
+                  <p>{project.projectName}</p>
                   <button
                     onClick={() =>
                       navigate(
