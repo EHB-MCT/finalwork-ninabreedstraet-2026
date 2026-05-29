@@ -29,10 +29,12 @@ export default function Sketch9() {
             let r = p.map(p.sin(p.frameCount), -1, 1, 50, 255);
             let g = p.map(p.cos(p.frameCount / 2), -1, 1, 50, 255);
             let b = p.map(p.sin(p.frameCount / 4), -1, 1, 50, 255);
-
+            p.strokeWeight(p.map(i, 0, 100, 4, 0.2));
             p.stroke(r, g, b);
-            p.rect(0, 0, 600 - i * 3, 600 - i * 3, 200 - i);
-            p.circle(i, j, 1);
+            const size =
+              p.max(p.width, p.height) * 2 -
+              i * ((p.max(p.width, p.height) * 2) / 100);
+            p.rect(0, 0, size, size, 200 - i * 2);
             p.pop();
           }
         }
