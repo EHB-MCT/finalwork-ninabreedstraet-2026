@@ -1,5 +1,5 @@
 import type { Dispatch, SetStateAction } from "react";
-import type { Sketch, ParamValues } from "../../pages/Maken/sketches";
+import type { Sketch, ParamValues } from "../../../pages/Maken/sketches";
 
 export interface AccordionPanelProps {
   activeId: string;
