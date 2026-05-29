@@ -1,4 +1,4 @@
-import type { Sketch, SketchParam } from "../pages/Maken/sketches";
+import type { Sketch, SketchParam } from "../../pages/Maken/sketches";
 import styles from "../pages/Maken/maken.module.scss";
 
 interface Props {

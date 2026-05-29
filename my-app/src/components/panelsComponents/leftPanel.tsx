@@ -1,5 +1,5 @@
 import type { RefObject } from "react";
-import { SKETCHES } from "../pages/Maken/sketches";
+import { SKETCHES } from "../../pages/Maken/sketches";
 import styles from "../pages/Maken/maken.module.scss";
 
 interface Props {

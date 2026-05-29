@@ -1,5 +1,5 @@
 import type { JSX } from "react";
-import type { SketchParam, ParamValues } from "../../pages/Maken/sketches";
+import type { SketchParam, ParamValues } from "../../../pages/Maken/sketches";
 import styles from "./AccordionPanel.module.scss";
 
 // dit definieert wat dit component verwacht te ontvangen, zodat die kan functioneren

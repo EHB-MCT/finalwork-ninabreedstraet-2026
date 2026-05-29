@@ -1,5 +1,5 @@
 import type { JSX } from "react";
-import type { SketchParam, ParamValues } from "../../pages/Maken/sketches.tsx";
+import type { SketchParam, ParamValues } from "../../../pages/Maken/sketches.tsx";
 import { ParamControl } from "./paramcontrol";
 import styles from "./AccordionPanel.module.scss";
 

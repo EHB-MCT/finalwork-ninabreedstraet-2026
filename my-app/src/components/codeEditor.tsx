@@ -19,7 +19,11 @@ window.MonacoEnvironment = {
   },
 };
 
-export function CodeEditor({ initialCode, language = "javascript", validation }) {
+export function CodeEditor({
+  initialCode,
+  language = "javascript",
+  validation,
+}) {
   const editorRef = useRef(null);
   const containerRef = useRef(null);
   const [feedback, setFeedback] = useState("");

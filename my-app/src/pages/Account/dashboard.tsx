@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { supabase } from "../lib/supabaseClient";
+import { supabase } from "../../lib/supabaseClient";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
-import style from "./Home/home.module.scss";
+import { useAuth } from "../../context/AuthContext";
+import style from "../Home/home.module.scss";
 
 export default function Dashboard() {
   const { user, loading } = useAuth();

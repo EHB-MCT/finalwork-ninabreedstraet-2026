@@ -1,11 +1,12 @@
-import type { ParamValues, Sketch } from "../../pages/Maken/sketches";
-import { supabase } from "../../lib/supabaseClient";
+import type { ParamValues, Sketch } from "../../../pages/Maken/sketches";
+import { supabase } from "../../../lib/supabaseClient";
 
 export async function saveProject(
   activeId: string,
   sketch: Sketch,
   params: ParamValues,
   code: string,
+  projectName: string,
 ): Promise<void> {
   // betekent dat de functie async is maar niets teruggeeft, je wacht erop maar verwacht geen resultaat
   const {
@@ -22,5 +23,6 @@ export async function saveProject(
     name: `${sketch.name} - ${new Date().toLocaleDateString()}`,
     params,
     code,
+    projectName,
   });
 }

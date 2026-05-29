@@ -1,4 +1,4 @@
-import styles from "../pages/Maken/maken.module.scss";
+import styles from "../../pages/Maken/maken.module.scss";
 
 interface Props {
   onExecute: () => void;
