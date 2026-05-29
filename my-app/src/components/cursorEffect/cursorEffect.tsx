@@ -206,6 +206,7 @@ export function CursorEffectFloater() {
       {/* Canvas */}
       <canvas ref={canvasRef} className={style.canvas} />
 
+      <div className={style.background}></div>
       <div className={style.floater}>
         {/* Dropdown menu */}
         <div className={style.dropdownWrap} onClick={() => setOpen((v) => !v)}>

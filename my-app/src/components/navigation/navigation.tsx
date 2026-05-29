@@ -17,6 +17,7 @@ const Navigation = () => {
       <BgEffect />
       <LanguageSwitcher />
 
+      <div className={style.background}></div>
       <nav className={style.nav}>
         <Link to="/" className={style.home}>
           <BracketItem>{t("nav.home")}</BracketItem>

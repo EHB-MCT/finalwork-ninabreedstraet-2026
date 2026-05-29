@@ -53,6 +53,7 @@ export function BgEffect() {
       )}
 
       {/* de omgekeerde waarde wordt opgeslagen, dus als het dicht is, en je klikt, dan wordt open opgeslagen en gaat het menu terug open */}
+      <div className={style.background}></div>
       <div className={style.floater} onClick={() => setOpen((v) => !v)}>
         <span
           className={style.activeSwatch}

@@ -36,7 +36,7 @@ export function LanguageSwitcher() {
           </div>
         </>
       )}
-
+      <div className={style.background}></div>
       <div className={style.floater} onClick={() => setOpen((v) => !v)}>
         <span className={style.code}>{active.value.toUpperCase()}</span>▾
       </div>
