@@ -6,11 +6,11 @@ import { useSketch } from "../../hooks/useSketch";
 import { useTweakpane } from "../../hooks/useTweakpane";
 // import { NEWLeftPanel } from "../../components/NEWLeftPanel";
 // import { NEWRightPanel } from "../../components/NEWRightPanel";
-import { NEWRunBar } from "../../components/NEWRunBar";
+import { NEWRunBar } from "../../components/panelsComponents/runBar";
 import { getDefaultParams } from "./NEWhelpers";
 import styles from "./maken.module.scss";
 import { supabase } from "../../lib/supabaseClient";
-import { AccordionPanel } from "../../components/accordion/accordionPanel";
+import { AccordionPanel } from "../../components/panelsComponents/accordion/accordionPanel";
 
 export default function Maken() {
   const [searchParams] = useSearchParams();
@@ -33,6 +33,8 @@ export default function Maken() {
   });
   const [error, setError] = useState<string | null>(null);
   const [frame, setFrame] = useState(0);
+
+  const [panelOpen, setPanelOpen] = useState(true);
 
   // koppelt code aan het actieve canvas.
   const paramsRef = useRef<ParamValues>(params);
@@ -179,16 +181,27 @@ export default function Maken() {
           activeParamData={activeParamData}
         /> */}
         <div className={styles.panelZone}>
-          <AccordionPanel
-            activeId={activeId}
-            sketch={sketch}
-            params={params}
-            setParams={setParams}
-            onSwitchSketch={switchSketch}
-            code={code}
-            onCodeChange={setCode}
-            onExecute={executeSketch}
-          />
+          <div className={styles.button}>
+            <div className={styles.background}></div>
+            <button
+              className={styles.panelToggle}
+              onClick={() => setPanelOpen((prev) => !prev)}
+            >
+              {panelOpen ? "Close panel" : "Open panel"}
+            </button>
+          </div>
+          {panelOpen && (
+            <AccordionPanel
+              activeId={activeId}
+              sketch={sketch}
+              params={params}
+              setParams={setParams}
+              onSwitchSketch={switchSketch}
+              code={code}
+              onCodeChange={setCode}
+              onExecute={executeSketch}
+            />
+          )}
         </div>
         <NEWRunBar
           onExecute={() => executeSketch(code, params)}
