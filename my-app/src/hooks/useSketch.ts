@@ -54,52 +54,74 @@ export function useSketch(
       const W = canvas.width;
       const H = canvas.height;
 
-      if (sketch.id === "grid3d") {
+      if (sketch.useP5) {
+        // haalt html element op, als er geen element is stopt de functie
         const container = canvas.parentElement;
         if (!container) return null;
-
+        // verbergt het originele react canvas element want p5.js maakt zelf een nieuw canvas aan binnen de container
+        // > voor 3D bijvoorbeeld
         canvas.style.display = "none";
 
         try {
+          // splitst namen van paramteres van waardes
           const paramKeys = Object.keys(currentParams);
           const paramVals = Object.values(currentParams);
 
+          // Maakt een JavaScript-functie aan van de gebruikerscode (een string)
+          // De parameters p, W, H, t, mouse, state en de sketch-params worden als argumenten meegegeven zodat
+          // de gebruiker die gewoon kan gebruiken in zijn code. p is hier het p5-object waarmee je kan tekenen.
+          const fn = new Function(
+            "p",
+            "W",
+            "H",
+            "t",
+            "mouse",
+            "state",
+            ...paramKeys,
+            code,
+          );
+
+          // hier wordt een nieuwe p5 instantie aangemaakt, hierdoor kan je dus alles van p5-functies met 'p' aanroepen
           p5Ref.current = new p5((p: p5) => {
             p.setup = () => {
-              const c = p.createCanvas(p.windowWidth, p.windowHeight, p.WEBGL);
+              // als het 3D is, voeg er dan WEBGL aantoe bij createCanvas
+              const renderer = sketch.id === "grid3d" ? p.WEBGL : undefined;
+              // als renderer niet undefined is dan moet die met de tweede optie gaan,
+              // anders moet die renderer meenemen als argument in createCanvas
+              const c = renderer
+                ? p.createCanvas(p.windowWidth, p.windowHeight, renderer)
+                : p.createCanvas(p.windowWidth, p.windowHeight);
+              // Dit plaatst het p5-canvas binnenin de container div van React
               c.parent(container);
-              p.noStroke();
+              // als het 3D is, zegt de vierkanten dan in het midden en zet de hoeken in graden
+              p.angleMode(p.DEGREES);
+              p.rectMode(p.CENTER);
             };
 
             p.draw = () => {
-              const fn = new Function(
-                "p",
-                "CANVAS_W",
-                "CANVAS_H",
-                "t",
-                "mouse",
-                "state",
-                ...paramKeys,
-                code,
-              );
+              // roept de gebruikerscode op met alle nodige elementen
               fn(
                 p,
-                W,
-                H,
+                p.width,
+                p.height,
                 tRef.current,
                 mouseRef.current,
                 stateRef.current,
                 ...paramVals,
               );
+              // verhoogt elke keer de framecount
               tRef.current++;
             };
           });
         } catch (e) {
+          // Als er iets fout gaat bij het aanmaken van p5 of de functie (bv. een fout in de gebruikerscode), wordt de fout teruggegeven
+          // Als alles goed gaat, geeft de functie null terug
           return e instanceof Error ? e : new Error(String(e));
         }
         return null;
       }
 
+      // als useP5 false is dan gaat die verder met het bouwen van een 2D canvas
       const ctx = canvas.getContext("2d");
       if (!ctx) return null;
 
