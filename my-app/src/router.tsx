@@ -1,6 +1,6 @@
 import { createBrowserRouter, Outlet, Navigate } from "react-router-dom";
 import Navigation from "./components/navigation/navigation";
-import Dashboard from "./pages/dashboard";
+import Dashboard from "./pages/Account/dashboard";
 import Home from "./pages/Home/home";
 import OefeningenHome from "./pages/oefeningen/oefeningHome";
 import Maken from "./pages/Maken/makenCopy3";
@@ -8,6 +8,7 @@ import { useAuth } from "./context/AuthContext";
 import { FooterComponent } from "./components/navigation/footer";
 import Account from "./pages/Account/account";
 import style from "./components/navigation/nav.module.scss";
+import ResetPassword from "./components/login/resetPassword";
 
 // dit is de vaste opmaal van de hele website: nav bovenaan en footer onderaan
 function AppShell({ showNav = true }: { showNav?: boolean }) {
@@ -49,6 +50,7 @@ const router = createBrowserRouter([
     children: [
       { index: true, element: <Home /> },
       { path: "home", element: <Home /> },
+      { path: "reset-password", element: <ResetPassword /> },
     ],
   },
   {

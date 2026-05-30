@@ -49,7 +49,11 @@
     "password": "Wachtwoord",
     "haveAccount": "Al een account?",
     "noAccount": "Nog geen account?",
-    "registrationSuccess": "Registratie gelukt! Check je e-mail."
+    "registrationSuccess": "Registratie gelukt! Check je e-mail.",
+    "forgotPassword": "Wachtwoord vergeten?",
+    "sendResetEmail": "Verstuur reset-link",
+    "resetEmailSent": "Check je e-mail voor de reset-link.",
+    "backToLogin": "Terug naar login"
   },
   "oefeningen": {
     "basis": "Basis",
@@ -296,5 +300,15 @@
       "valUseGetallen": "Gebruik de array 'getallen'",
       "valSuccess2": "Goed gedaan! Je for...of loop werkt correct."
     }
+  },
+  "resetPassword": {
+    "title": "Nieuw wachtwoord instellen",
+    "newPassword": "Nieuw wachtwoord",
+    "confirmPassword": "Bevestig wachtwoord",
+    "submit": "Wachtwoord opslaan",
+    "noMatch": "Wachtwoorden komen niet overeen.",
+    "tooShort": "Wachtwoord moet minimaal 6 tekens bevatten.",
+    "success": "Wachtwoord gewijzigd! Je wordt doorgestuurd...",
+    "invalidLink": "Ongeldige of verlopen link."
   }
 }

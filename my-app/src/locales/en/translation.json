@@ -49,7 +49,11 @@
     "password": "Password",
     "haveAccount": "Already have an account?",
     "noAccount": "Don't have an account yet?",
-    "registrationSuccess": "Registration successful! Check your email."
+    "registrationSuccess": "Registration successful! Check your email.",
+    "forgotPassword": "Forgot password?",
+    "sendResetEmail": "Send reset link",
+    "resetEmailSent": "Check your email for the reset link.",
+    "backToLogin": "Back to login"
   },
   "oefeningen": {
     "basis": "Basics",
@@ -296,5 +300,15 @@
       "valUseGetallen": "Use the array 'numbers'",
       "valSuccess2": "Well done! Your for...of loop works correctly."
     }
+  },
+  "resetPassword": {
+    "title": "Set a new password",
+    "newPassword": "New password",
+    "confirmPassword": "Confirm password",
+    "submit": "Save password",
+    "noMatch": "Passwords do not match.",
+    "tooShort": "Password must be at least 6 characters.",
+    "success": "Password changed! You will be redirected...",
+    "invalidLink": "Invalid or expired link."
   }
 }

@@ -49,7 +49,11 @@
     "password": "Mot de passe",
     "haveAccount": "Vous avez déjà un compte ?",
     "noAccount": "Vous n'avez pas encore de compte ?",
-    "registrationSuccess": "Inscription réussie ! Vérifiez votre e-mail."
+    "registrationSuccess": "Inscription réussie ! Vérifiez votre e-mail.",
+    "forgotPassword": "Mot de passe oublié ?",
+    "sendResetEmail": "Envoyer le lien de réinitialisation",
+    "resetEmailSent": "Vérifiez votre e-mail pour le lien de réinitialisation.",
+    "backToLogin": "Retour à la connexion"
   },
   "oefeningen": {
     "basis": "Bases",
@@ -296,5 +300,15 @@
       "valUseGetallen": "Utilisez le tableau 'nombres'",
       "valSuccess2": "Bien joué ! Votre boucle for...of fonctionne correctement."
     }
+  },
+  "resetPassword": {
+    "title": "Définir un nouveau mot de passe",
+    "newPassword": "Nouveau mot de passe",
+    "confirmPassword": "Confirmer le mot de passe",
+    "submit": "Enregistrer le mot de passe",
+    "noMatch": "Les mots de passe ne correspondent pas.",
+    "tooShort": "Le mot de passe doit contenir au moins 6 caractères.",
+    "success": "Mot de passe modifié ! Vous allez être redirigé...",
+    "invalidLink": "Lien invalide ou expiré."
   }
 }
