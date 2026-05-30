@@ -2,17 +2,17 @@ import style from "./home.module.scss";
 import { useAuth } from "../../context/AuthContext";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-// import Sketch2 from "./examples/sketch2";
-// import Sketch3 from "./examples/sketch3";
-// import Sketch4 from "./examples/sketch4";
-// import Sketch5 from "./examples/sketch5";
-// import Sketch6 from "./examples/sketch6";
-// import Sketch7 from "./examples/sketch7";
+// import Sketch2 from "./skecthes/sketch2";
+// import Sketch3 from "./skecthes/sketch3";
+// import Sketch5 from "./skecthes/sketch5";
+// import Sketch4 from "./skecthes/sketch4";
+// import Sketch6 from "./skecthes/sketch6";
+// import Sketch7 from "./skecthes/sketch7";
 // import Sketch8 from "./skecthes/sketch8";
-
-import LoginForm from "../../components/LoginForm";
-import { BracketItem } from "../../components/bracketItem/bracketItem";
+// import Sketch9 from "./skecthes/sketch9";
 import Sketch10 from "./skecthes/sketch10";
+import LoginForm from "../../components/login/loginForm";
+import { BracketItem } from "../../components/bracketItem/bracketItem";
 
 export default function Home() {
   const { t } = useTranslation();

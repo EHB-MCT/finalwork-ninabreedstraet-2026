@@ -23,6 +23,7 @@ export interface Sketch {
   animate: boolean;
   code: string;
   previewImage: string;
+  useP5?: boolean;
 }
 
 export type ParamValues = Record<string, number | string>;
@@ -1135,6 +1136,7 @@ for (const d of state.dots) {
   },
   {
     id: "grid3d",
+    useP5: true,
     name: "3D Grid",
     desc: "Een 3D-raster van vormen die groter worden naarmate ze dichter bij het midden zitten. Draai met je muis.",
     animate: true,
@@ -1291,5 +1293,605 @@ for (let i = 0; i < num; i++) {
 }
 `,
     previewImage: "/Images/3D.png",
+  },
+  {
+    id: "tilemirror",
+    useP5: true,
+    name: "Tegel Spiegel",
+    desc: "Een afbeelding wordt opgedeeld in tegels die gespiegeld of willekeurig geroteerd worden op basis van je muispositie.",
+    animate: true,
+    params: [
+      {
+        name: "size",
+        label: "tegelgrootte",
+        type: "range",
+        min: 10,
+        max: 80,
+        step: 5,
+        default: 20,
+        codeSnippet: `cols = p.width / size;
+rows = p.height / size;
+
+for (let i = 0; i < cols; i++) {
+  for (let j = 0; j < rows; j++) {
+    tiles[i][j] = img.get(i * size, j * size, size, size);
+  }
+}`,
+        explanation: (
+          <>
+            <em>size</em> bepaalt hoe groot elke tegel is in pixels. De
+            afbeelding wordt opgedeeld in een raster van tegels van size × size
+            pixels.
+            <br />
+            <br />
+            <em>cols</em> en <em>rows</em> berekenen hoeveel tegels er
+            horizontaal en verticaal passen. <em>img.get()</em> knipt dan elk
+            stukje uit de originele afbeelding.
+          </>
+        ),
+      },
+      {
+        name: "mode",
+        label: "modus",
+        type: "range",
+        min: 0,
+        max: 4,
+        step: 1,
+        default: 4,
+        codeSnippet: `if (mode === 0) {
+  p.image(tiles[i][j], 0, 0);            // normaal
+} else if (mode === 1) {
+  p.scale(-1, 1);
+  p.image(tiles[i][j], -size, 0);        // horizontaal gespiegeld
+} else if (mode === 2) {
+  p.scale(1, -1);
+  p.image(tiles[i][j], 0, -size);        // verticaal gespiegeld
+} else if (mode === 3) {
+  p.scale(-1, -1);
+  p.image(tiles[i][j], -size, -size);    // beide gespiegeld
+} else {
+  // muis-modus: willekeurige rotaties rechts van de muis
+}`,
+        explanation: (
+          <>
+            Er zijn 5 modi (0–4):
+            <br />
+            <br />
+            <em>0</em> = normaal, elke tegel staat rechtop.
+            <br />
+            <em>1</em> = horizontaal gespiegeld met <em>p.scale(-1, 1)</em>.
+            <br />
+            <em>2</em> = verticaal gespiegeld met <em>p.scale(1, -1)</em>.
+            <br />
+            <em>3</em> = beide assen gespiegeld.
+            <br />
+            <em>4</em> = muismodus: tegels rechts van je muis krijgen een
+            willekeurige rotatie (0°, 90°, 180° of 270°), links blijven ze
+            normaal.
+            <br />
+            <br />
+            <em>p.scale()</em> spiegelt door een negatieve schaalfactor te
+            gebruiken. Daarna moet je de afbeelding verschuiven met een
+            negatieve offset zodat hij weer op de juiste plek staat.
+          </>
+        ),
+      },
+      {
+        name: "image",
+        label: "afbeelding",
+        type: "image",
+        default: "/Images/natuur.jpeg",
+        codeSnippet: `const img = p.loadImage(image, () => {
+  state.ready = true;
+});`,
+        explanation: (
+          <>
+            <em>p.loadImage()</em> laadt de afbeelding asynchroon. De tweede
+            parameter is een callback-functie die wordt opgeroepen zodra de
+            afbeelding klaar is met laden.
+            <br />
+            <br />
+            Pas dan wordt <em>state.ready</em> op true gezet zodat de rest van
+            de code weet dat de tegels aangemaakt kunnen worden.
+          </>
+        ),
+      },
+    ],
+    paramDocs: {
+      size: "Grootte van elke tegel in pixels. Kleiner = meer detail, meer tegels.",
+      mode: "0=normaal, 1=horizontaal gespiegeld, 2=verticaal gespiegeld, 3=beide gespiegeld, 4=muismodus",
+    },
+    code: `
+const paramsChanged =
+  state.lastImage !== image ||
+  state.lastSize !== size;
+
+if (!state.ready || paramsChanged) {
+  state.ready = false;
+  state.lastImage = image;
+  state.lastSize = size;
+  state.tiles = null;
+
+  const img = p.loadImage(
+    image,
+    (loadedImg) => {
+      loadedImg.resize(W, 0);
+      const cols = Math.floor(W / size);
+      const rows = Math.floor(H / size);
+      const tiles = [];
+      for (let i = 0; i < cols; i++) {
+        tiles[i] = [];
+        for (let j = 0; j < rows; j++) {
+          tiles[i][j] = loadedImg.get(i * size, j * size, size, size);
+        }
+      }
+      state.tiles = tiles;
+      state.cols = cols;
+      state.rows = rows;
+      state.ready = true;
+    }
+  );
+  return;
+}
+
+if (!state.tiles) return;
+
+const mx = mouse.x ?? W / 2;
+
+for (let i = 0; i < state.cols; i++) {
+  for (let j = 0; j < state.rows; j++) {
+    const x = i * size;
+    const y = j * size;
+    p.push();
+    p.translate(x, y);
+
+    const tile = state.tiles[i][j];
+    if (!tile) { p.pop(); continue; }
+
+    if (mode === 0) {
+      p.image(tile, 0, 0);
+    } else if (mode === 1) {
+      p.scale(-1, 1);
+      p.image(tile, -size, 0);
+    } else if (mode === 2) {
+      p.scale(1, -1);
+      p.image(tile, 0, -size);
+    } else if (mode === 3) {
+      p.scale(-1, -1);
+      p.image(tile, -size, -size);
+    } else {
+      if (i > mx / size) {
+        p.translate(size / 2, size / 2);
+        const angle = (p.floor(p.random(4)) * p.PI) / 2;
+        p.rotate(angle);
+        p.image(tile, -size / 2, -size / 2);
+      } else {
+        p.image(tile, 0, 0);
+      }
+    }
+
+    p.pop();
+  }
+}
+  `,
+    previewImage: "/Images/tilemirror.png",
+  },
+  {
+    id: "metaballs",
+    useP5: true,
+    name: "Metaballs",
+    desc: "Bewegende bellen maken vloeiende vormen via marching squares. De lijnen reageren op je muis.",
+    animate: true,
+    params: [
+      {
+        name: "bubbleCount",
+        label: "aantal bellen",
+        type: "range",
+        min: 1,
+        max: 30,
+        step: 1,
+        default: 15,
+        codeSnippet: `for (let i = 0; i < bubbleCount; i++) {
+  bubbles.push({ 
+    x: p.random(W), y: p.random(H),
+    r: p.random(10, 150),
+    vx: p.random(-2, 2), vy: p.random(-2, 2)
+  });
+}`,
+        explanation: (
+          <>
+            Met een <em>for-loop</em> maken we een lijst van bellen aan. Elke
+            bel heeft een willekeurige startpositie (<em>x</em>, <em>y</em>),
+            een straal <em>r</em> die bepaalt hoe sterk hij andere punten
+            beïnvloedt, en een snelheid (<em>vx</em>, <em>vy</em>) om te
+            bewegen.
+            <br />
+            <br />
+            <em>p.random()</em> geeft een willekeurig getal terug tussen de twee
+            opgegeven waarden.
+          </>
+        ),
+      },
+      {
+        name: "strokeSize",
+        label: "lijndikte",
+        type: "range",
+        min: 1,
+        max: 20,
+        step: 1,
+        default: 6,
+        codeSnippet: `p.strokeWeight(strokeSize);`,
+        explanation: (
+          <>
+            <em>p.strokeWeight()</em> stelt de dikte van de lijnen in pixels in.
+            Hoe groter het getal, hoe dikker de contouren van de metaballs.
+          </>
+        ),
+      },
+      {
+        name: "color1",
+        label: "kleur 1",
+        type: "color",
+        default: "#ff6b6b",
+        codeSnippet: `function gradientAt(t) {
+  const c0 = hexToRgb(color1);
+  const c1 = hexToRgb(color2);
+  const c2 = hexToRgb(color3);
+  if (t <= 0.5) {
+    const s = t / 0.5;
+    return lerpRgb(c0, c1, s);
+  } else {
+    const s = (t - 0.5) / 0.5;
+    return lerpRgb(c1, c2, s);
+  }
+}`,
+        explanation: (
+          <>
+            De drie kleuren worden gebruikt als ankerpunten voor een
+            kleurverloop over de contouren. <em>gradientAt(t)</em> berekent de
+            kleur op positie t (tussen 0 en 1).
+            <br />
+            <br />
+            Van t=0 tot t=0.5 loopt de kleur van kleur 1 naar kleur 2, van t=0.5
+            tot t=1 van kleur 2 naar kleur 3. <em>lerpRgb</em> mengt twee
+            kleuren vloeiend.
+          </>
+        ),
+      },
+      {
+        name: "color2",
+        label: "kleur 2",
+        type: "color",
+        default: "#6b6bff",
+        codeSnippet: `function gradientAt(t) {
+  const c0 = hexToRgb(color1);
+  const c1 = hexToRgb(color2);
+  const c2 = hexToRgb(color3);
+  if (t <= 0.5) {
+    const s = t / 0.5;
+    return lerpRgb(c0, c1, s);
+  } else {
+    const s = (t - 0.5) / 0.5;
+    return lerpRgb(c1, c2, s);
+  }
+}`,
+        explanation: (
+          <>
+            De drie kleuren worden gebruikt als ankerpunten voor een
+            kleurverloop over de contouren. <em>gradientAt(t)</em> berekent de
+            kleur op positie t (tussen 0 en 1).
+            <br />
+            <br />
+            Van t=0 tot t=0.5 loopt de kleur van kleur 1 naar kleur 2, van t=0.5
+            tot t=1 van kleur 2 naar kleur 3. <em>lerpRgb</em> mengt twee
+            kleuren vloeiend.
+          </>
+        ),
+      },
+      {
+        name: "color3",
+        label: "kleur 3",
+        type: "color",
+        default: "#6bffb8",
+        codeSnippet: `function gradientAt(t) {
+  const c0 = hexToRgb(color1);
+  const c1 = hexToRgb(color2);
+  const c2 = hexToRgb(color3);
+  if (t <= 0.5) {
+    const s = t / 0.5;
+    return lerpRgb(c0, c1, s);
+  } else {
+    const s = (t - 0.5) / 0.5;
+    return lerpRgb(c1, c2, s);
+  }
+}`,
+        explanation: (
+          <>
+            De drie kleuren worden gebruikt als ankerpunten voor een
+            kleurverloop over de contouren. <em>gradientAt(t)</em> berekent de
+            kleur op positie t (tussen 0 en 1).
+            <br />
+            <br />
+            Van t=0 tot t=0.5 loopt de kleur van kleur 1 naar kleur 2, van t=0.5
+            tot t=1 van kleur 2 naar kleur 3. <em>lerpRgb</em> mengt twee
+            kleuren vloeiend.
+          </>
+        ),
+      },
+    ],
+    paramDocs: {
+      bubbleCount: "Aantal bewegende bellen. Meer bellen = complexere vormen.",
+      strokeSize: "Dikte van de contourlijnen in pixels.",
+      color1: "Eerste kleur van het kleurverloop over de contouren.",
+      color2: "Middelste kleur van het kleurverloop.",
+      color3: "Laatste kleur van het kleurverloop.",
+    },
+    code: `
+const thresholds = [0.3, 0.6, 1.0, 1.5, 2.2, 3.2, 4.5];
+const rez = 10;
+
+// Helper: hex naar rgb
+function hexToRgb(hex) {
+  return [
+    parseInt(hex.slice(1,3),16),
+    parseInt(hex.slice(3,5),16),
+    parseInt(hex.slice(5,7),16),
+  ];
+}
+
+// Helper: lerp tussen twee rgb-kleuren
+function lerpRgb(a, b, t) {
+  return [
+    Math.round(a[0] + (b[0]-a[0])*t),
+    Math.round(a[1] + (b[1]-a[1])*t),
+    Math.round(a[2] + (b[2]-a[2])*t),
+  ];
+}
+
+// Kleurverloop over 3 ankerkleuren
+function gradientAt(t) {
+  const c0 = hexToRgb(color1);
+  const c1 = hexToRgb(color2);
+  const c2 = hexToRgb(color3);
+  if (t <= 0.5) return lerpRgb(c0, c1, t / 0.5);
+  return lerpRgb(c1, c2, (t - 0.5) / 0.5);
+}
+
+// Initialiseer bellen
+if (!state.bubbles || state.lastBubbleCount !== bubbleCount) {
+  state.lastBubbleCount = bubbleCount;
+  state.bubbles = [];
+  // Muisbol
+  state.bubbles.push({ x: W/2, y: H/2, r: 80, vx: 0, vy: 0, isMouse: true });
+  // Gewone bellen
+  for (let i = 0; i < bubbleCount; i++) {
+    state.bubbles.push({
+      x: p.random(W), y: p.random(H),
+      r: p.random(10, 150),
+      vx: p.random(-2, 2), vy: p.random(-2, 2),
+      isMouse: false,
+    });
+  }
+  // Veld aanmaken
+  const cols = Math.floor(1 + W / rez);
+  const rows = Math.floor(1 + H / rez);
+  state.field = Array.from({ length: cols }, () => new Array(rows).fill(0));
+  state.cols = cols;
+  state.rows = rows;
+}
+
+const { bubbles, field, cols, rows } = state;
+
+// Bellen updaten
+for (const b of bubbles) {
+  if (b.isMouse) {
+    b.x += (mouse.x - b.x) * 0.1;
+    b.y += (mouse.y - b.y) * 0.1;
+  } else {
+    b.x += b.vx;
+    b.y += b.vy;
+    if (b.x < 0 || b.x > W) b.vx *= -1;
+    if (b.y < 0 || b.y > H) b.vy *= -1;
+  }
+}
+
+// Achtergrond
+p.background(200, 210, 220);
+
+// Veld berekenen
+for (let i = 0; i < cols; i++) {
+  for (let j = 0; j < rows; j++) {
+    let sum = 0;
+    const x = i * rez;
+    const y = j * rez;
+    for (const b of bubbles) {
+      const dx = x - b.x;
+      const dy = y - b.y;
+      sum += (b.r * b.r) / (dx * dx + dy * dy);
+    }
+    field[i][j] = sum;
+  }
+}
+
+// Marching squares tekenfunctie
+function drawLine(v1, v2) {
+  p.line(v1.x, v1.y, v2.x, v2.y);
+}
+
+function marchingSquares(threshold) {
+  for (let i = 0; i < cols - 1; i++) {
+    for (let j = 0; j < rows - 1; j++) {
+      const x = i * rez;
+      const y = j * rez;
+      const a = { x: x + rez * 0.5, y: y };
+      const b = { x: x + rez, y: y + rez * 0.5 };
+      const c = { x: x + rez * 0.5, y: y + rez };
+      const d = { x: x, y: y + rez * 0.5 };
+
+      const c1 = field[i][j]     < threshold ? 0 : 1;
+      const c2 = field[i+1][j]   < threshold ? 0 : 1;
+      const c3 = field[i+1][j+1] < threshold ? 0 : 1;
+      const c4 = field[i][j+1]   < threshold ? 0 : 1;
+      const st = c1*8 + c2*4 + c3*2 + c4*1;
+
+      if (st===1||st===14) drawLine(c,d);
+      else if (st===2||st===13) drawLine(b,c);
+      else if (st===3||st===12) drawLine(b,d);
+      else if (st===4||st===11) drawLine(a,b);
+      else if (st===5) { drawLine(a,d); drawLine(b,c); }
+      else if (st===6||st===9) drawLine(a,c);
+      else if (st===7||st===8) drawLine(a,d);
+      else if (st===10) { drawLine(a,b); drawLine(c,d); }
+    }
+  }
+}
+
+// Contouren tekenen met kleurverloop
+p.strokeWeight(strokeSize);
+p.noFill();
+for (let k = 0; k < thresholds.length - 2; k++) {
+  const t = k / (thresholds.length - 1);
+  const col = gradientAt(t);
+  p.stroke(col[0], col[1], col[2]);
+  marchingSquares(thresholds[k]);
+}
+  `,
+    previewImage: "/Images/metaballs.png",
+  },
+  {
+    id: "spirograph",
+    useP5: true,
+    name: "Spirograaf",
+    desc: "Roterende rechthoeken en stippen maken een hypnotiserend patroon dat meebeweegt met de tijd.",
+    animate: true,
+    params: [
+      {
+        name: "layers",
+        label: "lagen",
+        type: "range",
+        min: 10,
+        max: 100,
+        step: 5,
+        default: 100,
+        codeSnippet: `for (let i = 0; i < layers; i++) {
+  for (let j = 0; j < layers; j++) {
+    p.rotate(p.sin(p.frameCount + i) * 100);
+    p.rect(0, 0, 600 - i * 3, 600 - i * 3, 200 - i);
+    p.circle(i, j, 1);
+  }
+}`,
+        explanation: (
+          <>
+            Twee <em>for-loops</em> in elkaar tekenen een raster van vormen. De
+            buitenste loop (<em>i</em>) bepaalt de laag: elke laag is een iets
+            kleinere rechthoek en heeft een andere rotatiehoek.
+            <br />
+            <br />
+            De binnenste loop (<em>j</em>) tekent op elke laag een rij stippen
+            op positie (i, j). Samen zorgen ze voor het spiraaleffect.
+            <br />
+            <br />
+            Meer lagen = meer detail maar ook zwaarder voor de browser.
+          </>
+        ),
+      },
+      {
+        name: "baseSize",
+        label: "basisgrootte",
+        type: "range",
+        min: 100,
+        max: 1200,
+        step: 50,
+        default: 600,
+        codeSnippet: `p.rect(0, 0, baseSize - i * 3, baseSize - i * 3, 200 - i);`,
+        explanation: (
+          <>
+            <em>baseSize</em> bepaalt hoe groot de buitenste rechthoek is. Elke
+            volgende laag (<em>i</em>) wordt met 3 pixels per stap kleiner:{" "}
+            <em>baseSize - i * 3</em>.
+            <br />
+            <br />
+            De derde en vierde parameter van <em>p.rect()</em> zijn de breedte
+            en hoogte. De vijfde parameter is de afronding van de hoeken, die
+            ook afneemt per laag: <em>200 - i</em>.
+          </>
+        ),
+      },
+      {
+        name: "speed",
+        label: "snelheid",
+        type: "range",
+        min: 1,
+        max: 10,
+        step: 1,
+        default: 1,
+        codeSnippet: `p.rotate(p.sin((p.frameCount * speed) + i) * 100);
+let r = p.map(p.sin(p.frameCount * speed), -1, 1, 50, 255);`,
+        explanation: (
+          <>
+            <em>p.frameCount</em> telt automatisch hoeveel frames er al getekend
+            zijn sinds de start. Door dit te vermenigvuldigen met <em>speed</em>{" "}
+            gaat de animatie sneller draaien.
+            <br />
+            <br />
+            <em>p.sin()</em> geeft een golvende waarde terug tussen -1 en 1, wat
+            zorgt voor de draaibeweging. Hoe hoger de speed, hoe sneller die
+            golf beweegt.
+          </>
+        ),
+      },
+      {
+        name: "rotationStrength",
+        label: "rotatiekracht",
+        type: "range",
+        min: 10,
+        max: 360,
+        step: 10,
+        default: 100,
+        codeSnippet: `p.rotate(p.sin(p.frameCount + i) * rotationStrength);`,
+        explanation: (
+          <>
+            <em>p.rotate()</em> draait het tekenvlak met een bepaalde hoek
+            voordat de rechthoek getekend wordt. Die hoek is de uitkomst van{" "}
+            <em>p.sin()</em> (een getal tussen -1 en 1) vermenigvuldigd met{" "}
+            <em>rotationStrength</em>.
+            <br />
+            <br />
+            Een hogere waarde = de rechthoeken draaien verder weg van hun
+            startpositie, wat een wilder patroon geeft. Bij lage waarden blijven
+            ze bijna recht.
+          </>
+        ),
+      },
+    ],
+    paramDocs: {
+      layers:
+        "Aantal lagen rechthoeken en stippen. Meer = complexer maar zwaarder.",
+      baseSize: "Grootte van de buitenste rechthoek in pixels.",
+      speed: "Animatiesnelheid. Hogere waarden = snellere rotatie.",
+      rotationStrength:
+        "Hoe ver elke laag roteert. Hogere waarden = wilder patroon.",
+    },
+    code: `
+p.background(10, 20, 30);
+p.noFill();
+p.translate(W / 2, H / 2);
+
+for (let i = 0; i < layers; i++) {
+  for (let j = 0; j < layers; j++) {
+    p.push();
+    p.rotate(p.sin((p.frameCount * speed) + i) * rotationStrength);
+
+    const r = p.map(p.sin(p.frameCount * speed),       -1, 1, 50, 255);
+    const g = p.map(p.cos((p.frameCount * speed) / 2), -1, 1, 50, 255);
+    const b = p.map(p.sin((p.frameCount * speed) / 4), -1, 1, 50, 255);
+
+    p.stroke(r, g, b);
+    p.rect(0, 0, baseSize - i * 3, baseSize - i * 3, 200 - i);
+    p.pop();
+  }
+}
+  `,
+    previewImage: "/Images/spirograaf.png",
   },
 ];
