@@ -1894,4 +1894,32 @@ for (let i = 0; i < layers; i++) {
   `,
     previewImage: "/Images/spirograaf.png",
   },
+  {
+    id: "particles",
+    name: "Deeltjes",
+    useP5: true,
+    animate: true,
+    desc: "Deeltjessystemen volgen je muis.",
+    params: [],
+    paramDocs: {},
+    previewImage: "/Images/particles.png",
+    code: `
+    if (p.random() < 0.3) {xz
+      state.ps = state.ps || [];
+      state.ps.push(new System(p, mouse.x, mouse.y));
+    }
+
+    p.background(0);
+    p.colorMode(p.HSB, 255);
+
+    state.ps = state.ps || [];
+    for (let i = state.ps.length - 1; i >= 0; i--) {
+      state.ps[i].update();
+      state.ps[i].display();
+      if (state.ps[i].done) {
+        state.ps.splice(i, 1);
+      }
+    }
+  `,
+  },
 ];

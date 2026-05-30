@@ -69,3 +69,4 @@
 - https://www.w3schools.com/cssref/css_pr_aspect-ratio.php
 - https://medium.com/@conboys111/how-do-object-keys-object-values-and-object-entries-differ-in-javascript-8d1c19901ecb
 - https://stackoverflow.com/questions/30469261/checking-for-typeof-error-in-js
+- https://supabase.com/docs/reference/javascript/upsert

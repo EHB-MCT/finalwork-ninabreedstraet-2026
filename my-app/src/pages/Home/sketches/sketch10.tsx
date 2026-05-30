@@ -4,7 +4,7 @@
 import { useEffect, useRef } from "react";
 import p5 from "p5";
 
-export default function Sketch9() {
+export default function Sketch10() {
   const sketchRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
