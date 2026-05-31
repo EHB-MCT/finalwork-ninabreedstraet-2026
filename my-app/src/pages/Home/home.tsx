@@ -2,15 +2,15 @@ import style from "./home.module.scss";
 import { useAuth } from "../../context/AuthContext";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-// import Sketch2 from "./sketches/sketch2";
-// import Sketch3 from "./sketches/sketch3";
-// import Sketch5 from "./sketches/sketch5";
-// import Sketch4 from "./sketches/sketch4";
-// import Sketch6 from "./sketches/sketch6";
-// import Sketch7 from "./sketches/sketch7";
-// import Sketch8 from "./sketches/sketch8";
-// import Sketch9 from "./sketches/sketch9";
-// import Sketch10 from "./sketches/sketch10";
+import Sketch2 from "./sketches/sketch2";
+import Sketch3 from "./sketches/sketch3";
+import Sketch5 from "./sketches/sketch5";
+import Sketch4 from "./sketches/sketch4";
+import Sketch6 from "./sketches/sketch6";
+import Sketch7 from "./sketches/sketch7";
+import Sketch8 from "./sketches/sketch8";
+import Sketch9 from "./sketches/sketch9";
+import Sketch10 from "./sketches/sketch10";
 import Sketch11 from "./sketches/sketch11";
 import LoginForm from "../../components/login/loginForm";
 import { BracketItem } from "../../components/bracketItem/bracketItem";
@@ -20,12 +20,20 @@ export default function Home() {
   const { user } = useAuth();
   const [showLogin, setShowLogin] = useState(false);
   const [Sketch] = useState(() => {
-    // const sketchArr = [Sketch2, Sketch3, Sketch4, Sketch5, Sketch6, sketch7, sketch8, sketch9];
-    const sketchArr = [Sketch11];
+    const sketchArr = [
+      Sketch2,
+      Sketch3,
+      Sketch4,
+      Sketch5,
+      Sketch6,
+      Sketch7,
+      Sketch8,
+      Sketch9,
+      Sketch10,
+      Sketch11,
+    ];
     return sketchArr[Math.floor(Math.random() * sketchArr.length)];
   });
-
-  const [uitlegOpen, setUitlegOpen] = useState(false);
 
   const displayName = user?.user_metadata?.first_name || user?.email || "";
 
@@ -40,47 +48,34 @@ export default function Home() {
         </h1>
       </div>
 
-      {/* <button
-        onClick={() => setUitlegOpen(!uitlegOpen)}
-        className={style.uitlegBtn}
-      >
-        <BracketItem>
-          {uitlegOpen ? t("home.closeExplanation") : t("home.openExplanation")}
-        </BracketItem>
-      </button> */}
-
       <div className={style.content}>
-        {uitlegOpen && (
-          <div className={style.generalExplan}>
-            <div className={style.startEx}>
-              <div className={style.text}>
-                {t("home.intro1")}
-                <br />
-                <br />
-                {t("home.intro2")}
-              </div>
+        <div className={style.generalExplan}>
+          <div className={style.startEx}>
+            <div className={style.text}>
+              {t("home.intro1")}
+              <br />
+              <br />
+              {t("home.intro2")}
             </div>
-            <br />
-            <br />
-            <div className={style.columns}>
-              <div className={style.left}>
-                {t("home.oefeningenExplanation")}
-              </div>
-              <div className={style.right}>
-                {t("home.createExplanation")}
-                <div className={style.sketchExplanation}>
-                  {t("home.howItWorks")}
-                  <ol>
-                    <li>{t("home.step1")}</li>
-                    <li>{t("home.step2")}</li>
-                    <li>{t("home.step3")}</li>
-                    <li>{t("home.step4")}</li>
-                  </ol>
-                </div>
+          </div>
+          <br />
+          <br />
+          <div className={style.columns}>
+            <div className={style.left}>{t("home.oefeningenExplanation")}</div>
+            <div className={style.right}>
+              {t("home.createExplanation")}
+              <div className={style.sketchExplanation}>
+                {t("home.howItWorks")}
+                <ol>
+                  <li>{t("home.step1")}</li>
+                  <li>{t("home.step2")}</li>
+                  <li>{t("home.step3")}</li>
+                  <li>{t("home.step4")}</li>
+                </ol>
               </div>
             </div>
           </div>
-        )}
+        </div>
 
         {!user && (
           <button className={style.loginBtn} onClick={() => setShowLogin(true)}>

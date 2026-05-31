@@ -6,7 +6,6 @@
 .alles {
   padding: 20px;
   text-align: center;
-  margin-top: 10%;
   position: relative;
   flex: 1;
   width: 100%;
@@ -121,6 +120,7 @@ input {
 
 .welcome h1 {
   color: white;
+  mix-blend-mode: difference;
 }
 
 .content {
@@ -130,11 +130,16 @@ input {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: white;
-  pointer-events: none;
   gap: 16px;
-  width: 100%;
+  width: fit-content;
+
+  border-radius: 36px;
+  pointer-events: all;
+  color: rgb(0, 0, 0);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   mix-blend-mode: difference;
+  filter: invert(1);
 }
 
 .loginBtn {
@@ -200,38 +205,20 @@ input {
 
 .generalExplan {
   width: 50vw;
-  border: solid white 5px;
-  isolation: isolate;
   position: relative;
-  color: white;
   font-size: smaller;
   line-height: normal;
   font-weight: bold;
   padding: 2%;
   z-index: 1;
-  border-radius: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 
   box-sizing: border-box !important;
-  max-width: 100% !important;
-  margin-left: 0 !important;
-  margin-right: 0 !important;
   padding-left: 2% !important;
   padding-right: 2% !important;
-
-  &::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: 15px;
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    background: rgba(142, 142, 142, 0.3);
-    z-index: -1;
-  }
 }
 
 .startEx {

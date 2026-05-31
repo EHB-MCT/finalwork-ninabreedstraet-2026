@@ -64,8 +64,6 @@
 }
 
 .floater {
-  // position: fixed;
-  // top: 28px;
   height: 100%;
   z-index: 100;
   display: flex;
@@ -73,8 +71,6 @@
   align-items: center;
   gap: 0.4rem;
   padding: 1vw 2vw;
-  // background: rgb(0, 0, 0);
-  // border: 5px solid #ffffff;
   border-radius: 36px;
 
   cursor: pointer;
