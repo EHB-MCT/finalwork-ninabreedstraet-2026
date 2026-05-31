@@ -3,7 +3,7 @@ import type {
   SketchParam,
   ParamValues,
 } from "../../../pages/Maken/sketches.tsx";
-import { ParamControl } from "./paramcontrol";
+import { ParamControl } from "./paramcontrol.tsx";
 import styles from "./AccordionPanel.module.scss";
 import { useTranslation } from "react-i18next";
 
