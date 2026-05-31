@@ -37,6 +37,10 @@ export function useSketch(
       p5Ref.current.remove();
       p5Ref.current = null;
     }
+    // Herstelt het React canvas als het verborgen werd door p5
+    if (canvasRef.current) {
+      canvasRef.current.style.display = "";
+    }
   }, []);
 
   const run = useCallback(

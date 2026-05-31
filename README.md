@@ -71,3 +71,4 @@
 - https://stackoverflow.com/questions/30469261/checking-for-typeof-error-in-js
 - https://supabase.com/docs/reference/javascript/upsert
 - https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Values/filter-function/invert
+- https://claude.ai/share/7e26454e-ef77-4193-8674-a21fbdf49f34 (switch sketches liep vast)
