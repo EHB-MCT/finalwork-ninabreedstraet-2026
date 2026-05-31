@@ -16,87 +16,67 @@
   font-family: "Helvetica";
   src: url("/Fonts/Helvetica.ttf");
 }
+
 .alles {
+  position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100vw;
+  width: 100%;
   font-family: "Tomorrow", sans-serif;
+  margin: 2% 0;
 }
 
-.background {
- position: fixed;  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 49.5%;
-  height: 75px;
-  border-radius: 37px;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  z-index: 998;
+.effects {
+  position: absolute;
+  right: 3%;
+  display: flex;
+  gap: 2%;
 }
 
 .nav {
-  position: fixed;
-  top: 20px;
-  left: 50%;
-  transform: translateX(-50%);
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 3rem;
-  z-index: 999;
-  padding: 1% 2%;
-  width: 45%;
+  z-index: 1;
+  padding: 1vw 2vw;
+  top: 2%;
+  width: 45vw;
   border-radius: 36px;
-  overflow-y: scroll;
   pointer-events: all;
-  border: 5px solid white;
-  background-color: black;
-  color: white;
+  color: rgb(0, 0, 0);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   mix-blend-mode: difference;
-  isolation: isolate;
+  filter: invert(1);
+  height: 2rem;
 }
 
 .footerContainer {
   position: relative;
-  width: 100%;
+  width: 90%;
+  padding: 5%;
 }
 
 .footer {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 2%;
-  color: white;
   text-align: center;
   border-top: none;
-  margin-top: 5%;
   z-index: 999;
   position: relative;
-  background: rgba(255, 255, 255, 0.11);
-  backdrop-filter: blur(4.4px);
-  -webkit-backdrop-filter: blur(4.4px);
+  border-radius: 56px;
 
-  box-sizing: border-box !important;
-  width: 100% !important;
-  max-width: 100% !important;
-  margin-left: 0 !important;
-  margin-right: 0 !important;
-  padding-left: 2% !important;
-  padding-right: 2% !important;
-}
-
-.footerLine {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 10px;
-  background: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   mix-blend-mode: difference;
-  z-index: 1000;
-  opacity: 100;
+  filter: invert(1);
+
+  margin: 2%;
 }
 
 .footerlinks {
@@ -104,11 +84,9 @@
   flex-direction: row;
   justify-content: flex-end;
   font-family: "Helvetica";
-  color: white;
   gap: 6%;
   list-style: none;
   text-decoration: none;
-  mix-blend-mode: normal;
 }
 
 .copyright {

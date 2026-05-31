@@ -310,5 +310,16 @@
     "tooShort": "Password must be at least 6 characters.",
     "success": "Password changed! You will be redirected...",
     "invalidLink": "Invalid or expired link."
+  },
+  "maken": {
+    "uitleg": "Explanation",
+    "werken": "This is how it works:",
+    "een": "Choose an example from the list.",
+    "twee": "Click on ▶ next to a parameter to view the corresponding code.",
+    "drie": "Want to see everything? Click on 'Show the whole code' at the bottom.",
+    "vier": "Create your own visuals!",
+    "code": "Show the whole code",
+    "opslaan": "Save this animation",
+    "voorbeelden": "Examples"
   }
 }

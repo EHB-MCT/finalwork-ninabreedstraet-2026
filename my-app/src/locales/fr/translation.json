@@ -310,5 +310,16 @@
     "tooShort": "Le mot de passe doit contenir au moins 6 caractères.",
     "success": "Mot de passe modifié ! Vous allez être redirigé...",
     "invalidLink": "Lien invalide ou expiré."
+  },
+  "maken": {
+    "uitleg": "Explication",
+    "werken": "Voilà comment ça fonctionne:",
+    "een": "Choisissez un exemple dans la liste.",
+    "twee": "Cliquez sur ▶ à côté d'un paramètre pour afficher le code correspondant.",
+    "drie": "Vous voulez tout voir ? Cliquez sur « Afficher le code complet » en bas.",
+    "vier": "Créez vos propres visualisations !",
+    "code": "Afficher le code complet",
+    "opslaan": "Enregistrez cet animation",
+    "voorbeelden": "Des Exemples"
   }
 }

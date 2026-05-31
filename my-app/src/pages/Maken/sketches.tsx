@@ -1152,7 +1152,7 @@ for (const d of state.dots) {
         codeSnippet: `for (let i = 0; i < num; i++) {
   for (let j = 0; j < num; j++) {
     for (let k = 0; k < num; k++) {
-      // ...
+      // Hier staat de rest van de code normaal gezien, die kan je zien als je op de knop 'Toon heel de code' klikt.
     }
   }
 }`,

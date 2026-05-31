@@ -26,20 +26,65 @@ export function BgEffect() {
     [active],
   );
 
+  // return (
+  //   <>
+  //     {/* dit wordt enkel gerenderd als de state 'open' is */}
+  //     {open && (
+  //       <>
+  //         {/* setOverlay is een onzichtbare laag, als je buiten het dropdown menu klikt, sluit het menu */}
+  //         <div className={style.overlay} onClick={() => setOpen(false)} />
+  //         <div className={style.dropdown}>
+  //           {COLORS.map((color) => (
+  //             <button
+  //               key={color.value}
+  //               // krijgt sowieso dropdownItem als class, en ook dropdownItemActive als die momenteel actief is
+  //               className={`${style.dropdownItem} ${active === color.value ? style.dropdownItemActive : ""}`}
+  //               // bij klikken wordt de gekozen kleur de achtergrondkleur en sluit het menu
+  //               onClick={() => {
+  //                 setActive(color.value);
+  //                 setOpen(false);
+  //               }}
+  //             >
+  //               {color.label}
+  //             </button>
+  //           ))}
+  //         </div>
+  //       </>
+  //     )}
+
+  //     {/* de omgekeerde waarde wordt opgeslagen, dus als het dicht is, en je klikt, dan wordt open opgeslagen en gaat het menu terug open */}
+  //     <div className={style.background}></div>
+  //     <div className={style.floater} onClick={() => setOpen((v) => !v)}>
+  //       <span
+  //         className={style.activeSwatch}
+  //         style={{ backgroundColor: active }}
+  //       />
+  //       ▾
+  //     </div>
+  //   </>
+  // );
+
   return (
-    <>
-      {/* dit wordt enkel gerenderd als de state 'open' is */}
-      {open && (
-        <>
-          {/* setOverlay is een onzichtbare laag, als je buiten het dropdown menu klikt, sluit het menu */}
-          <div className={style.overlay} onClick={() => setOpen(false)} />
+    <div className={style.wrapper}>
+      {open && <div className={style.overlay} onClick={() => setOpen(false)} />}
+
+      <div className={style.floaterBox}>
+        <div className={style.floater} onClick={() => setOpen((v) => !v)}>
+          <span
+            className={style.activeSwatch}
+            style={{ backgroundColor: active }}
+          />
+          ▾
+        </div>
+
+        {open && (
           <div className={style.dropdown}>
             {COLORS.map((color) => (
               <button
                 key={color.value}
-                // krijgt sowieso dropdownItem als class, en ook dropdownItemActive als die momenteel actief is
-                className={`${style.dropdownItem} ${active === color.value ? style.dropdownItemActive : ""}`}
-                // bij klikken wordt de gekozen kleur de achtergrondkleur en sluit het menu
+                className={`${style.dropdownItem} ${
+                  active === color.value ? style.dropdownItemActive : ""
+                }`}
                 onClick={() => {
                   setActive(color.value);
                   setOpen(false);
@@ -49,18 +94,8 @@ export function BgEffect() {
               </button>
             ))}
           </div>
-        </>
-      )}
-
-      {/* de omgekeerde waarde wordt opgeslagen, dus als het dicht is, en je klikt, dan wordt open opgeslagen en gaat het menu terug open */}
-      <div className={style.background}></div>
-      <div className={style.floater} onClick={() => setOpen((v) => !v)}>
-        <span
-          className={style.activeSwatch}
-          style={{ backgroundColor: active }}
-        />
-        ▾
+        )}
       </div>
-    </>
+    </div>
   );
 }

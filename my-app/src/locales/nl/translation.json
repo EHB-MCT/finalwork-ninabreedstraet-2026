@@ -310,5 +310,16 @@
     "tooShort": "Wachtwoord moet minimaal 6 tekens bevatten.",
     "success": "Wachtwoord gewijzigd! Je wordt doorgestuurd...",
     "invalidLink": "Ongeldige of verlopen link."
+  },
+  "maken": {
+    "uitleg": "Uitleg",
+    "werken": "Zo werkt het:",
+    "een": "Kies een voorbeeld uit de lijst.",
+    "twee": "Klik op ▶ naast een parameter om de bijbehorende code te bekijken.",
+    "drie": "Wil je alles zien? Klik op 'Toon de hele code' onderaan.",
+    "vier": "Maak je eigen visuals!",
+    "code": "Toon de hele code",
+    "opslaan": "Deze visual opslaan",
+    "voorbeelden": "Voorbeelden"
   }
 }

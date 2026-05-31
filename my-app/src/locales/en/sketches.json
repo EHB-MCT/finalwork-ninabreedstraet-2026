@@ -1,0 +1,199 @@
+{
+  "sketches": {
+    "pixelsort": {
+      "name": "Pixel Sorting",
+      "desc": "Pixels are sorted by brightness column by column.",
+      "params": {
+        "threshold": {
+          "label": "threshold",
+          "explanation": "const bn = (d[i]*299 + d[i+1]*587 + d[i+2]*114) / 1000 / 2.55 calculates how bright a pixel is — a number between 0 (black) and 100 (white).<br/><br/>d is the list of all pixel values of the image, stored earlier as state.d. It is simply a long row of numbers where every 4 numbers together represent one pixel.<br/><br/>d[i] is the red value of the pixel, d[i+1] the green and d[i+2] the blue. Every pixel in the array has 4 slots next to each other: red, green, blue and transparency. The numbers 299, 587 and 114 are weights that determine how much each color contributes to the brightness. Green counts the most because our eye is most sensitive to it.<br/><br/>if (bn > threshold) break: This is an if-statement. If the pixel is too bright, stop going further. y++: Move one pixel down."
+        },
+        "image": {
+          "label": "image",
+          "explanation": "new Image() creates an empty image object in the browser and img.src = image tells it which image to load by setting the URL.<br/><br/>An object is a container for multiple values that belong together, grouped under one name."
+        }
+      }
+    },
+    "gradient": {
+      "name": "Gradient",
+      "desc": "Smooth color circles follow your mouse and repel each other on a gradient background.",
+      "params": {
+        "color1": {
+          "label": "color 1",
+          "explanation": "hexToRgb is a function that splits a hex color like #FF8A00 into three separate numbers: red, green and blue. Those three numbers are returned as a list [r, g, b].<br/><br/>colorAt(x) returns the color at a given x-position on the screen. The screen has three colors (color1, color2, color3) that smoothly blend into each other from left to right.<br/><br/>const amt = Math.max(0, Math.min(1, x / W)) calculates how far across the screen you are as a number between 0 and 1. Far left is 0, far right is 1.<br/><br/>If you are in the left half of the screen, you blend between color 1 and color 2. In the right half you blend between color 2 and color 3."
+        },
+        "color2": {
+          "label": "color 2",
+          "explanation": "hexToRgb is a function that splits a hex color like #FF8A00 into three separate numbers: red, green and blue. Those three numbers are returned as a list [r, g, b].<br/><br/>colorAt(x) returns the color at a given x-position on the screen. The screen has three colors (color1, color2, color3) that smoothly blend into each other from left to right.<br/><br/>const amt = Math.max(0, Math.min(1, x / W)) calculates how far across the screen you are as a number between 0 and 1. Far left is 0, far right is 1.<br/><br/>If you are in the left half of the screen, you blend between color 1 and color 2. In the right half you blend between color 2 and color 3."
+        },
+        "color3": {
+          "label": "color 3",
+          "explanation": "hexToRgb is a function that splits a hex color like #FF8A00 into three separate numbers: red, green and blue. Those three numbers are returned as a list [r, g, b].<br/><br/>colorAt(x) returns the color at a given x-position on the screen. The screen has three colors (color1, color2, color3) that smoothly blend into each other from left to right.<br/><br/>const amt = Math.max(0, Math.min(1, x / W)) calculates how far across the screen you are as a number between 0 and 1. Far left is 0, far right is 1.<br/><br/>If you are in the left half of the screen, you blend between color 1 and color 2. In the right half you blend between color 2 and color 3."
+        },
+        "circleCount": {
+          "label": "number of circles",
+          "explanation": "state.circleCount = circleCount stores the current number of circles in the project so the code can later check whether the number has changed.<br/><br/>Array.from({ length: circleCount }, (_, i) => ...) creates a list of the number of circles the user has specified. For each item the function is executed, where i is the index (0, 1, 2...). The _ is an empty argument we do not use.<br/><br/>const angle = (i / circleCount) * Math.PI * 2 distributes a full circle evenly across all circles. With 4 circles they get angles 0°, 90°, 180° and 270°.<br/><br/>return { x, y, r, ox, oy } creates an object for each circle with 5 properties: x and y are the starting position, r is the radius (size), ox and oy is the offset from mouse or collisions, starting at 0.<br/><br/>An object is a container for multiple values that belong together, grouped under one name."
+        },
+        "blurAmount": {
+          "label": "blurriness",
+          "explanation": "Normally you apply a blur effect in CSS styling, but in this programming language it is applied to the context of the canvas. That is what ctx refers to. By adding a dot and referencing the filter, you specify which filter should be applied to the context/canvas.<br/><br/>Using blur(10px) applies a blur effect to the 10 pixels at the edges of each circle. The dollar sign and curly braces are used to insert a value into a string. Without that syntax, writing the word 'size' in the code would not be recognized."
+        }
+      }
+    },
+    "grid": {
+      "name": "Grid",
+      "desc": "A grid of rounded rectangles that shrink as the mouse gets closer.",
+      "params": {
+        "spacing": {
+          "label": "grid size",
+          "explanation": "With const you indicate that you want to link a value, like a number or a color, to a specific word, making it easier to reference later in the code.<br/><br/>W / spacing calculates how many cells fit horizontally. If the screen is 800px wide and spacing is 20, that is 40. Math.floor rounds that down because you cannot have half a cell.<br/><br/>The same applies to rows but vertically using the height H.<br/><br/>The spacing is what the user adjusts with the slider."
+        },
+        "scale": {
+          "label": "sensitivity",
+          "explanation": "With const you indicate that you want to link a value to a specific word, making it easier to reference later in the code.<br/><br/>You link the word 'size' to the effective size of the cells, calculated with: Math.max(4, maxSize * Math.min(1, dist / (scale * 2)))<br/><br/>dist / (scale * 2) calculates how far the mouse is as a ratio. When the mouse is very close, this is a small number. Far away gives a large number. Scale is what the user sets with the slider.<br/><br/>Math.min(1, ...) ensures that ratio never exceeds 1, otherwise the square would be larger than the cell itself.<br/><br/>cell = the space reserved in the grid for one element, determined by spacing.<br/>square = the white rounded square drawn within that cell, determined by size.<br/><br/>maxSize * ... multiplies that ratio by the maximum cell size to get the actual size in pixels.<br/><br/>Math.max(4, ...): the result can never be less than 4 pixels, otherwise the square would be nearly invisible."
+        }
+      }
+    },
+    "ascii": {
+      "name": "ASCII",
+      "desc": "An image converted to ASCII characters based on brightness.",
+      "params": {
+        "size": {
+          "label": "character size",
+          "explanation": "Since the image is built up from characters like the ones we see on our keyboard, we can set the size of the characters simply by setting the font size.<br/><br/>That is what you see here. You also see many '\\' characters and dollar signs and curly braces.<br/><br/>The dollar sign and curly braces are used to insert a value into a string. Without that syntax, writing the word 'size' in the code would not be recognized."
+        },
+        "charset": {
+          "label": "character style",
+          "explanation": "charsets is a list of 3 different sets of characters, arranged from dark to light.<br/><br/>Those characters are later used to represent pixels as ASCII art.<br/><br/>charsets[Math.min(Math.floor(charset), 2)] picks one of those three sets based on 'charset'.<br/><br/>Charset is what the user specifies: either 0, 1 or 2, where 0 represents the first option.<br/><br/>charsets[...] uses that number to retrieve the correct set from the list, for example charsets[0] gives the first set.<br/><br/>Math.floor rounds the number down and Math.min(..., 2) ensures you never go above index 2 (since the list has only 3 items: 0, 1 and 2)."
+        },
+        "color1": {
+          "label": "text color",
+          "explanation": "ctx stands for 'context'. You are telling the context that its fillStyle should be color1. Color1 represents the color the user selects with the slider."
+        },
+        "image": {
+          "label": "image",
+          "explanation": "new Image() creates an empty image object in the browser and img.src = image tells it which image to load by setting the URL.<br/><br/>An object is a container for multiple values that belong together, grouped under one name."
+        }
+      }
+    },
+    "dottext": {
+      "name": "Dot Text",
+      "desc": "Type a word and watch it appear as dots that react to your mouse.",
+      "params": {
+        "spacing": {
+          "label": "dot size",
+          "explanation": "Here you set dots equal to the actual dots that will appear on the screen. By linking the word to it, it becomes easier to reference later in the code.<br/><br/>buildDots is the function that creates the dots. This function needs two things: the word the dots should form and the size of the dots.<br/><br/>You also see two for-loops. You use for-loops when you want certain elements to repeat. For a row of cells you use one for-loop. For a grid you use two for-loops inside each other, so vertical rows also repeat horizontally.<br/><br/>In the first for-loop you can clearly see y and in the second one x. W and H stand for width and height."
+        },
+        "mouseRadius": {
+          "label": "mouse radius",
+          "explanation": "Here we calculate the influence the mouse has on the dots. By 'influence' we mean how large the area under the mouse is where the dots grow bigger.<br/><br/>dist is the distance between the dot and the mouse. mouseRadius is set by the user with the slider and determines how large that area is.<br/><br/>dist / mouseRadius calculates how far the mouse is as a ratio: when the mouse is at the edge of the circle that is 1, when it is in the center that is 0.<br/><br/>By putting 1 - in front you reverse that: close to the mouse = high influence, far away = low influence.<br/><br/>Math.max(0, ...) ensures that the influence never becomes negative when the mouse is outside the circle."
+        },
+        "maxGrow": {
+          "label": "max growth",
+          "explanation": "With const you indicate that you want to link a value to a specific word, making it easier to reference later in the code.<br/><br/>Here we calculate the target radius. d.baseR is the normal radius of the dots that make up the letters, influence is the effect the mouse has, and maxGrow is what the user sets with the sliders — it refers to the maximum size of the dots.<br/><br/>You multiply influence by maxGrow to calculate how much the dot grows based on how close the mouse is, then add the base size of the dot."
+        },
+        "color1": {
+          "label": "color",
+          "explanation": "With const you indicate that you want to link a value to a specific word.<br/><br/>Here you see a const with r, g and b, which stand for red, green and blue.<br/><br/>Color1 represents the value the user selects with the slider. A color value can be represented in different ways. The slider provides a value like: #FF8A00.<br/><br/>In this code we need a color value like rgb(255, 138, 0), where the first value is the amount of red, the second is green, and so on.<br/><br/>First we apply a slice function to the color value we receive from the slider. This means a specific part is cut, copied or selected from the whole.<br/><br/>Then we apply a parse function that converts the selected values, which are still hexadecimal (0 1 2 3 4 5 6 7 8 9 A B C D E F), into a regular decimal number."
+        },
+        "text": {
+          "label": "text",
+          "explanation": "The word text represents the word that is typed. You refer to it in the code as 'word', making it easy to use throughout the code.<br/><br/>You do the same for the spacing between the dots.<br/><br/>Then you call the function that sets up the dots, passing the word and the spacing."
+        }
+      }
+    },
+    "grid3d": {
+      "name": "3D Grid",
+      "desc": "A 3D grid of shapes that grow larger the closer they are to the center. Rotate with your mouse.",
+      "params": {
+        "num": {
+          "label": "count",
+          "explanation": "Here you use three nested for-loops to create a 3D grid. The first loop goes along the x-axis, the second along the y-axis and the third along the z-axis.<br/><br/>num determines how many shapes appear on each axis. If num is 5, you get 5×5×5 = 125 shapes in total."
+        },
+        "divider": {
+          "label": "ratio",
+          "explanation": "distance is how far a shape is from the center point.<br/><br/>By dividing that distance by divider you determine how quickly the shapes shrink towards the edges. A larger value = shapes shrink more slowly."
+        },
+        "shape": {
+          "label": "shape",
+          "explanation": "shapes is a list of all available 3D shapes. Based on the number the user selects via the slider, the corresponding shape is chosen.<br/><br/>Math.floor ensures the number is always rounded down so you always get a valid index."
+        },
+        "material": {
+          "label": "material",
+          "explanation": "The material determines how light reflects off the shapes.<br/><br/>normalMaterial colors each side based on its direction. ambientMaterial responds to ambient light. specularMaterial adds shiny highlights. emissiveMaterial emits light on its own, independent of light sources."
+        }
+      }
+    },
+    "tilemirror": {
+      "name": "Tile Mirror",
+      "desc": "An image is divided into tiles that are mirrored or randomly rotated based on your mouse position.",
+      "params": {
+        "size": {
+          "label": "tile size",
+          "explanation": "size determines how large each tile is in pixels. The image is divided into a grid of tiles of size × size pixels.<br/><br/>cols and rows calculate how many tiles fit horizontally and vertically. img.get() then cuts each piece from the original image."
+        },
+        "mode": {
+          "label": "mode",
+          "explanation": "There are 5 modes (0–4):<br/><br/>0 = normal, each tile is upright.<br/>1 = horizontally mirrored with p.scale(-1, 1).<br/>2 = vertically mirrored with p.scale(1, -1).<br/>3 = both axes mirrored.<br/>4 = mouse mode: tiles to the right of your mouse get a random rotation (0°, 90°, 180° or 270°), tiles on the left stay normal.<br/><br/>p.scale() mirrors by using a negative scale factor. You then need to offset the image with a negative value so it ends up in the correct position."
+        },
+        "image": {
+          "label": "image",
+          "explanation": "p.loadImage() loads the image asynchronously. The second parameter is a callback function that is called once the image has finished loading.<br/><br/>Only then is state.ready set to true so the rest of the code knows the tiles can be created."
+        }
+      }
+    },
+    "metaballs": {
+      "name": "Metaballs",
+      "desc": "Moving bubbles create fluid shapes via marching squares. The lines react to your mouse.",
+      "params": {
+        "bubbleCount": {
+          "label": "number of bubbles",
+          "explanation": "With a for-loop we create a list of bubbles. Each bubble has a random starting position (x, y), a radius r that determines how strongly it influences nearby points, and a velocity (vx, vy) to move.<br/><br/>p.random() returns a random number between the two given values."
+        },
+        "strokeSize": {
+          "label": "line thickness",
+          "explanation": "p.strokeWeight() sets the thickness of the lines in pixels. The larger the number, the thicker the outlines of the metaballs."
+        },
+        "color1": {
+          "label": "color 1",
+          "explanation": "The three colors are used as anchor points for a color gradient across the outlines. gradientAt(t) calculates the color at position t (between 0 and 1).<br/><br/>From t=0 to t=0.5 the color runs from color 1 to color 2, from t=0.5 to t=1 from color 2 to color 3. lerpRgb blends two colors smoothly."
+        },
+        "color2": {
+          "label": "color 2",
+          "explanation": "The three colors are used as anchor points for a color gradient across the outlines. gradientAt(t) calculates the color at position t (between 0 and 1).<br/><br/>From t=0 to t=0.5 the color runs from color 1 to color 2, from t=0.5 to t=1 from color 2 to color 3. lerpRgb blends two colors smoothly."
+        },
+        "color3": {
+          "label": "color 3",
+          "explanation": "The three colors are used as anchor points for a color gradient across the outlines. gradientAt(t) calculates the color at position t (between 0 and 1).<br/><br/>From t=0 to t=0.5 the color runs from color 1 to color 2, from t=0.5 to t=1 from color 2 to color 3. lerpRgb blends two colors smoothly."
+        }
+      }
+    },
+    "spirograph": {
+      "name": "Spirograph",
+      "desc": "Rotating rectangles and dots create a hypnotic pattern that moves with time.",
+      "params": {
+        "layers": {
+          "label": "layers",
+          "explanation": "Two nested for-loops draw a grid of shapes. The outer loop (i) determines the layer: each layer is a slightly smaller rectangle with a different rotation angle.<br/><br/>The inner loop (j) draws a row of dots on each layer at position (i, j). Together they create the spiral effect.<br/><br/>More layers = more detail but also heavier for the browser."
+        },
+        "baseSize": {
+          "label": "base size",
+          "explanation": "baseSize determines how large the outermost rectangle is. Each subsequent layer (i) gets 3 pixels smaller per step: baseSize - i * 3.<br/><br/>The third and fourth parameters of p.rect() are the width and height. The fifth parameter is the corner rounding, which also decreases per layer: 200 - i."
+        },
+        "speed": {
+          "label": "speed",
+          "explanation": "p.frameCount automatically counts how many frames have been drawn since the start. Multiplying this by speed makes the animation rotate faster.<br/><br/>p.sin() returns a wave value between -1 and 1, which creates the rotating motion. The higher the speed, the faster that wave moves."
+        },
+        "rotationStrength": {
+          "label": "rotation strength",
+          "explanation": "p.rotate() rotates the drawing plane by a certain angle before the rectangle is drawn. That angle is the result of p.sin() (a number between -1 and 1) multiplied by rotationStrength.<br/><br/>A higher value = the rectangles rotate further from their starting position, creating a wilder pattern. At low values they stay nearly straight."
+        }
+      }
+    },
+    "particles": {
+      "name": "Particles",
+      "desc": "Particle systems follow your mouse.",
+      "params": {}
+    }
+  }
+}

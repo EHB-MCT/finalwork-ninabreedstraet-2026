@@ -7,6 +7,7 @@ import { CodeModal } from "./codeModal";
 import { saveProject } from "./projectService";
 import styles from "./AccordionPanel.module.scss";
 import type { AccordionPanelProps } from "./types";
+import { useTranslation } from "react-i18next";
 
 export function AccordionPanel({
   activeId,
@@ -23,6 +24,8 @@ export function AccordionPanel({
   const [codeModalOpen, setCodeModalOpen] = useState(false);
   const [editableCode, setEditableCode] = useState("");
   const [projectName, setProjectName] = useState("");
+
+  const { t } = useTranslation();
 
   // alle logica van een aparte hook halen, zo blijft dit bestand overzichtelijk
   const {
@@ -62,14 +65,13 @@ export function AccordionPanel({
       {/* Sketch selector */}
       <div className={styles.sketchSelect}>
         <div className={styles.sketchExplanation}>
-          Zo werkt het:
+          {t("maken.werken")}
+
           <ol>
-            <li>Kies een voorbeeld uit de lijst.</li>
-            <li>
-              Klik op ▶ naast een parameter om de bijbehorende code te bekijken.
-            </li>
-            <li> Wil je alles zien? Klik op "Toon de hele code" onderaan.</li>
-            <li>Maak je eigen visuals!</li>
+            <li> {t("maken.een")}</li>
+            <li>{t("maken.twee")}</li>
+            <li>{t("maken.drie")}</li>
+            <li>{t("maken.vier")}</li>
           </ol>
         </div>
         {/* Dropdown menu waarmee je tussen de sketches kan kiezen: */}
@@ -84,7 +86,7 @@ export function AccordionPanel({
             </option>
           ))}
         </select> */}
-        <span className={styles.sketchLabel}>Voorbeelden</span>
+        <span className={styles.sketchLabel}>{t("maken.voorbeelden")}</span>
         <div className={styles.sketchScrollWrapper}>
           {/* ipv een dropdown-menu een horizontaal menu met previewbeelden, 
           die beelden zitten ook in de database en hier wordt erover gemapt.
@@ -137,9 +139,9 @@ export function AccordionPanel({
           onChange={(e) => setProjectName(e.target.value)}
         />
         <button onClick={handleSave} disabled={!projectName.trim()}>
-          Deze visual opslaan
+          {t("maken.opslaan")}
         </button>
-        <button onClick={showCode}>Toon de hele code</button>
+        <button onClick={showCode}>{t("maken.code")}</button>
       </div>
 
       <CodeModal

@@ -16,15 +16,22 @@ export function LanguageSwitcher() {
     LANGUAGES.find((l) => l.value === i18n.language) ?? LANGUAGES[0];
 
   return (
-    <>
-      {open && (
-        <>
-          <div className={style.overlay} onClick={() => setOpen(false)} />
+    <div className={style.wrapper}>
+      {open && <div className={style.overlay} onClick={() => setOpen(false)} />}
+
+      <div className={style.floaterBox}>
+        <div className={style.floater} onClick={() => setOpen((v) => !v)}>
+          <span className={style.code}>{active.value.toUpperCase()}</span>▾
+        </div>
+
+        {open && (
           <div className={style.dropdown}>
             {LANGUAGES.map((lang) => (
               <button
                 key={lang.value}
-                className={`${style.dropdownItem} ${active.value === lang.value ? style.dropdownItemActive : ""}`}
+                className={`${style.dropdownItem} ${
+                  active.value === lang.value ? style.dropdownItemActive : ""
+                }`}
                 onClick={() => {
                   i18n.changeLanguage(lang.value);
                   setOpen(false);
@@ -34,12 +41,8 @@ export function LanguageSwitcher() {
               </button>
             ))}
           </div>
-        </>
-      )}
-      <div className={style.background}></div>
-      <div className={style.floater} onClick={() => setOpen((v) => !v)}>
-        <span className={style.code}>{active.value.toUpperCase()}</span>▾
+        )}
       </div>
-    </>
+    </div>
   );
 }

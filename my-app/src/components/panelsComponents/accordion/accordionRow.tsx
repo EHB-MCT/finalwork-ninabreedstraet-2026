@@ -1,7 +1,11 @@
 import type { JSX } from "react";
-import type { SketchParam, ParamValues } from "../../../pages/Maken/sketches.tsx";
+import type {
+  SketchParam,
+  ParamValues,
+} from "../../../pages/Maken/sketches.tsx";
 import { ParamControl } from "./paramcontrol";
 import styles from "./AccordionPanel.module.scss";
+import { useTranslation } from "react-i18next";
 
 // dit definieert wat dit component verwacht te ontvangen, zodat die kan functioneren
 // void betekent dat de functie niks teruggeeft, voor de rest wordt er verwezen naar de andere types die al gedefinieerd staan in de andere componenten
@@ -29,6 +33,7 @@ export function AccordionRow({
 }: Readonly<AccordionRowProps>): JSX.Element {
   // dit haalt de huidige waarde op van die specifieke parameter
   const value = params[param.name];
+  const { t } = useTranslation();
 
   // dit kijt of er een uitleg of code snippet is, zo ja, dan kan die uitklappen, zo nee, dan niet
   const hasDetails = param.explanation || param.codeSnippet;
@@ -73,10 +78,16 @@ export function AccordionRow({
               <code>{param.codeSnippet}</code>
             </pre>
           )}
-          <span className={styles.sketchLabel}>2. Uitleg</span>
+          <span className={styles.sketchLabel}>2. {t("maken.uitleg")}</span>
 
           {param.explanation && (
-            <div className={styles.explanation}>{param.explanation}</div>
+            <div className={styles.explanation}>
+              {typeof param.explanation === "string" ? (
+                <span dangerouslySetInnerHTML={{ __html: param.explanation }} />
+              ) : (
+                param.explanation
+              )}
+            </div>
           )}
         </div>
       )}

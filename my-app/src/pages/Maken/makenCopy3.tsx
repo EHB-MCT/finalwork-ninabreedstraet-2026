@@ -1,11 +1,11 @@
 import { useState, useRef, useEffect, useCallback } from "react";
 import { useSearchParams } from "react-router-dom";
 import { SKETCHES } from "./sketches";
+import { useLocalizedSketches } from "../../hooks/useTranslatedSketches";
+
 import type { ParamValues } from "./sketches";
 import { useSketch } from "../../hooks/useSketch";
 import { useTweakpane } from "../../hooks/useTweakpane";
-// import { NEWLeftPanel } from "../../components/NEWLeftPanel";
-// import { NEWRightPanel } from "../../components/NEWRightPanel";
 import { NEWRunBar } from "../../components/panelsComponents/runBar";
 import { getDefaultParams } from "./NEWhelpers";
 import styles from "./maken.module.scss";
@@ -13,8 +13,12 @@ import { supabase } from "../../lib/supabaseClient";
 import { AccordionPanel } from "../../components/panelsComponents/accordion/accordionPanel";
 
 export default function Maken() {
+  const localizedSketches = useLocalizedSketches();
+
   const [searchParams] = useSearchParams();
-  const initialId = searchParams.get("sketch") ?? SKETCHES[0].id;
+  // const initialId = searchParams.get("sketch") ?? SKETCHES[0].id;
+  const initialId = searchParams.get("sketch") ?? localizedSketches[0].id;
+
   const projectParam = searchParams.get("project");
 
   // Geheugen van het project, onthoudt wat de actieve parameter is die moet worden opgengeklapt bijvoorbeeld
@@ -24,11 +28,13 @@ export default function Maken() {
   );
   const [activeParam, setActiveParam] = useState<string | null>(null);
   const [params, setParams] = useState<ParamValues>(() => {
-    const sketch = SKETCHES.find((s) => s.id === initialId) ?? SKETCHES[0];
+    const sketch =
+      localizedSketches.find((s) => s.id === initialId) ?? localizedSketches[0];
     return getDefaultParams(sketch);
   });
   const [code, setCode] = useState(() => {
-    const sketch = SKETCHES.find((s) => s.id === initialId) ?? SKETCHES[0];
+    const sketch =
+      localizedSketches.find((s) => s.id === initialId) ?? localizedSketches[0];
     return sketch.code;
   });
   const [error, setError] = useState<string | null>(null);
@@ -41,7 +47,8 @@ export default function Maken() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const paneContainerRef = useRef<HTMLDivElement>(null);
 
-  const sketch = SKETCHES.find((s) => s.id === activeId) ?? SKETCHES[0];
+  const sketch =
+    localizedSketches.find((s) => s.id === activeId) ?? localizedSketches[0];
 
   useEffect(() => {
     paramsRef.current = params;
@@ -62,7 +69,7 @@ export default function Maken() {
         setParams(data.params);
         setCode(
           data.code ??
-            SKETCHES.find((s) => s.id === data.sketch_id)?.code ??
+            useLocalizedSketches.find((s) => s.id === data.sketch_id)?.code ??
             "",
         );
       });
@@ -163,33 +170,13 @@ export default function Maken() {
       </div>
 
       <div className={styles.top}>
-        {/* <NEWLeftPanel
-          activeId={activeId}
-          paneContainerRef={paneContainerRef}
-          onSwitchSketch={switchSketch}
-          onSave={handleSave}
-        />
-
-        <NEWRightPanel
-          codeTab={codeTab}
-          setCodeTab={setCodeTab}
-          sketch={sketch}
-          activeParam={activeParam}
-          setActiveParam={setActiveParam}
-          code={code}
-          setCode={setCode}
-          activeParamData={activeParamData}
-        /> */}
         <div className={styles.panelZone}>
-          <div className={styles.button}>
-            <div className={styles.background}></div>
-            <button
-              className={styles.panelToggle}
-              onClick={() => setPanelOpen((prev) => !prev)}
-            >
-              {panelOpen ? "Close panel" : "Open panel"}
-            </button>
-          </div>
+          <button
+            className={styles.panelToggle}
+            onClick={() => setPanelOpen((prev) => !prev)}
+          >
+            {panelOpen ? "Close panel" : "Open panel"}
+          </button>
           {panelOpen && (
             <AccordionPanel
               activeId={activeId}

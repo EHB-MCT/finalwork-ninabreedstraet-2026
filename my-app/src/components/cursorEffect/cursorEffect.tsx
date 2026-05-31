@@ -202,37 +202,39 @@ export function CursorEffectFloater() {
   const cfg = EFFECTS[active];
 
   return (
-    <>
-      {/* Canvas */}
+    <div className={style.wrapper}>
       <canvas ref={canvasRef} className={style.canvas} />
 
-      <div className={style.background}></div>
-      <div className={style.floater}>
-        {/* Dropdown menu */}
-        <div className={style.dropdownWrap} onClick={() => setOpen((v) => !v)}>
+      {open && <div className={style.overlay} onClick={() => setOpen(false)} />}
+
+      <div className={style.floaterBox}>
+        <div className={style.floater} onClick={() => setOpen((v) => !v)}>
           <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
             <path d="M4 0 L4 20 L8 16 L12 24 L14 23 L10 15 L16 15 Z" />
           </svg>
           ▾
-          {open && (
-            <div className={style.dropdown}>
-              {EFFECT_KEYS.map((key) => (
-                <button
-                  key={key}
-                  className={`${style.dropdownItem} ${active === key ? style.dropdownItemActive : ""}`}
-                  onClick={() => {
-                    setActive(key);
-                    setEnabled(true);
-                    setOpen(false);
-                  }}
-                >
-                  {EFFECTS[key].label}
-                </button>
-              ))}
-            </div>
-          )}
         </div>
+
+        {open && (
+          <div className={style.dropdown}>
+            {EFFECT_KEYS.map((key) => (
+              <button
+                key={key}
+                className={`${style.dropdownItem} ${
+                  active === key ? style.dropdownItemActive : ""
+                }`}
+                onClick={() => {
+                  setActive(key);
+                  setEnabled(true);
+                  setOpen(false);
+                }}
+              >
+                {EFFECTS[key].label}
+              </button>
+            ))}
+          </div>
+        )}
       </div>
-    </>
+    </div>
   );
 }

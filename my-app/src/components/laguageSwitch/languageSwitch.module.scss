@@ -13,20 +13,35 @@
   z-index: 99;
 }
 
+.wrapper {
+  height: 100%;
+  position: relative;
+}
+
+.floaterBox {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-end;
+  height: 100%;
+}
+
 .dropdown {
-  position: fixed;
-  top: 80px;
-  right: 192px;
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
   z-index: 100;
   border-radius: 0.5rem;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
   overflow: hidden;
-  min-width: 160px;
 
-  background: rgb(0, 0, 0);
-  border: 5px solid #ffffff;
-  mix-blend-mode: difference;
   font-family: "Tomorrow", sans-serif;
+
+  color: rgb(0, 0, 0);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  mix-blend-mode: difference;
+  filter: invert(1);
 }
 
 .dropdownItem {
@@ -41,60 +56,39 @@
   font-size: 0.9rem;
   text-align: left;
   font-family: "Tomorrow", sans-serif;
+  filter: invert(1);
 }
 
 .dropdownItemActive {
   font-weight: 600;
 }
 
-.background {
-  position: fixed;
-  top: 29px;
-  right: 192px;
-  width: 90px;
-  height: 42px;
-  border-radius: 37px;
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  z-index: 9;
-}
-
 .floater {
-  position: fixed;
-  top: 28px;
-  right: 192px;
+  // position: fixed;
+  // top: 28px;
+  height: 100%;
   z-index: 100;
   display: flex;
-  width: 60px;
+  width: 2vw;
   align-items: center;
   gap: 0.4rem;
-  padding: 0.3rem 0.6rem;
-  background: rgb(0, 0, 0);
-  border: 5px solid #ffffff;
+  padding: 1vw 2vw;
+  // background: rgb(0, 0, 0);
+  // border: 5px solid #ffffff;
   border-radius: 36px;
-  // &::before {
-  //   content: "[";
-  //   left: 0;
-  //   color: white;
-  //   font-size: 3em;
-  //   // transform: translateX(-4px);
-  // }
-  // &::after {
-  //   content: "]";
-  //   color: white;
-  //   right: 0;
-  //   font-size: 3em;
-  //   // transform: translateX(4px);
-  // }
+
   cursor: pointer;
   user-select: none;
-  mix-blend-mode: difference;
 
-  color: white;
   font-family: "Tomorrow", sans-serif;
   font-size: 0.95rem;
   font-weight: bold;
+
+  color: rgb(0, 0, 0);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  mix-blend-mode: difference;
+  filter: invert(1);
 }
 
 .flag {
