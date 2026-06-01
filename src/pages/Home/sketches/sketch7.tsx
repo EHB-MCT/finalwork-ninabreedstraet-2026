@@ -1,5 +1,5 @@
 //Bronnen:
-// - https://www.youtube.com/watch?v=tRU_MtSzDBk
+// - https://www.youtube.com/watch?v=fm78lZzW2hU
 
 import { useEffect, useRef } from "react";
 import p5 from "p5";
@@ -9,51 +9,78 @@ export default function Sketch7() {
 
   useEffect(() => {
     let p5Instance: p5;
-    let spacing = 25;
-    let number: p5.Element;
-    let divider: p5.Element;
+    let img: p5.Image;
+    let cols: number, rows: number;
+    let size = 20;
+    let tiles: p5.Image[][] = [];
+    let mode = 4;
 
     if (!sketchRef.current) return;
 
     const sketch = (p: p5) => {
+      let imgLoaded = false;
+
       p.setup = () => {
-        const canvas = p.createCanvas(p.windowWidth, p.windowHeight, p.WEBGL);
-        p.noStroke();
-        p.textureMode(p.IMAGE);
-
+        const canvas = p.createCanvas(p.windowWidth, p.windowHeight);
         canvas.parent(sketchRef.current!);
-        number = p.createSlider(1, 15, 5);
-        number.position(10, 10);
-        number.size(80);
+        cols = p.width / size;
+        rows = p.height / size;
+        p.loadImage("/Images/natuur.jpeg", (loadedImg) => {
+          img = loadedImg;
+          img.resize(p.windowWidth, 0);
+          imgLoaded = true;
+          cols = p.width / size;
+          rows = p.height / size;
 
-        divider = p.createSlider(1, 15, 5, 0.5);
-        divider.position(200, 10);
-        divider.size(80);
+          for (let i = 0; i < cols; i++) {
+            tiles[i] = [] as p5.Image[];
+            for (let j = 0; j < rows; j++) {
+              tiles[i][j] = img.get(i * size, j * size, size, size);
+            }
+          }
+        });
+
+        // p.redraw();
       };
 
       p.draw = () => {
-        let num = number.value() as number;
-        let d = divider.value() as number;
-        p.background(220);
+        if (!imgLoaded) return;
+        for (let i = 0; i < cols; i++) {
+          for (let j = 0; j < rows; j++) {
+            let x = i * size;
+            let y = j * size;
+            p.push();
+            p.translate(x, y);
 
-        p.orbitControl();
-
-        for (let i = 0; i < num; i++) {
-          for (let j = 0; j < num; j++) {
-            for (let k = 0; k < num; k++) {
-              p.push();
-              let offset = (-spacing * num) / 2 + spacing / 2;
-              let x = i * spacing + offset;
-              let y = j * spacing + offset;
-              let z = k * spacing + offset;
-              let distance = p.sqrt(p.pow(x, 2) + p.pow(y, 2) + p.pow(z, 2));
-              p.translate(x, y, z);
-              p.normalMaterial();
-              let sphereSize = spacing - distance / d;
-              p.sphere(sphereSize, 6, 6);
-              p.texture("");
-              p.pop();
+            if (mode === 0) {
+              if (imgLoaded) {
+                p.image(tiles[i][j], 0, 0);
+              }
+            } else if (mode === 1) {
+              if (imgLoaded) {
+                p.scale(-1, 1);
+                p.image(tiles[i][j], -size, 0);
+              }
+            } else if (mode === 2) {
+              if (imgLoaded) {
+                p.scale(1, -1);
+                p.image(tiles[i][j], 0, -size);
+              }
+            } else if (mode === 3) {
+              if (imgLoaded) {
+                p.scale(-1, -1);
+                p.image(tiles[i][j], -size, -size);
+              }
+            } else if (i > p.mouseX / size) {
+              p.translate(size / 2, size / 2);
+              let angle = (p.floor(p.random(4)) * p.PI) / 2;
+              p.rotate(angle);
+              p.image(tiles[i][j], -size / 2, -size / 2);
+            } else {
+              p.image(tiles[i][j], 0, 0);
             }
+
+            p.pop();
           }
         }
       };

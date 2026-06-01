@@ -1,133 +1,126 @@
 //Bronnen:
-// - https://www.youtube.com/watch?v=lPgscmgxcH0
+// - https://www.youtube.com/watch?v=AVMSCFMCz9w&t=328s
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import p5 from "p5";
 
-let r = 180;
-let angle = 0;
-let amt = 0;
-let startAngle = 0;
+let threshold = 80;
+let currentColumn = 0;
 
-interface Circle {
-  x: number;
-  y: number;
-  r: number;
-  offsetX: number;
-  offsetY: number;
-}
+function sortColumn(x: number, img: p5.Image, p: p5) {
+  let y = 0;
+  while (y < img.height) {
+    while (y < img.height) {
+      let index = (x + y * img.width) * 4;
+      let r = img.pixels[index + 0];
+      let g = img.pixels[index + 1];
+      let b = img.pixels[index + 2];
+      let bn = p.brightness(p.color(r, g, b));
 
-const circles: Circle[] = [
-  { x: 200, y: 200, r: 150, offsetX: 0, offsetY: 0 },
-  { x: 500, y: 400, r: 180, offsetX: 0, offsetY: 0 },
-  { x: 800, y: 200, r: 100, offsetX: 0, offsetY: 0 },
-  { x: 1100, y: 200, r: 160, offsetX: 0, offsetY: 0 },
-  { x: 800, y: 900, r: 160, offsetX: 0, offsetY: 0 },
-  { x: 1300, y: 200, r: 360, offsetX: 0, offsetY: 0 },
-  { x: 300, y: 900, r: 110, offsetX: 0, offsetY: 0 },
-];
+      if (bn > threshold) {
+        break;
+      }
+      y++;
+    }
 
-function setGradientBlock(
-  p: p5,
-  min: any,
-  max: number,
-  y: number,
-  h: any,
-  c1: p5.Color,
-  c2: p5.Color,
-) {
-  for (let i = min; i <= max; i++) {
-    let amt = p.map(i, min, max, 0, 1);
-    let c3 = p.lerpColor(c1, c2, amt);
-    p.stroke(c3);
-    p.line(i, y, i, y + h);
-  }
-}
+    let startY = y;
 
-function setGradientEllipse(
-  p: p5,
-  min: number,
-  max: number,
-  c1: p5.Color,
-  c2: p5.Color,
-) {
-  for (let i = min; i <= max; i += 2) {
-    let amt = p.map(i, min, max, 0, 1);
-    let c3 = p.lerpColor(c1, c2, amt);
-    p.stroke(c3);
-    let x = r * p.cos(i);
-    let y = r * p.sin(i);
-    p.line(0, 0, x, y);
-  }
-}
+    while (y < img.height) {
+      let index = (x + y * img.width) * 4;
+      let r = img.pixels[index + 0];
+      let g = img.pixels[index + 1];
+      let b = img.pixels[index + 2];
+      let bn = p.brightness(p.color(r, g, b));
 
-function getColorForPosition(
-  p: p5,
-  x: number,
-  y: number,
-  c1: p5.Color,
-  c2: p5.Color,
-  c3: p5.Color,
-): [number, number, number] {
-  // kleur op basis van x-positie
-  let amt = p.map(x, 0, p.width, 0, 1);
-  amt = p.constrain(amt, 0, 1);
-  let col: p5.Color;
-  if (amt < 0.5) {
-    col = p.lerpColor(c1, c2, amt * 2);
-  } else {
-    col = p.lerpColor(c2, c3, (amt - 0.5) * 2);
-  }
-  return [p.red(col), p.green(col), p.blue(col)];
-}
+      if (bn <= threshold) {
+        break;
+      }
+      y++;
+    }
 
-function drawBlurredCircle(
-  p: p5,
-  x: number,
-  y: number,
-  radius: number,
-  color: [number, number, number],
-) {
-  const ctx = p.drawingContext as CanvasRenderingContext2D;
+    let endY = y - 1;
 
-  ctx.save();
-  ctx.filter = "blur(20px)";
-  p.noStroke();
-  p.fill(color[0], color[1], color[2], 200);
-  p.ellipse(x, y, radius);
-  ctx.restore();
-}
+    if (startY < endY) {
+      let sortingArr = [];
+      for (let i = startY; i <= endY; i++) {
+        let index = (x + i * img.width) * 4;
+        let r = img.pixels[index + 0];
+        let g = img.pixels[index + 1];
+        let b = img.pixels[index + 2];
 
-function separateCircles(circles: Circle[]) {
-  for (let i = 0; i < circles.length; i++) {
-    for (let j = i + 1; j < circles.length; j++) {
-      const a = circles[i];
-      const b = circles[j];
-      const ax = a.x + a.offsetX;
-      const ay = a.y + a.offsetY;
-      const bx = b.x + b.offsetX;
-      const by = b.y + b.offsetY;
+        sortingArr.push(p.color(r, g, b));
+      }
+      sortingArr.sort((a, b) => p.brightness(a) - p.brightness(b));
 
-      const dx = bx - ax;
-      const dy = by - ay;
-      const dist = Math.sqrt(dx * dx + dy * dy);
-      const minDist = a.r + b.r;
-
-      if (dist < minDist && dist > 0) {
-        const overlap = (minDist - dist) / 2;
-        const nx = dx / dist;
-        const ny = dy / dist;
-        a.offsetX -= nx * overlap;
-        a.offsetY -= ny * overlap;
-        b.offsetX += nx * overlap;
-        b.offsetY += ny * overlap;
+      for (let i = startY; i <= endY; i++) {
+        let index = (x + i * img.width) * 4;
+        let c = sortingArr[i - startY];
+        img.pixels[index + 0] = p.red(c);
+        img.pixels[index + 1] = p.green(c);
+        img.pixels[index + 2] = p.blue(c);
+        img.pixels[index + 3] = 255;
       }
     }
+    y++;
   }
 }
 
-function easeInQuad(t: number): number {
-  return t * t;
+function sortRow(y: number, img: p5.Image, p: p5) {
+  let x = 0;
+  while (x < img.width) {
+    while (x < img.width) {
+      let index = (x + y * img.width) * 4;
+      let r = img.pixels[index + 0];
+      let g = img.pixels[index + 1];
+      let b = img.pixels[index + 2];
+      let bn = p.brightness(p.color(r, g, b));
+
+      if (bn < threshold) {
+        break;
+      }
+      x++;
+    }
+
+    let startX = x;
+
+    while (y < img.height) {
+      let index = (x + y * img.width) * 4;
+      let r = img.pixels[index + 0];
+      let g = img.pixels[index + 1];
+      let b = img.pixels[index + 2];
+      let bn = p.brightness(p.color(r, g, b));
+
+      if (bn >= threshold) {
+        break;
+      }
+      x++;
+    }
+
+    let endX = x - 1;
+
+    if (startX < endX) {
+      let sortingArr = [];
+      for (let i = startX; i <= endX; i++) {
+        let index = (i + y * img.width) * 4;
+        let r = img.pixels[index + 0];
+        let g = img.pixels[index + 1];
+        let b = img.pixels[index + 2];
+
+        sortingArr.push(p.color(r, g, b));
+      }
+      sortingArr.sort((a, b) => p.brightness(a) - p.brightness(b));
+
+      for (let i = startX; i <= endX; i++) {
+        let index = (i + y * img.width) * 4;
+        let c = sortingArr[i - startX];
+        img.pixels[index + 0] = p.red(c);
+        img.pixels[index + 1] = p.green(c);
+        img.pixels[index + 2] = p.blue(c);
+        img.pixels[index + 3] = 255;
+      }
+    }
+    x++;
+  }
 }
 
 export default function Sketch5() {
@@ -135,92 +128,79 @@ export default function Sketch5() {
 
   useEffect(() => {
     let p5Instance: p5;
+    let img: p5.Image;
+    let sortingDone = false;
+
     if (!sketchRef.current) return;
 
     const sketch = (p: p5) => {
-      let c1: p5.Color;
-      let c2: p5.Color;
-      let c3: p5.Color;
-
       p.setup = () => {
-        p.createCanvas(p.windowWidth, p.windowHeight);
-        p.rectMode(p.CENTER);
-        c1 = p.color(p.random(255), p.random(255), p.random(255));
-        c2 = p.color(p.random(255), p.random(255), p.random(255));
-        c3 = p.color(p.random(255), p.random(255), p.random(255));
-        p.angleMode(p.DEGREES);
+        p.pixelDensity(1);
+        const canvas = p.createCanvas(p.windowWidth, p.windowHeight);
+        canvas.parent(sketchRef.current!);
+        p.noLoop(); // tijdelijk pauzeren tot afbeelding geladen is
+
+        p.loadImage(
+          "https://m.media-amazon.com/images/I/81nFcvY8zIL._AC_UF1000,1000_QL80_.jpg",
+          (loaded) => {
+            img = loaded;
+            img.resize(p.windowWidth, 0);
+            img.loadPixels();
+            p.loop(); // start animatie pas als afbeelding klaar is
+          },
+        );
       };
 
       p.draw = () => {
-        p.background(220);
+        if (!img) return;
 
-        setGradientBlock(p, 0, p.width / 4, 0, p.height, c1, c2);
-        setGradientBlock(
-          p,
-          p.width / 4,
-          (2 * p.width) / 4,
-          0,
-          p.height,
-          c2,
-          c3,
-        );
-        setGradientBlock(
-          p,
-          (2 * p.width) / 4,
-          (3 * p.width) / 4,
-          0,
-          p.height,
-          c3,
-          c2,
-        );
-        setGradientBlock(p, (3 * p.width) / 4, p.width, 0, p.height, c2, c1);
-
-        // muis effect
-        for (let circle of circles) {
-          circle.offsetX = p.lerp(
-            circle.offsetX,
-            (p.mouseX - circle.x) * 0.25,
-            0.038,
-          );
-          circle.offsetY = p.lerp(
-            circle.offsetY,
-            (p.mouseY - circle.y) * 0.25,
-            0.038,
-          );
+        if (currentColumn < img.width) {
+          sortColumn(currentColumn, img, p);
+          currentColumn++;
+          img.updatePixels();
         }
 
-        // cirkels uit elkaar houden
-        separateCircles(circles);
-
-        // cirkels tekenen met kleur op basis van positie
-        for (let circle of circles) {
-          const cx = circle.x + circle.offsetX;
-          const cy = circle.y + circle.offsetY;
-          const color = getColorForPosition(p, cx, cy, c1, c2, c3);
-          drawBlurredCircle(p, cx, cy, circle.r, color);
-        }
-
-        // roterende gradiënt cirkel
-        // p.push();
-        // p.translate(p.width / 2, p.height / 2);
-        // p.rotate(angle);
-        // setGradientEllipse(p, 0, 90, c1, c2);
-        // setGradientEllipse(p, 90, 180, c2, c3);
-        // setGradientEllipse(p, 180, 270, c3, c2);
-        // setGradientEllipse(p, 270, 360, c2, c1);
-        // p.pop();
-
-        // angle = startAngle + easeInQuad(amt) * 90;
-        // if (amt > 1) {
-        //   amt = 0;
-        //   startAngle += 90;
-        // } else {
-        //   amt += 0.01;
-        // }
+        p.image(img, 0, 0);
       };
-    };
 
-    p5Instance = new p5(sketch, sketchRef.current!);
+      // p.setup = () => {
+      //   p.pixelDensity(1);
+      //   const canvas = p.createCanvas(p.windowWidth, p.windowHeight);
+      //   canvas.parent(sketchRef.current!);
+      //   p.loadImage("/Images/Nina.jpg", (loaded) => {
+      //     img = loaded;
+      //     img.resize(p.windowWidth, 0);
+      //     img.loadPixels();
+
+      //     // for (let x = 0; x < img.width; x++) {
+      //     //   sortColumn(x, img, p);
+      //     // }
+
+      //     // for (let y = 0; y < img.height; y++) {
+      //     //   sortRow(y, img, p);
+      //     // }
+
+      //     sortColumn(currentColumn, img, p);
+      //     currentColumn++;
+
+      //     img.updatePixels();
+
+      //     if (currentColumn >= img.width) {
+      //       sortingDone = true;
+      //     }
+
+      //     // p.noLoop();
+      //   });
+      // };
+
+      // p.draw = () => {
+      //   p.background(255);
+      //   if (img) {
+      //     p.image(img, 0, 0);
+      //   }
+      // };
+    };
+    p5Instance = new p5(sketch);
     return () => p5Instance.remove();
   }, []);
 
@@ -230,3 +210,11 @@ export default function Sketch5() {
     </div>
   );
 }
+
+// let x = 0;
+// let y = 0;
+// let index = (x + y * img.width) * 4;
+// img.pixels[index + 0] = 0;
+// img.pixels[index + 1] = 0;
+// img.pixels[index + 2] = 0;
+// img.pixels[index + 3] = 255;

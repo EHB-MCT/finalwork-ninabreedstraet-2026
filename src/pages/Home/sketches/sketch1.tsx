@@ -1,172 +1,183 @@
-import { useEffect, useRef } from "react";
-import p5 from "p5";
+//Bronnen:
+// - https://openprocessing.org/@u537625/2691712#code
+// - https://openprocessing.org/@u183615/2225285#code
+// - https://openprocessing.org/@u436301/2218758#code
+// - https://openprocessing.org/@u437419/2225939#code
 
-export default function Sketch() {
+import { useEffect, useRef, useState } from "react";
+import p5 from "p5";
+// opentype >> kan letters omzetten naar paden en vormen die je kan gebruiken
+import * as opentype from "opentype.js";
+
+const FONT_URL = "/Fonts/Helvetica.ttf";
+
+export default function Sketch1() {
+  // verwijst naar div element waar p5 zijn sketch in gaat zetten
   const sketchRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const sketch = (p: p5) => {
-      let tileCountX = 50;
-      let tileCountY = 10;
+  // dit is het woord dat de mensen gaan intikken
+  const [word, setWord] = useState("HELLO");
 
-      let hueValues: number[] = [];
-      let saturationValues: number[] = [];
-      let brightnessValues: number[] = [];
+  // wordRef is een ref-kopie van word.
+  // Dit is nodig omdat p5 draait in een eigen scope en geen toegang heeft tot de nieuwste React state, via een ref wel.
+  const wordRef = useRef(word);
+
+  // woord ophalen
+  useEffect(() => {
+    wordRef.current = word;
+  }, [word]);
+
+  useEffect(() => {
+    let p5Instance: p5;
+    let loadedFont: opentype.Font | null = null;
+
+    // hier wordt het woord omgezet in een pad door opentype
+    fetch(FONT_URL)
+      .then((res) => res.arrayBuffer())
+      .then((buffer) => {
+        loadedFont = opentype.parse(buffer);
+      })
+      .catch((err) => console.error("Font laden mislukt:", err));
+
+    const sketch = (p: p5) => {
+      // Dit zijn de instellingen van de visual
+      const SPACING = 3;
+      const FONT_SIZE = 190;
+      const MOUSE_RADIUS = 80;
+      const MAX_GROW = 26;
+      const LERP_SPEED = 0.15;
+
+      // baseR is de basis grootte en r is de huidige straal die geüpdatet wordt
+      let dots: { x: number; y: number; baseR: number; r: number }[] = [];
+      let currentWord = "";
+
+      function buildDots(targetWord: string) {
+        dots = [];
+        if (!loadedFont || !targetWord.trim()) return;
+
+        const W = p.width;
+        const H = p.height;
+
+        // hier wordt het woord onzichtbaar getekend op een 'off-screen' canvas
+        const offscreen = document.createElement("canvas");
+        offscreen.width = W;
+        offscreen.height = H;
+        const ctx = offscreen.getContext("2d")!;
+        ctx.clearRect(0, 0, W, H);
+
+        const path = loadedFont.getPath(
+          targetWord.toUpperCase(),
+          0,
+          0,
+          FONT_SIZE,
+        );
+        // plaatsing en breedte en hoogte van het woord bb is dus het path van het woord
+        const bb = path.getBoundingBox();
+        const tw = bb.x2 - bb.x1; // width
+        const th = bb.y2 - bb.y1; // height
+        const ox = (W - tw) / 2 - bb.x1; // x-plaats
+        const oy = (H - th) / 2 - bb.y1; // y-plaats
+
+        ctx.save();
+        ctx.translate(ox, oy);
+        ctx.fillStyle = "#fff";
+        path.draw(ctx);
+        ctx.restore();
+
+        // hier worden de pixels uitgelezen, ctx krijgt dus de contact van wat er op de sketch staat
+        const imgData = ctx.getImageData(0, 0, W, H).data;
+
+        for (let y = SPACING / 2; y < H; y += SPACING) {
+          for (let x = SPACING / 2; x < W; x += SPACING) {
+            const idx = (Math.round(y) * W + Math.round(x)) * 4;
+            // zet witte pixels om naar cirkels
+            if (imgData[idx + 3] > 128) {
+              dots.push({ x, y, baseR: 2.5, r: 2.5 });
+            }
+          }
+        }
+      }
 
       p.setup = () => {
         p.createCanvas(p.windowWidth, p.windowHeight);
-        p.colorMode(p.HSB, 360, 100, 100, 100);
-        p.noStroke();
-
-        for (let i = 0; i < tileCountX; i++) {
-          hueValues[i] = p.random(360);
-          saturationValues[i] = p.random(100);
-          brightnessValues[i] = p.random(100);
-        }
+        p.frameRate(60);
       };
 
       p.draw = () => {
-        p.background(0, 0, 100);
+        if (loadedFont && currentWord === "") {
+          currentWord = wordRef.current;
+          buildDots(currentWord);
+        }
 
-        let mX = p.constrain(p.mouseX, 0, p.width);
-        let mY = p.constrain(p.mouseY, 0, p.height);
+        if (wordRef.current !== currentWord && loadedFont) {
+          currentWord = wordRef.current;
+          buildDots(currentWord);
+        }
 
-        let counter = 0;
+        p.background(17);
 
-        let currentTileCountX = p.int(p.map(mX, 0, p.width, 1, tileCountX));
-        let currentTileCountY = p.int(p.map(mY, 0, p.height, 1, tileCountY));
-        let tileWidth = p.width / currentTileCountX;
-        let tileHeight = p.height / currentTileCountY;
+        for (const d of dots) {
+          const dx = d.x - p.mouseX;
+          const dy = d.y - p.mouseY;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          const influence = Math.max(0, 1 - dist / MOUSE_RADIUS);
+          const targetR = d.baseR + influence * MAX_GROW;
+          d.r += (targetR - d.r) * LERP_SPEED;
 
-        for (let gridY = 0; gridY < tileCountY; gridY++) {
-          for (let gridX = 0; gridX < tileCountX; gridX++) {
-            let posX = tileWidth * gridX;
-            let posY = tileHeight * gridY;
-            let index = counter % currentTileCountX;
+          // groene-glow kleur gebaseerd op de groote van de stip
+          const glow = d.r / (d.baseR + MAX_GROW);
+          const r = Math.round(80 + glow * 170);
+          const g = Math.round(180 + glow * 75);
+          const b = Math.round(50 + glow * 50);
 
-            p.fill(
-              hueValues[index],
-              saturationValues[index],
-              brightnessValues[index],
-            );
-            p.rect(posX, posY, tileWidth, tileHeight);
-            counter++;
-          }
+          p.noStroke();
+          p.fill(r, g, b);
+          p.circle(d.x, d.y, Math.max(1, d.r) * 2);
         }
       };
 
-      p.keyPressed = () => {
-        if (p.key === "s" || p.key === "S")
-          p.saveCanvas(`sketch_${Date.now()}`, "png");
-
-        // Note: 'gd' library was removed. Use p.color() instead.
-        // The ASE export functionality requires the generative-design library.
-        if (p.key === "c" || p.key === "C") {
-          let colors: p5.Color[] = [];
-          for (let i = 0; i < hueValues.length; i++) {
-            colors.push(
-              p.color(hueValues[i], saturationValues[i], brightnessValues[i]),
-            );
-          }
-          // p.saveJSON(colors, `colors_${Date.now()}`); // Alternative save
-        }
-
-        if (p.key === "1") {
-          for (let i = 0; i < tileCountX; i++) {
-            hueValues[i] = p.random(360);
-            saturationValues[i] = p.random(100);
-            brightnessValues[i] = p.random(100);
-          }
-        }
-
-        if (p.key === "2") {
-          for (let i = 0; i < tileCountX; i++) {
-            hueValues[i] = p.random(360);
-            saturationValues[i] = p.random(100);
-            brightnessValues[i] = 100;
-          }
-        }
-
-        if (p.key === "3") {
-          for (let i = 0; i < tileCountX; i++) {
-            hueValues[i] = p.random(360);
-            saturationValues[i] = 100;
-            brightnessValues[i] = p.random(100);
-          }
-        }
-
-        if (p.key === "4") {
-          for (let i = 0; i < tileCountX; i++) {
-            hueValues[i] = 0;
-            saturationValues[i] = 0;
-            brightnessValues[i] = p.random(100);
-          }
-        }
-
-        if (p.key === "5") {
-          for (let i = 0; i < tileCountX; i++) {
-            hueValues[i] = 195;
-            saturationValues[i] = 100;
-            brightnessValues[i] = p.random(100);
-          }
-        }
-
-        if (p.key === "6") {
-          for (let i = 0; i < tileCountX; i++) {
-            hueValues[i] = 195;
-            saturationValues[i] = p.random(100);
-            brightnessValues[i] = 100;
-          }
-        }
-
-        if (p.key === "7") {
-          for (let i = 0; i < tileCountX; i++) {
-            hueValues[i] = p.random(180);
-            saturationValues[i] = p.random(80, 100);
-            brightnessValues[i] = p.random(50, 90);
-          }
-        }
-
-        if (p.key === "8") {
-          for (let i = 0; i < tileCountX; i++) {
-            hueValues[i] = p.random(180, 360);
-            saturationValues[i] = p.random(80, 100);
-            brightnessValues[i] = p.random(50, 90);
-          }
-        }
-
-        if (p.key === "9") {
-          for (let i = 0; i < tileCountX; i++) {
-            if (i % 2 === 0) {
-              hueValues[i] = p.random(360);
-              saturationValues[i] = 100;
-              brightnessValues[i] = p.random(100);
-            } else {
-              hueValues[i] = 195;
-              saturationValues[i] = p.random(100);
-              brightnessValues[i] = 100;
-            }
-          }
-        }
-
-        if (p.key === "0") {
-          for (let i = 0; i < tileCountX; i++) {
-            if (i % 2 === 0) {
-              hueValues[i] = 140;
-              saturationValues[i] = p.random(30, 100);
-              brightnessValues[i] = p.random(40, 100);
-            } else {
-              hueValues[i] = 210;
-              saturationValues[i] = p.random(40, 100);
-              brightnessValues[i] = p.random(50, 100);
-            }
-          }
-        }
+      // als scherm kleiner word gemaakt dan wordt resizeCanvas aangeroepen (functie van p5)
+      p.windowResized = () => {
+        p.resizeCanvas(p.windowWidth, p.windowHeight);
+        setTimeout(() => {
+          if (loadedFont) buildDots(currentWord);
+        }, 0);
       };
     };
-    const p5Instance = new p5(sketch, sketchRef.current!);
+
+    p5Instance = new p5(sketch, sketchRef.current!);
     return () => p5Instance.remove();
   }, []);
 
-  return <div ref={sketchRef} />;
+  return (
+    <div style={{ position: "relative", width: "100%", height: "100%" }}>
+      <div ref={sketchRef} />
+      <input
+        type="text"
+        value={word}
+        maxLength={15}
+        onChange={(e) => setWord(e.target.value)}
+        onKeyDown={(e) => e.stopPropagation()}
+        onKeyUp={(e) => e.stopPropagation()}
+        style={{
+          position: "absolute",
+          bottom: "16px",
+          left: "50%",
+          transform: "translateX(-50%)",
+          fontSize: "16px",
+          padding: "6px 14px",
+          borderRadius: "8px",
+          border: "1px solid rgba(255,255,255,0.2)",
+          background: "rgba(255,255,255,0.08)",
+          color: "#fff",
+          textAlign: "center",
+          width: "220px",
+          outline: "none",
+          backdropFilter: "blur(6px)",
+          zIndex: 10,
+        }}
+        placeholder="Typ een woord..."
+      />
+    </div>
+  );
 }

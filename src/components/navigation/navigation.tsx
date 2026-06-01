@@ -1,8 +1,8 @@
 import { Link, useLocation } from "react-router-dom";
 import style from "./nav.module.scss";
-import { BracketItem } from "../bracketItem/bracketItem";
-import { CursorEffectFloater } from "../cursorEffect/cursorEffect";
-import { BgEffect } from "../bgEffect/bgEffect";
+import { BracketItem } from "./bracketItem/bracketItem";
+import { CursorEffectFloater } from "./cursorEffect/cursorEffect";
+import { BgEffect } from "./bgEffect/bgEffect";
 import { useTranslation } from "react-i18next";
 import { LanguageSwitcher } from "../laguageSwitch/languageSwitch";
 
@@ -14,7 +14,7 @@ const Navigation = () => {
   return (
     <div className={style.alles}>
       <nav className={style.nav}>
-        <Link to="/" className={style.home}>
+        <Link to="/" className={style.maken}>
           <BracketItem>{t("nav.home")}</BracketItem>
         </Link>
 

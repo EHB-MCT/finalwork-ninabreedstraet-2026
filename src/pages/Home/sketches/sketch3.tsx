@@ -1,16 +1,12 @@
 //Bronnen:
-// - https://www.youtube.com/watch?v=4IyeLc6J1Uo
+// - https://www.youtube.com/watch?v=AVMSCFMCz9w&t=328s
 
 import { useEffect, useRef, useState } from "react";
 import p5 from "p5";
 
-let img: p5.Image;
-const CANVAS_HEIGHT = 300;
-
 export default function Sketch3() {
   // verwijst naar div element waar p5 zijn sketch in gaat zetten
   const sketchRef = useRef<HTMLDivElement>(null);
-  const p5InstanceRef = useRef<p5 | null>(null);
 
   useEffect(() => {
     let p5Instance: p5;
@@ -18,87 +14,51 @@ export default function Sketch3() {
 
     const sketch = (p: p5) => {
       // Dit zijn de instellingen van de visual
-      let asciiChar = "█▓▒░ ";
-
-      // "█▓▒░ ";
-      // "#$%&*+=−:;,. ";
-      // "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,^`'. ";
-
-      let size = 6;
-      let charWidth = size; // wordt hieronder overschreven na font-load
+      let cols: number;
+      let rows: number;
+      let spacing = 60;
+      let size: number[][] = [];
+      let scale = 0.7;
 
       p.setup = () => {
         p.createCanvas(p.windowWidth, p.windowHeight);
-
-        // Stel font in vóór meting
-        p.textSize(size);
-        p.textFont("/Fonts/Helvetica.ttf");
-        p.textAlign(p.LEFT, p.TOP);
-        p.noLoop();
-
-        // Laad eerst de afbeelding, dan pas canvas aanmaken met de juiste grootte
-        img = p.loadImage("/Images/Nina.jpg", (loaded) => {
-          img = loaded;
-          img.resize(300, 0);
-
-          // Meet de werkelijke tekenbreedte ná font-load
-          charWidth = p.textWidth("M");
-
-          const canvasWidth = img.width * size;
-          const canvasHeight = img.height * size;
-          p.resizeCanvas(canvasWidth, canvasHeight);
-
-          // Reset de inline stijl die p5 zet
-          const canvasEl = document.querySelector(
-            "canvas",
-          ) as HTMLCanvasElement;
-          canvasEl.style.width = "";
-          canvasEl.style.height = "";
-
-          p.redraw();
-        });
+        p.rectMode(p.CENTER);
+        cols = Math.floor(p.width / spacing);
+        rows = Math.floor(p.height / spacing);
       };
 
       p.draw = () => {
-        if (!img) return;
-        p.fill(1);
-        p.background(500);
-        img.loadPixels();
-
-        for (let i = 0; i < img.width; i++) {
-          for (let j = 0; j < img.height; j++) {
-            let pixelsIndex = (i + j * img.width) * 4;
-            let r = img.pixels[pixelsIndex + 0];
-            let g = img.pixels[pixelsIndex + 1];
-            let b = img.pixels[pixelsIndex + 2];
-
-            // let bright = p.brightness(p.color(r, g, b));
-            let bright = (r + g + b) / 3;
-            let tIndex = p.floor(p.map(bright, 0, 100, 0, asciiChar.length));
-
-            let x = i * size + size / 2;
-            let y = j * size + size / 2;
-            p.textSize(size);
-            p.textAlign(p.CENTER, p.CENTER);
-            p.text(asciiChar.charAt(tIndex), x, y);
+        p.background(0);
+        for (let i = 0; i < cols; i++) {
+          size[i] = [];
+          for (let j = 0; j < rows; j++) {
+            size[i][j] = p.min(
+              p.dist(
+                p.mouseX,
+                p.mouseY,
+                spacing / 8 + i * spacing,
+                spacing / 8 + j * spacing,
+              ) * scale,
+              60,
+            );
           }
         }
 
-        // for (let i = 0; i < img.width; i++) {
-        //   for (let j = 0; j < img.height; j++) {
-        //     let pixelVal = img.get(i, j);
-        //     console.log(pixelVal);
-        //     let c = p.brightness(pixelVal);
-        //     let tIndex = p.floor(p.map(c, 0, 100, 0, asciiChar.length));
-
-        //     let x = i * charWidth + size / 2;
-        //     let y = j * size + size / 2;
-        //     // let t = asciiChar.charAt(tIndex);
-        //     p.textSize(size);
-        //     p.textAlign(p.CENTER, p.CENTER);
-        //     p.text(asciiChar.charAt(tIndex), x, y);
-        //   }
-        // }
+        for (let i = 0; i < cols; i++) {
+          for (let j = 0; j < rows; j++) {
+            p.stroke(20, 20, 20);
+            p.rect(
+              spacing / 2 + i * spacing,
+              spacing / 2 + j * spacing,
+              size[i][j],
+              size[i][j],
+              15,
+              15,
+              15,
+              15,
+            );
+          }
+        }
       };
     };
     p5Instance = new p5(sketch, sketchRef.current!);
@@ -106,20 +66,8 @@ export default function Sketch3() {
   }, []);
 
   return (
-    <div style={{ display: "inline-block", color: "black" }}>
-      <div
-        ref={sketchRef}
-        style={{
-          lineHeight: 0,
-        }}
-      />
-      <style>{`
-      canvas {
-        width: auto !important;
-        height: auto !important;
-        display: block;
-      }
-    `}</style>
+    <div style={{ display: "inline-block" }}>
+      <div ref={sketchRef} />
     </div>
   );
 }

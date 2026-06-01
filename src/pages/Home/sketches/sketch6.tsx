@@ -1,204 +1,62 @@
 //Bronnen:
-// - https://www.youtube.com/watch?v=AVMSCFMCz9w&t=328s
+// - https://www.youtube.com/watch?v=tRU_MtSzDBk
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import p5 from "p5";
-
-let threshold = 80;
-let currentColumn = 0;
-
-function sortColumn(x: number, img: p5.Image, p: p5) {
-  let y = 0;
-  while (y < img.height) {
-    while (y < img.height) {
-      let index = (x + y * img.width) * 4;
-      let r = img.pixels[index + 0];
-      let g = img.pixels[index + 1];
-      let b = img.pixels[index + 2];
-      let bn = p.brightness(p.color(r, g, b));
-
-      if (bn > threshold) {
-        break;
-      }
-      y++;
-    }
-
-    let startY = y;
-
-    while (y < img.height) {
-      let index = (x + y * img.width) * 4;
-      let r = img.pixels[index + 0];
-      let g = img.pixels[index + 1];
-      let b = img.pixels[index + 2];
-      let bn = p.brightness(p.color(r, g, b));
-
-      if (bn <= threshold) {
-        break;
-      }
-      y++;
-    }
-
-    let endY = y - 1;
-
-    if (startY < endY) {
-      let sortingArr = [];
-      for (let i = startY; i <= endY; i++) {
-        let index = (x + i * img.width) * 4;
-        let r = img.pixels[index + 0];
-        let g = img.pixels[index + 1];
-        let b = img.pixels[index + 2];
-
-        sortingArr.push(p.color(r, g, b));
-      }
-      sortingArr.sort((a, b) => p.brightness(a) - p.brightness(b));
-
-      for (let i = startY; i <= endY; i++) {
-        let index = (x + i * img.width) * 4;
-        let c = sortingArr[i - startY];
-        img.pixels[index + 0] = p.red(c);
-        img.pixels[index + 1] = p.green(c);
-        img.pixels[index + 2] = p.blue(c);
-        img.pixels[index + 3] = 255;
-      }
-    }
-    y++;
-  }
-}
-
-function sortRow(y: number, img: p5.Image, p: p5) {
-  let x = 0;
-  while (x < img.width) {
-    while (x < img.width) {
-      let index = (x + y * img.width) * 4;
-      let r = img.pixels[index + 0];
-      let g = img.pixels[index + 1];
-      let b = img.pixels[index + 2];
-      let bn = p.brightness(p.color(r, g, b));
-
-      if (bn < threshold) {
-        break;
-      }
-      x++;
-    }
-
-    let startX = x;
-
-    while (y < img.height) {
-      let index = (x + y * img.width) * 4;
-      let r = img.pixels[index + 0];
-      let g = img.pixels[index + 1];
-      let b = img.pixels[index + 2];
-      let bn = p.brightness(p.color(r, g, b));
-
-      if (bn >= threshold) {
-        break;
-      }
-      x++;
-    }
-
-    let endX = x - 1;
-
-    if (startX < endX) {
-      let sortingArr = [];
-      for (let i = startX; i <= endX; i++) {
-        let index = (i + y * img.width) * 4;
-        let r = img.pixels[index + 0];
-        let g = img.pixels[index + 1];
-        let b = img.pixels[index + 2];
-
-        sortingArr.push(p.color(r, g, b));
-      }
-      sortingArr.sort((a, b) => p.brightness(a) - p.brightness(b));
-
-      for (let i = startX; i <= endX; i++) {
-        let index = (i + y * img.width) * 4;
-        let c = sortingArr[i - startX];
-        img.pixels[index + 0] = p.red(c);
-        img.pixels[index + 1] = p.green(c);
-        img.pixels[index + 2] = p.blue(c);
-        img.pixels[index + 3] = 255;
-      }
-    }
-    x++;
-  }
-}
 
 export default function Sketch6() {
   const sketchRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     let p5Instance: p5;
-    let img: p5.Image;
-    let sortingDone = false;
+    let spacing = 25;
+    let number: p5.Element;
+    let divider: p5.Element;
 
     if (!sketchRef.current) return;
 
     const sketch = (p: p5) => {
       p.setup = () => {
-        p.pixelDensity(1);
-        const canvas = p.createCanvas(p.windowWidth, p.windowHeight);
-        canvas.parent(sketchRef.current!);
-        p.noLoop(); // tijdelijk pauzeren tot afbeelding geladen is
+        const canvas = p.createCanvas(p.windowWidth, p.windowHeight, p.WEBGL);
+        p.noStroke();
+        p.textureMode(p.IMAGE);
 
-        p.loadImage(
-          "https://m.media-amazon.com/images/I/81nFcvY8zIL._AC_UF1000,1000_QL80_.jpg",
-          (loaded) => {
-            img = loaded;
-            img.resize(p.windowWidth, 0);
-            img.loadPixels();
-            p.loop(); // start animatie pas als afbeelding klaar is
-          },
-        );
+        canvas.parent(sketchRef.current!);
+        number = p.createSlider(1, 15, 5);
+        number.position(10, 10);
+        number.size(80);
+
+        divider = p.createSlider(1, 15, 5, 0.5);
+        divider.position(200, 10);
+        divider.size(80);
       };
 
       p.draw = () => {
-        if (!img) return;
+        let num = number.value() as number;
+        let d = divider.value() as number;
+        p.background(220);
 
-        if (currentColumn < img.width) {
-          sortColumn(currentColumn, img, p);
-          currentColumn++;
-          img.updatePixels();
+        p.orbitControl();
+
+        for (let i = 0; i < num; i++) {
+          for (let j = 0; j < num; j++) {
+            for (let k = 0; k < num; k++) {
+              p.push();
+              let offset = (-spacing * num) / 2 + spacing / 2;
+              let x = i * spacing + offset;
+              let y = j * spacing + offset;
+              let z = k * spacing + offset;
+              let distance = p.sqrt(p.pow(x, 2) + p.pow(y, 2) + p.pow(z, 2));
+              p.translate(x, y, z);
+              p.normalMaterial();
+              let sphereSize = spacing - distance / d;
+              p.sphere(sphereSize, 6, 6);
+              p.texture("");
+              p.pop();
+            }
+          }
         }
-
-        p.image(img, 0, 0);
       };
-
-      // p.setup = () => {
-      //   p.pixelDensity(1);
-      //   const canvas = p.createCanvas(p.windowWidth, p.windowHeight);
-      //   canvas.parent(sketchRef.current!);
-      //   p.loadImage("/Images/Nina.jpg", (loaded) => {
-      //     img = loaded;
-      //     img.resize(p.windowWidth, 0);
-      //     img.loadPixels();
-
-      //     // for (let x = 0; x < img.width; x++) {
-      //     //   sortColumn(x, img, p);
-      //     // }
-
-      //     // for (let y = 0; y < img.height; y++) {
-      //     //   sortRow(y, img, p);
-      //     // }
-
-      //     sortColumn(currentColumn, img, p);
-      //     currentColumn++;
-
-      //     img.updatePixels();
-
-      //     if (currentColumn >= img.width) {
-      //       sortingDone = true;
-      //     }
-
-      //     // p.noLoop();
-      //   });
-      // };
-
-      // p.draw = () => {
-      //   p.background(255);
-      //   if (img) {
-      //     p.image(img, 0, 0);
-      //   }
-      // };
     };
     p5Instance = new p5(sketch);
     return () => p5Instance.remove();
@@ -210,11 +68,3 @@ export default function Sketch6() {
     </div>
   );
 }
-
-// let x = 0;
-// let y = 0;
-// let index = (x + y * img.width) * 4;
-// img.pixels[index + 0] = 0;
-// img.pixels[index + 1] = 0;
-// img.pixels[index + 2] = 0;
-// img.pixels[index + 3] = 255;
