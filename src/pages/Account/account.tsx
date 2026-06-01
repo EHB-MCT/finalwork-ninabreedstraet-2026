@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import { useTranslation } from "react-i18next";
 import style from "./account.module.scss";
-import { BracketItem } from "../../components/bracketItem/bracketItem";
+import { BracketItem } from "../../components/navigation/bracketItem/bracketItem";
 
 export default function Account() {
   const { t } = useTranslation();

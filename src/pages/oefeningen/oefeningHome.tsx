@@ -9,7 +9,7 @@ import Oefening5 from "./oefening4";
 import Oefening6 from "./oefening5";
 import Oefening7 from "./oefening7";
 import Oefening8 from "./oefening6";
-import { BracketItem } from "../../components/bracketItem/bracketItem";
+import { BracketItem } from "../../components/navigation/bracketItem/bracketItem";
 import style from "./oefeningen.module.scss";
 
 const TABS = [
