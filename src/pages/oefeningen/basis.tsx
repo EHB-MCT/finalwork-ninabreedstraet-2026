@@ -1,4 +1,3 @@
-import NextButton from "../../components/nextButton";
 import { useTranslation } from "react-i18next";
 import style from "./oefeningen.module.scss";
 
@@ -17,11 +16,14 @@ export default function basis() {
           {t("exercises.basis.buildingBlocks")}
           <br />
           <br />
-          <strong>{t("exercises.basis.htmlTitle")}</strong> {t("exercises.basis.htmlDesc")} <br />
+          <strong>{t("exercises.basis.htmlTitle")}</strong> :{" "}
+          {t("exercises.basis.htmlDesc")} <br />
           <br />
-          <strong>{t("exercises.basis.cssTitle")}</strong> {t("exercises.basis.cssDesc")} <br />
+          <strong>{t("exercises.basis.cssTitle")}</strong> :{" "}
+          {t("exercises.basis.cssDesc")} <br />
           <br />
-          <strong>{t("exercises.basis.jsTitle")}</strong> {t("exercises.basis.jsDesc")}
+          <strong>{t("exercises.basis.jsTitle")}</strong> :{" "}
+          {t("exercises.basis.jsDesc")}
         </p>
         <br />
         <h3>{t("exercises.basis.technicalTitle")}</h3>
@@ -52,10 +54,11 @@ export default function basis() {
           </tr>
         </table>
         <br />
+        <br />
         <p>{t("exercises.basis.simpleVsComplex")}</p>
+        <br />
         <p>{t("exercises.basis.summary")}</p>
       </div>
-      <NextButton />
     </div>
   );
 }

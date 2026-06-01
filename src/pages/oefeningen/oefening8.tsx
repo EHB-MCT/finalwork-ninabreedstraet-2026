@@ -17,13 +17,16 @@ export default function Oefening8() {
         <p>{t("exercises.oefening8.forLoopDesc")}</p>
         <ul>
           <li>
-            <strong>for (let i = start; i &lt; voorwaarde; i++)</strong> - {t("exercises.oefening8.classicFor")}
+            <strong>for (let i = start; i &lt; voorwaarde; i++)</strong> :{" "}
+            {t("exercises.oefening8.classicFor")}
           </li>
           <li>
-            <strong>for (const item of array)</strong> - {t("exercises.oefening8.forOf")}
+            <strong>for (const item of array)</strong> :{" "}
+            {t("exercises.oefening8.forOf")}
           </li>
           <li>
-            <strong>for (const key in object)</strong> - {t("exercises.oefening8.forIn")}
+            <strong>for (const key in object)</strong> :{" "}
+            {t("exercises.oefening8.forIn")}
           </li>
         </ul>
         <pre
@@ -85,7 +88,9 @@ for (const fr of fruit) {
       <div>
         <h3>{t("exercises.oefening8.exercise2Title")}</h3>
         <p>
-          {t("exercises.oefening8.exercise2Desc1")} <code>const getallen = [10, 20, 30];</code>
+          {t("exercises.oefening8.exercise2Desc1")}{" "}
+          <code>const getallen = [10, 20, 30];</code>
+          <br />
           <br />
           {t("exercises.oefening8.exercise2Desc2")}
         </p>
@@ -99,7 +104,11 @@ for (const fr of fruit) {
             if (!code.includes("for") && !code.includes("of")) {
               return { message: t("exercises.oefening8.valUseForOf") };
             }
-            if (!code.includes("getallen") && !code.includes("numbers") && !code.includes("nombres")) {
+            if (
+              !code.includes("getallen") &&
+              !code.includes("numbers") &&
+              !code.includes("nombres")
+            ) {
               return { message: t("exercises.oefening8.valUseGetallen") };
             }
             if (

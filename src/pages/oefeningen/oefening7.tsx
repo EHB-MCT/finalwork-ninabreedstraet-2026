@@ -14,16 +14,31 @@ export default function Oefening7() {
         style={{ padding: "15px", borderRadius: "8px", marginBottom: "20px" }}
       >
         <h3>{t("exercises.common.explanation")}</h3>
+        <p>
+          {t("exercises.oefening3.introTitle")} <br />
+          <br />
+          {t("exercises.oefening3.backendThreeThings")} <br /> <br />
+          <ol>
+            <li>{t("exercises.oefening3.serverDesc")}</li>
+            <li>{t("exercises.oefening3.logicDesc")}</li>
+            <li>{t("exercises.oefening3.databaseDesc")}</li>
+          </ol>
+          {t("exercises.oefening3.flowDesc")} <br /> <br />
+          {t("exercises.oefening3.consoleLogNote")}
+          {t("exercises.oefening3.consoleLogDesc")}
+          <br /> <br />
+        </p>
+        <h3>{t("exercises.oefening3.variableTitle")}</h3>
         <p>{t("exercises.oefening7.variablesDesc")}</p>
         <ul>
           <li>
-            <strong>let:</strong> {t("exercises.oefening7.letDesc")}
+            <strong>let</strong> : {t("exercises.oefening7.letDesc")}
           </li>
           <li>
-            <strong>var:</strong> {t("exercises.oefening7.varDesc")}
+            <strong>var</strong> : {t("exercises.oefening7.varDesc")}
           </li>
           <li>
-            <strong>const:</strong> {t("exercises.oefening7.constDesc")}
+            <strong>const</strong> : {t("exercises.oefening7.constDesc")}
           </li>
         </ul>
         <pre
@@ -58,7 +73,10 @@ const pi = 3.14;
                 message: t("exercises.oefening7.valUseLet"),
               };
             }
-            if (!code.includes("temperatuur") && !code.includes("temperature")) {
+            if (
+              !code.includes("temperatuur") &&
+              !code.includes("temperature")
+            ) {
               return {
                 message: t("exercises.oefening7.valTemperatuur"),
               };

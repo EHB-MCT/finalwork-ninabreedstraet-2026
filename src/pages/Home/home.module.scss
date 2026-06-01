@@ -213,7 +213,7 @@ input {
   z-index: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 
   box-sizing: border-box !important;
@@ -222,22 +222,12 @@ input {
 }
 
 .startEx {
-  width: 40%;
   mix-blend-mode: normal !important;
   margin: 0 auto;
 }
 
-.columns {
-  display: flex;
-  flex-direction: row;
-  gap: 5%;
-  mix-blend-mode: normal !important;
-}
-
 .left,
 .right {
-  width: 45%;
-  text-align: left;
   mix-blend-mode: normal !important;
 }
 

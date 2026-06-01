@@ -17,31 +17,32 @@ export default function Oefening5() {
         <p>{t("exercises.oefening5.booleanDesc")}</p>
         <ul>
           <li>
-            <strong>true:</strong> {t("exercises.oefening5.trueDesc")}
+            <strong>true</strong> : {t("exercises.oefening5.trueDesc")}
           </li>
           <li>
-            <strong>false:</strong> {t("exercises.oefening5.falseDesc")}
+            <strong>false</strong> : {t("exercises.oefening5.falseDesc")}
           </li>
           <li>
-            <strong> {t("exercises.oefening5.comparisons")}</strong>
+            <strong>{t("exercises.oefening5.comparisons")}</strong>
+            {t("exercises.oefening5.comparisonsex")}
           </li>
           <li>
-            <strong>===</strong> {t("exercises.oefening5.eq")}
+            <strong>===</strong> : {t("exercises.oefening5.eq")}
           </li>
           <li>
-            <strong>!==</strong> {t("exercises.oefening5.neq")}
+            <strong>!==</strong> : {t("exercises.oefening5.neq")}
           </li>
           <li>
-            <strong>&gt;</strong> {t("exercises.oefening5.gt")}
+            <strong>&gt;</strong> : {t("exercises.oefening5.gt")}
           </li>
           <li>
-            <strong>&lt;</strong> {t("exercises.oefening5.lt")}
+            <strong>&lt;</strong> : {t("exercises.oefening5.lt")}
           </li>
           <li>
-            <strong>&gt;=</strong> {t("exercises.oefening5.gte")}
+            <strong>&gt;=</strong> : {t("exercises.oefening5.gte")}
           </li>
           <li>
-            <strong>&lt;=</strong> {t("exercises.oefening5.lte")}
+            <strong>&lt;=</strong> : {t("exercises.oefening5.lte")}
           </li>
         </ul>
         <pre

@@ -77,6 +77,8 @@ export function CodeEditor({
             padding: "10px",
             backgroundColor: feedback.includes("Goed") ? "#d4edda" : "#f8d7da",
             borderRadius: "5px",
+            color: "#000000",
+            mixBlendMode: "difference",
           }}
         >
           {feedback}

@@ -71,7 +71,12 @@ function Oefening3() {
       const result = logs.join("\n");
 
       if (code.includes("if") && code.includes(">=")) {
-        if (result.includes("Volwassen") || result.includes("Niet volwassen") || result.includes("Adult") || result.includes("volwassen")) {
+        if (
+          result.includes("Volwassen") ||
+          result.includes("Niet volwassen") ||
+          result.includes("Adult") ||
+          result.includes("volwassen")
+        ) {
           setFeedback(t("exercises.oefening3.valSuccess"));
         } else {
           setFeedback(t("exercises.common.useConsoleLog"));
@@ -102,51 +107,33 @@ function Oefening3() {
         style={{ padding: "15px", borderRadius: "8px", marginBottom: "20px" }}
       >
         <h3>{t("exercises.common.explanation")}</h3>
-        <p>
-          {t("exercises.oefening3.introTitle")} <br /> <br />
-          {t("exercises.oefening3.restaurantAnalogy")}
-          <br /> <br />
-          {t("exercises.oefening3.frontendDesc")} <br /> <br />
-          {t("exercises.oefening3.backendDesc")}
-          <br />
-          <br />
-          {t("exercises.oefening3.backendThreeThings")} <br /> <br />
-          {t("exercises.oefening3.serverDesc")} <br /> <br />
-          {t("exercises.oefening3.logicDesc")} <br /> <br />
-          {t("exercises.oefening3.databaseDesc")} <br /> <br />
-          {t("exercises.oefening3.flowDesc")} <br /> <br />
-          {t("exercises.oefening3.upcomingExercises")} <br /> <br />
-          {t("exercises.oefening3.ifIntro")}
-          <br /> <br />
-          {t("exercises.oefening3.consoleLogNote")} <br /> <br />
-          {t("exercises.oefening3.consoleLogDesc")}
-          <br /> <br />
-        </p>
+        <p></p>
         <p>{t("exercises.oefening3.ifStatementDesc")}</p>
         <ul>
           <li key="if">
-            <strong>if (voorwaarde)</strong> - {t("exercises.oefening3.ifKeyword")}
+            {" "}
+            <strong>if </strong> : {t("exercises.oefening3.ifKeyword")}
           </li>
           <li key="else">
-            <strong>else</strong> - {t("exercises.oefening3.elseKeyword")}
+            <strong>else </strong> : {t("exercises.oefening3.elseKeyword")}
           </li>
           <li key="gt">
-            <strong>&gt;</strong> - {t("exercises.oefening3.gt")}
+            <strong>&gt;</strong> : {t("exercises.oefening3.gt")}
           </li>
           <li key="gte">
-            <strong>&gt;=</strong> - {t("exercises.oefening3.gte")}
+            <strong>&gt;= </strong> : {t("exercises.oefening3.gte")}
           </li>
           <li key="lt">
-            <strong>&lt;</strong> - {t("exercises.oefening3.lt")}
+            <strong>&lt; </strong> : {t("exercises.oefening3.lt")}
           </li>
           <li key="lte">
-            <strong>&lt;=</strong> - {t("exercises.oefening3.lte")}
+            <strong>&lt;=</strong> : {t("exercises.oefening3.lte")}
           </li>
           <li key="eq">
-            <strong>===</strong> - {t("exercises.oefening3.eq")}
+            <strong>===</strong> : {t("exercises.oefening3.eq")}
           </li>
           <li key="neq">
-            <strong>!==</strong> - {t("exercises.oefening3.neq")}
+            <strong>!==</strong> :{t("exercises.oefening3.neq")}
           </li>
         </ul>
         <pre
@@ -166,21 +153,13 @@ if (leeftijd >= 18) {
 }`}
         </pre>
       </div>
-
-      <p>
-        <strong>Opgave:</strong> {t("exercises.oefening3.assignment")}
-      </p>
+      <h3>{t("exercises.oefening3.exercise1Title")}</h3>
+      <p>{t("exercises.oefening3.assignment")}</p>
 
       <ul>
-        <li key="var">
-          {t("exercises.oefening3.varDefined")}
-        </li>
-        <li key="check">
-          {t("exercises.oefening3.checkAge")}
-        </li>
-        <li key="show">
-          {t("exercises.oefening3.showResult")}
-        </li>
+        <li key="var">{t("exercises.oefening3.varDefined")}</li>
+        <li key="check">{t("exercises.oefening3.checkAge")}</li>
+        <li key="show">{t("exercises.oefening3.showResult")}</li>
       </ul>
 
       <div
@@ -209,8 +188,15 @@ if (leeftijd >= 18) {
           style={{
             marginTop: "15px",
             padding: "10px",
-            backgroundColor: feedback.includes("Goed") || feedback.includes("Well") || feedback.includes("Bien") ? "#d4edda" : "#f8d7da",
+            backgroundColor:
+              feedback.includes("Goed") ||
+              feedback.includes("Well") ||
+              feedback.includes("Bien")
+                ? "#d4edda"
+                : "#f8d7da",
             borderRadius: "5px",
+            color: "#000000",
+            mixBlendMode: "difference",
           }}
         >
           {feedback}

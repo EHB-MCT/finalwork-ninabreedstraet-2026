@@ -15,29 +15,34 @@ export default function Oefening4() {
       >
         <h3>{t("exercises.common.explanation")}</h3>
         <p>{t("exercises.oefening4.arrayDesc")}</p>
-        <ul>
-          <li>
-            <strong>{t("exercises.oefening4.create")}</strong> <code>const arr = [1, 2, 3];</code>
-          </li>
-          <li>
-            <strong>{t("exercises.oefening4.index")}</strong>
-          </li>
-          <li>
-            <strong>{t("exercises.oefening4.length")}</strong> <code>arr.length</code>
-          </li>
-          <li>
-            <strong>{t("exercises.oefening4.push")}</strong>
-          </li>
-          <li>
-            <strong>{t("exercises.oefening4.pop")}</strong>
-          </li>
-          <li>
-            <strong>{t("exercises.oefening4.map")}</strong>
-          </li>
-          <li>
-            <strong>{t("exercises.oefening4.filter")}</strong>
-          </li>
-        </ul>
+        <br />
+        <p>
+          <strong>{t("exercises.oefening4.create")}</strong>
+          <code>const arr = [1, 2, 3];</code>
+          <br />
+          <br />
+          <strong>Index</strong> <p> {t("exercises.oefening4.index")}</p>
+          <br />
+          <strong>Length</strong>
+          <p> {t("exercises.oefening4.length")}</p>
+          <code>arr.length</code>
+          <br />
+          <br />
+          <strong>push()</strong> <br />
+          {t("exercises.oefening4.push")}
+          <br />
+          <br />
+          <strong>pop()</strong> <br />
+          {t("exercises.oefening4.pop")}
+          <br />
+          <br />
+          <strong>map()</strong> <br />
+          {t("exercises.oefening4.map")}
+          <br />
+          <br />
+          <strong>filter()</strong> <br />
+          {t("exercises.oefening4.filter")}
+        </p>
         <pre
           style={{
             backgroundColor: "#2d2d2d",
@@ -106,7 +111,8 @@ console.log(dubbels); // ["appelappel", "peerpeer", ...]`}
       <div>
         <h3>{t("exercises.oefening4.exercise2Title")}</h3>
         <p>
-          {t("exercises.oefening4.exercise2Desc1")} <code>const namen = ["Anna", "Bob"];</code>
+          {t("exercises.oefening4.exercise2Desc1")}{" "}
+          <code>const namen = ["Anna", "Bob"];</code>
           <br />
           {t("exercises.oefening4.exercise2Desc2")}
         </p>
@@ -118,10 +124,16 @@ console.log(dubbels); // ["appelappel", "peerpeer", ...]`}
 `}
           validation={(code) => {
             if (!code.includes("push")) {
-              return { valid: false, message: t("exercises.oefening4.valPush") };
+              return {
+                valid: false,
+                message: t("exercises.oefening4.valPush"),
+              };
             }
             if (!code.includes("Chris")) {
-              return { valid: false, message: t("exercises.oefening4.valChris") };
+              return {
+                valid: false,
+                message: t("exercises.oefening4.valChris"),
+              };
             }
             if (
               !code.includes("console.log") &&

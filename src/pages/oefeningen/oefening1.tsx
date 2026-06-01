@@ -1,5 +1,4 @@
 import { CodeEditor } from "../../components/codeEditor";
-import NextButton from "../../components/nextButton";
 import { useTranslation } from "react-i18next";
 import style from "./oefeningen.module.scss";
 
@@ -17,25 +16,26 @@ export default function Oefening1() {
         <p>{t("exercises.oefening1.htmlDesc")}</p>
         <ul>
           <li>
-            <strong>&lt;html&gt;</strong> - {t("exercises.oefening1.html")}
+            <strong>&lt;html&gt;</strong> : {t("exercises.oefening1.html")}
           </li>
           <li>
-            <strong>&lt;head&gt;</strong> - {t("exercises.oefening1.head")}
+            <strong>&lt;head&gt;</strong> : {t("exercises.oefening1.head")}
           </li>
           <li>
-            <strong>&lt;body&gt;</strong> - {t("exercises.oefening1.body")}
+            <strong>&lt;body&gt;</strong> : {t("exercises.oefening1.body")}
           </li>
           <li>
-            <strong>&lt;h1&gt; t/m &lt;h6&gt;</strong> - {t("exercises.oefening1.headings")}
+            <strong>&lt;h1&gt; t/m &lt;h6&gt;</strong> :{" "}
+            {t("exercises.oefening1.headings")}
           </li>
           <li>
-            <strong>&lt;p&gt;</strong> - {t("exercises.oefening1.paragraph")}
+            <strong>&lt;p&gt;</strong> : {t("exercises.oefening1.paragraph")}
           </li>
           <li>
-            <strong>&lt;div&gt;</strong> - {t("exercises.oefening1.div")}
+            <strong>&lt;div&gt;</strong> : {t("exercises.oefening1.div")}
           </li>
           <li>
-            <strong>&lt;span&gt;</strong> - {t("exercises.oefening1.span")}
+            <strong>&lt;span&gt;</strong> : {t("exercises.oefening1.span")}
           </li>
         </ul>
         <pre
@@ -123,7 +123,7 @@ export default function Oefening1() {
 
   </body>
 </html>`}
-          validation={(code: string | string[]) => {
+          validation={(code: string) => {
             if (!code.includes("<p>") && !code.includes("<p ")) {
               return { message: t("exercises.oefening1.valP") };
             }
@@ -146,8 +146,6 @@ export default function Oefening1() {
           }}
         />
       </div>
-
-      <NextButton />
     </div>
   );
 }

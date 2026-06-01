@@ -6,37 +6,37 @@
       "params": {
         "threshold": {
           "label": "seuil",
-          "explanation": "const bn = (d[i]*299 + d[i+1]*587 + d[i+2]*114) / 1000 / 2.55 calcule la luminosité d'un pixel — un nombre entre 0 (noir) et 100 (blanc).<br/><br/>d est la liste de toutes les valeurs de pixels de l'image, stockée précédemment sous state.d. C'est simplement une longue suite de nombres où chaque groupe de 4 nombres représente un pixel.<br/><br/>d[i] est la valeur rouge du pixel, d[i+1] le vert et d[i+2] le bleu. Chaque pixel dans le tableau a donc 4 emplacements côte à côte : rouge, vert, bleu et transparence. Les nombres 299, 587 et 114 sont des poids qui déterminent l'importance de chaque couleur dans la luminosité. Le vert compte le plus car notre œil y est le plus sensible.<br/><br/>if (bn > threshold) break : C'est une instruction if. Si le pixel est trop lumineux, on arrête d'avancer. y++ : Aller un pixel vers le bas."
+          "explanation": "<em>const bn = (d[i]*299 + d[i+1]*587 + d[i+2]*114) / 1000 / 2.55</em> calcule la luminosité d'un pixel — un nombre entre 0 (noir) et 100 (blanc).<br/><br/><em>d</em> est la liste de toutes les valeurs de pixels de l'image, précédemment stockée sous state.d. C'est simplement une longue suite de nombres où chaque groupe de 4 nombres représente un pixel.<br/><br/><em>d[i]</em> est la valeur rouge du pixel, <em>d[i+1]</em> la valeur verte et <em>d[i+2]</em> la valeur bleue. Chaque pixel dans le tableau a donc 4 emplacements consécutifs : rouge, vert, bleu et transparence. Les nombres 299, 587 et 114 sont des poids qui déterminent l'importance de chaque couleur dans le calcul de la luminosité. Le vert compte le plus car nos yeux y sont les plus sensibles.<br/><br/><em>if (bn > threshold) break</em> : Ceci est une instruction conditionnelle. Si le pixel est trop clair, on arrête d'avancer. y++ : On descend d'un pixel."
         },
         "image": {
           "label": "image",
-          "explanation": "new Image() crée un objet image vide dans le navigateur et img.src = image lui indique quelle image charger en définissant l'URL.<br/><br/>Un objet est un conteneur pour plusieurs valeurs liées entre elles, regroupées sous un seul nom."
+          "explanation": "<em>new Image()</em> crée un objet image vide dans le navigateur et <em>img.src = image</em> lui indique quelle image charger en définissant l'URL.<br/><br/>Un objet est un conteneur pour plusieurs valeurs liées entre elles — on les regroupe sous un seul nom."
         }
       }
     },
     "gradient": {
       "name": "Dégradé",
-      "desc": "Des cercles de couleur fluides suivent votre souris et se repoussent sur un fond en dégradé.",
+      "desc": "Des cercles de couleurs fluides suivent ta souris et se repoussent sur un fond en dégradé.",
       "params": {
         "color1": {
           "label": "couleur 1",
-          "explanation": "hexToRgb est une fonction qui décompose une couleur hexadécimale comme #FF8A00 en trois nombres séparés : rouge, vert et bleu. Ces trois nombres sont retournés sous forme de liste [r, g, b].<br/><br/>colorAt(x) retourne la couleur à une position x donnée sur l'écran. L'écran a trois couleurs (color1, color2, color3) qui se fondent progressivement de gauche à droite.<br/><br/>const amt = Math.max(0, Math.min(1, x / W)) calcule votre position sur l'écran sous forme de nombre entre 0 et 1. Tout à gauche est 0, tout à droite est 1.<br/><br/>Dans la moitié gauche de l'écran, vous mélangez entre la couleur 1 et la couleur 2. Dans la moitié droite, entre la couleur 2 et la couleur 3."
+          "explanation": "<em>hexToRgb</em> est une fonction qui décompose une couleur hexadécimale comme #FF8A00 en trois nombres distincts : rouge, vert et bleu. Ces trois nombres sont renvoyés sous forme de liste [r, g, b].<br/><br/><em>colorAt(x)</em> renvoie la couleur à une position x donnée sur l'écran. L'écran utilise trois couleurs (color1, color2, color3) qui se fondent progressivement de gauche à droite.<br/><br/><em>const amt = Math.max(0, Math.min(1, x / W))</em> calcule ta position sur l'écran sous forme d'un nombre entre 0 et 1. Tout à gauche c'est 0, tout à droite c'est 1.<br/><br/>Si tu es dans la moitié gauche de l'écran, on mélange entre la couleur 1 et la couleur 2. Dans la moitié droite, on mélange entre la couleur 2 et la couleur 3."
         },
         "color2": {
           "label": "couleur 2",
-          "explanation": "hexToRgb est une fonction qui décompose une couleur hexadécimale comme #FF8A00 en trois nombres séparés : rouge, vert et bleu. Ces trois nombres sont retournés sous forme de liste [r, g, b].<br/><br/>colorAt(x) retourne la couleur à une position x donnée sur l'écran. L'écran a trois couleurs (color1, color2, color3) qui se fondent progressivement de gauche à droite.<br/><br/>Dans la moitié gauche de l'écran, vous mélangez entre la couleur 1 et la couleur 2. Dans la moitié droite, entre la couleur 2 et la couleur 3."
+          "explanation": "<em>hexToRgb</em> est une fonction qui décompose une couleur hexadécimale comme #FF8A00 en trois nombres distincts : rouge, vert et bleu. Ces trois nombres sont renvoyés sous forme de liste [r, g, b].<br/><br/><em>colorAt(x)</em> renvoie la couleur à une position x donnée sur l'écran. L'écran utilise trois couleurs (color1, color2, color3) qui se fondent progressivement de gauche à droite.<br/><br/><em>const amt = Math.max(0, Math.min(1, x / W))</em> calcule ta position sur l'écran sous forme d'un nombre entre 0 et 1. Tout à gauche c'est 0, tout à droite c'est 1.<br/><br/>Si tu es dans la moitié gauche de l'écran, on mélange entre la couleur 1 et la couleur 2. Dans la moitié droite, on mélange entre la couleur 2 et la couleur 3."
         },
         "color3": {
           "label": "couleur 3",
-          "explanation": "hexToRgb est une fonction qui décompose une couleur hexadécimale comme #FF8A00 en trois nombres séparés : rouge, vert et bleu. Ces trois nombres sont retournés sous forme de liste [r, g, b].<br/><br/>colorAt(x) retourne la couleur à une position x donnée sur l'écran. L'écran a trois couleurs (color1, color2, color3) qui se fondent progressivement de gauche à droite.<br/><br/>Dans la moitié gauche de l'écran, vous mélangez entre la couleur 1 et la couleur 2. Dans la moitié droite, entre la couleur 2 et la couleur 3."
+          "explanation": "<em>hexToRgb</em> est une fonction qui décompose une couleur hexadécimale comme #FF8A00 en trois nombres distincts : rouge, vert et bleu. Ces trois nombres sont renvoyés sous forme de liste [r, g, b].<br/><br/><em>colorAt(x)</em> renvoie la couleur à une position x donnée sur l'écran. L'écran utilise trois couleurs (color1, color2, color3) qui se fondent progressivement de gauche à droite.<br/><br/><em>const amt = Math.max(0, Math.min(1, x / W))</em> calcule ta position sur l'écran sous forme d'un nombre entre 0 et 1. Tout à gauche c'est 0, tout à droite c'est 1.<br/><br/>Si tu es dans la moitié gauche de l'écran, on mélange entre la couleur 1 et la couleur 2. Dans la moitié droite, on mélange entre la couleur 2 et la couleur 3."
         },
         "circleCount": {
           "label": "nombre de cercles",
-          "explanation": "state.circleCount = circleCount stocke le nombre actuel de cercles dans le projet, afin que le code puisse vérifier plus tard si ce nombre a changé.<br/><br/>Array.from({ length: circleCount }, (_, i) => ...) crée une liste du nombre de cercles indiqué par l'utilisateur. Pour chaque élément, la fonction est exécutée, où i est l'index (0, 1, 2...). Le _ est un argument vide que nous n'utilisons pas.<br/><br/>const angle = (i / circleCount) * Math.PI * 2 répartit un cercle complet équitablement entre tous les cercles. Avec 4 cercles, ils obtiennent les angles 0°, 90°, 180° et 270°.<br/><br/>return { x, y, r, ox, oy } crée un objet pour chaque cercle avec 5 propriétés : x et y sont la position de départ, r est le rayon (taille), ox et oy est le décalage dû à la souris ou aux collisions, commençant à 0.<br/><br/>Un objet est un conteneur pour plusieurs valeurs liées entre elles, regroupées sous un seul nom."
+          "explanation": "<em>state.circleCount = circleCount</em> sauvegarde le nombre actuel de cercles dans le projet, afin que le code puisse vérifier plus tard si ce nombre a changé.<br/><br/><em>Array.from({ length: circleCount }, (_, i) => ...)</em> crée une liste du nombre de cercles sélectionné par l'utilisateur. Pour chaque élément, l'instruction est exécutée, où i est le numéro d'ordre (0, 1, 2...). Le _ est simplement un argument inutilisé.<br/><br/><em>const angle = (i / circleCount) * Math.PI * 2</em> répartit un cercle complet équitablement entre tous les cercles. Si on a 4 cercles, ils obtiennent les angles 0°, 90°, 180° et 270°.<br/><br/><em>return { x, y, r, ox, oy }</em> crée un objet pour chaque cercle avec 5 propriétés : x et y sont la position de départ, r est le rayon (taille), ox et oy sont le décalage dû à la souris ou aux collisions, initialisé à 0.<br/><br/>Un objet est un conteneur pour plusieurs valeurs liées entre elles — on les regroupe sous un seul nom."
         },
         "blurAmount": {
           "label": "flou",
-          "explanation": "Normalement, l'effet de flou est appliqué dans le style CSS, mais dans ce langage de programmation il est appliqué au contexte du canvas. C'est ce que ctx représente. En ajoutant un point et en référençant le filtre, vous indiquez quel filtre doit être appliqué au contexte/canvas.<br/><br/>Utiliser blur(10px) applique un flou sur les 10 pixels des bords de chaque cercle. Le signe dollar et les accolades servent à insérer une valeur dans une chaîne de texte. Sans cette syntaxe, écrire le mot 'size' dans le code ne serait pas reconnu."
+          "explanation": "L'effet de flou s'applique normalement dans le style CSS, mais dans ce langage de programmation il est appliqué à <em>la context du canvas</em>. C'est ce que ctx signifie. En ajoutant un point après et en référençant le filtre, on indique quel filtre doit être appliqué au contexte/canvas.<br/><br/>Utiliser <em>blur(10px)</em> applique un effet de flou sur <em>les 10 pixels du contour de chaque cercle</em>. Le signe dollar et les accolades permettent d'insérer une valeur dans une chaîne de texte. Sans cette syntaxe, écrire le mot 'size' dans le code ne serait pas reconnu."
         }
       }
     },
@@ -46,11 +46,11 @@
       "params": {
         "spacing": {
           "label": "taille de la grille",
-          "explanation": "Avec const vous indiquez que vous souhaitez lier une valeur, comme un nombre ou une couleur, à un mot spécifique, pour pouvoir y faire référence plus facilement dans le code.<br/><br/>W / spacing calcule combien de cellules tiennent horizontalement. Si l'écran fait 800px de large et spacing vaut 20, cela donne 40. Math.floor arrondit vers le bas car on ne peut pas avoir une demi-cellule.<br/><br/>La même chose s'applique aux rows mais verticalement avec la hauteur H.<br/><br/>L'espacement est ce que l'utilisateur ajuste avec le curseur."
+          "explanation": "Avec const on indique que l'on veut associer une valeur, comme un nombre ou une couleur, à un mot précis, pour pouvoir y faire référence plus facilement dans la suite du code.<br/><br/><em>W / spacing</em> calcule combien de cases tiennent horizontalement. Si l'écran fait 800px de large et spacing vaut 20, ça donne 40. <em>Math.floor</em> arrondit vers le bas car on ne peut pas avoir une demi-case.<br/><br/>La même logique s'applique aux lignes (rows) mais verticalement avec la hauteur H.<br/><br/>Le spacing est ce que l'utilisateur ajuste avec le curseur."
         },
         "scale": {
           "label": "sensibilité",
-          "explanation": "Avec const vous liez une valeur à un mot spécifique pour y faire référence plus facilement.<br/><br/>Vous liez le mot 'size' à la taille effective des cellules, calculée avec : Math.max(4, maxSize * Math.min(1, dist / (scale * 2)))<br/><br/>dist / (scale * 2) calcule à quelle distance se trouve la souris sous forme de rapport. Quand la souris est très proche, c'est un petit nombre. Loin, c'est un grand nombre.<br/><br/>Math.min(1, ...) garantit que ce rapport ne dépasse jamais 1, sinon le carré deviendrait plus grand que la cellule.<br/><br/>Math.max(4, ...) : le résultat ne peut jamais être inférieur à 4 pixels, sinon le carré serait presque invisible."
+          "explanation": "Avec const on indique que l'on veut associer une valeur, comme un nombre ou une couleur, à un mot précis, pour pouvoir y faire référence plus facilement dans la suite du code.<br/><br/>On associe le mot 'size' à la taille effective des cases. On le calcule avec : <em>Math.max(4, maxSize * Math.min(1, dist / (scale * 2)))</em><br/><br/><em>dist / (scale * 2)</em> calcule à quelle distance se trouve la souris sous forme d'un rapport. Si la souris est très proche, c'est un petit nombre. Loin, c'est un grand nombre. Scale est donc ce que l'utilisateur règle avec le curseur.<br/><br/><em>Math.min(1, ...)</em> s'assure que ce rapport ne dépasse jamais 1, sinon le carré deviendrait plus grand que la case elle-même.<br/><br/><em>case</em> = l'espace réservé dans la grille pour un élément, déterminé par spacing.<br/><em>carré</em> = le carré blanc arrondi dessiné à l'intérieur de cette case, déterminé par size.<br/><br/><em>maxSize * ...</em> multiplie ce rapport par la taille maximale de la case pour obtenir la taille réelle en pixels.<br/><br/><em>Math.max(4, ...)</em> : le résultat ne peut jamais être inférieur à 4 pixels, sinon le carré serait presque invisible."
         }
       }
     },
@@ -58,141 +58,137 @@
       "name": "ASCII",
       "desc": "Une image convertie en caractères ASCII selon la luminosité.",
       "params": {
-        "size": {
-          "label": "taille des caractères",
-          "explanation": "Puisque l'image est constituée de caractères comme ceux de notre clavier, nous pouvons définir leur taille en réglant simplement la taille de la police.<br/><br/>C'est ce que vous voyez ici. Vous voyez aussi beaucoup de '\\' et des signes dollar et des accolades.<br/><br/>Le signe dollar et les accolades servent à insérer une valeur dans une chaîne de texte. Sans cette syntaxe, écrire le mot 'size' dans le code ne serait pas reconnu."
-        },
         "charset": {
           "label": "style de caractères",
-          "explanation": "charsets est une liste de 3 ensembles de caractères différents, classés du plus sombre au plus clair.<br/><br/>Ces caractères sont ensuite utilisés pour représenter les pixels sous forme d'art ASCII.<br/><br/>charsets[Math.min(Math.floor(charset), 2)] choisit l'un de ces trois ensembles selon 'charset'.<br/><br/>Charset est ce que l'utilisateur indique : soit 0, 1 ou 2, où 0 représente la première option.<br/><br/>Math.floor arrondit le nombre vers le bas et Math.min(..., 2) garantit qu'on ne dépasse jamais l'index 2 (car la liste n'a que 3 éléments : 0, 1 et 2)."
+          "explanation": "<em>charsets</em> est une liste de deux ensembles de caractères différents, classés du plus sombre au plus clair.<br/><br/>Ces caractères sont utilisés plus tard pour générer l'image.<br/><br/><em>charsets[charset]</em> : Pour sélectionner un élément dans un tableau on procède ainsi : charsets[0]. Cela signifie : je veux le premier élément de la liste 'charsets' (car un tableau commence toujours à 0). 'charset' correspond à la valeur du curseur, donc soit 0, soit 1."
         },
         "color1": {
           "label": "couleur du texte",
-          "explanation": "ctx signifie 'context'. Vous dites ici que le fillStyle du contexte doit être color1. Color1 représente la couleur que l'utilisateur sélectionne avec le curseur."
+          "explanation": "<em>ctx</em> signifie 'context' (contexte). On dit ici que le fillStyle du contexte doit être color1. Color1 représente la couleur sélectionnée par l'utilisateur via le curseur."
         },
         "image": {
           "label": "image",
-          "explanation": "new Image() crée un objet image vide dans le navigateur et img.src = image lui indique quelle image charger en définissant l'URL.<br/><br/>Un objet est un conteneur pour plusieurs valeurs liées entre elles, regroupées sous un seul nom."
+          "explanation": "<em>new Image()</em> crée un objet image vide dans le navigateur et <em>img.src = image</em> lui indique quelle image charger en définissant l'URL.<br/><br/>Un objet est un conteneur pour plusieurs valeurs liées entre elles — on les regroupe sous un seul nom."
         }
       }
     },
     "dottext": {
       "name": "Texte en points",
-      "desc": "Tapez un mot et regardez-le apparaître sous forme de points qui réagissent à votre souris.",
+      "desc": "Tape un mot et regarde-le apparaître sous forme de points qui réagissent à ta souris.",
       "params": {
         "spacing": {
           "label": "taille des points",
-          "explanation": "Ici vous définissez dots comme étant les points effectifs qui apparaîtront sur l'écran. En liant ce mot, il est plus facile d'y faire référence plus tard dans le code.<br/><br/>buildDots est la fonction qui crée les points. Cette fonction a besoin de deux éléments : le mot que les points doivent former et la taille des points.<br/><br/>Vous voyez aussi deux boucles for. On utilise des boucles for quand on veut que certains éléments se répètent. Pour une rangée de cellules, on utilise une boucle for. Pour une grille, on utilise deux boucles for imbriquées.<br/><br/>Dans la première boucle vous voyez clairement le y et dans la seconde le x. W et H représentent la largeur et la hauteur."
+          "explanation": "Ici on associe le mot dots aux points effectifs qui apparaîtront sur l'écran. En liant le mot à ces éléments, il devient plus facile de les utiliser plus loin dans le code.<br/><br/><em>buildDots</em> est la fonction qui crée les points. Cette fonction a besoin de deux éléments : le mot que les points doivent former, et la taille des points.<br/><br/>On voit également deux <em>boucles for</em>. On utilise des boucles for quand on veut que certains éléments se répètent. Pour une rangée de cases, on utilise une boucle for. Pour une grille, on utilise deux boucles for imbriquées.<br/><br/>Dans la première boucle for on voit clairement le <em>y</em>, et dans la seconde le <em>x</em>. <em>W</em> et <em>H</em> représentent la largeur (width) et la hauteur (height)."
         },
         "mouseRadius": {
           "label": "rayon de la souris",
-          "explanation": "Ici nous calculons l'influence que la souris a sur les points. Par 'influence' on entend la taille de la zone autour de la souris où les points grandissent.<br/><br/>dist est la distance entre le point et la souris. mouseRadius est réglé par l'utilisateur et détermine la taille de cette zone.<br/><br/>dist / mouseRadius calcule à quelle distance se trouve la souris sous forme de rapport : quand la souris est au bord du cercle c'est 1, au centre c'est 0.<br/><br/>En mettant 1 - devant, on inverse : proche de la souris = influence élevée, loin = influence faible.<br/><br/>Math.max(0, ...) garantit que l'influence ne devient jamais négative quand la souris est en dehors du cercle."
+          "explanation": "Ici on calcule l'influence de la souris sur les points. Par 'influence' on entend la taille de la zone sous la souris où les points grossissent.<br/><br/><em>dist</em> est la distance entre le point et la souris. mouseRadius est réglé par l'utilisateur avec le curseur et détermine la taille de cette zone.<br/><br/><em>dist / mouseRadius</em> calcule la distance de la souris sous forme d'un rapport : si la souris est au bord du cercle c'est 1, si elle est en plein centre c'est 0.<br/><br/>En mettant <em>1 -</em> devant on inverse : proche de la souris = influence élevée, loin = influence faible.<br/><br/><em>Math.max(0, ...)</em> s'assure que l'influence ne devient jamais négative quand la souris est en dehors du cercle."
         },
         "maxGrow": {
           "label": "croissance max",
-          "explanation": "Avec const vous liez une valeur à un mot spécifique pour y faire référence facilement.<br/><br/>Ici nous calculons le rayon cible. d.baseR est le rayon normal des points formant les lettres, influence est l'effet de la souris, et maxGrow est ce que l'utilisateur règle via les curseurs — il représente la taille maximale des points.<br/><br/>Vous multipliez influence par maxGrow pour calculer de combien le point grossit selon la proximité de la souris, puis vous ajoutez la taille de base du point."
+          "explanation": "Avec const on indique que l'on veut associer une valeur à un mot précis pour pouvoir y faire référence plus facilement.<br/><br/>Ici on calcule le rayon cible. <em>d.baseR</em> est le rayon normal des points qui composent les lettres, <em>influence</em> est l'influence de la souris et <em>maxGrow</em> est ce que l'utilisateur règle via les curseurs — la taille maximale des points.<br/><br/>On multiplie influence par maxGrow pour calculer de combien le point grossit en fonction de la proximité de la souris, puis on ajoute la taille de base du point."
         },
         "color1": {
           "label": "couleur",
-          "explanation": "Avec const vous liez une valeur à un mot spécifique.<br/><br/>Ici vous voyez un const avec r, g et b, qui représentent rouge, vert et bleu.<br/><br/>Color1 représente la valeur que l'utilisateur sélectionne avec le curseur. Une couleur peut être représentée de différentes façons. Le curseur fournit une valeur comme : #FF8A00.<br/><br/>Dans ce code nous avons besoin d'une valeur comme rgb(255, 138, 0), où la première valeur est la quantité de rouge, la deuxième le vert, etc.<br/><br/>On applique d'abord une fonction slice sur la valeur reçue du curseur pour extraire une partie spécifique. Ensuite, une fonction parse convertit les valeurs hexadécimales (0 1 2 3 4 5 6 7 8 9 A B C D E F) en nombres décimaux normaux."
+          "explanation": "Avec const on indique que l'on veut associer une valeur à un mot précis.<br/><br/>Ici on voit un const avec r, g et b. Cela représente : rouge, vert et bleu.<br/><br/><em>Color1</em> représente la valeur définie par l'utilisateur avec le curseur. Une valeur de couleur peut s'exprimer de différentes façons. Ici le curseur fournit une valeur du type : <em>#FF8A00</em>.<br/><br/>Dans ce code on a cependant besoin d'une valeur de couleur du type <em>rgb(255, 138, 0)</em>. Le premier nombre représente la quantité de rouge, le second de vert, et ainsi de suite.<br/><br/>On applique d'abord une fonction <em>slice</em> à la valeur de couleur reçue du curseur. Cela signifie qu'<em>une partie précise est extraite, copiée ou sélectionnée dans l'ensemble</em>.<br/><br/>Ensuite on applique une fonction <em>parse</em> qui convertit les valeurs sélectionnées — encore en hexadécimal (0 1 2 3 4 5 6 7 8 9 A B C D E F) — en nombre décimal normal."
         },
         "text": {
           "label": "texte",
-          "explanation": "Le mot text représente le mot qui est tapé. Vous y faites référence dans le code sous 'word', ce qui facilite son utilisation.<br/><br/>Vous faites de même pour l'espacement entre les points.<br/><br/>Ensuite vous appelez la fonction qui configure les points en lui passant le mot et l'espacement."
+          "explanation": "Le mot <em>text</em> représente ici le mot saisi. On représente ce mot dans le code par 'word', pour pouvoir y faire référence facilement.<br/><br/>On fait de même pour l'espacement entre les points, le spacing.<br/><br/>Ensuite on appelle la fonction qui construit les points en lui passant le mot et le spacing."
         }
       }
     },
     "grid3d": {
       "name": "Grille 3D",
-      "desc": "Une grille 3D de formes qui grandissent plus elles sont proches du centre. Faites pivoter avec la souris.",
+      "desc": "Une grille 3D de formes qui grandissent plus elles sont proches du centre. Fais tourner avec ta souris.",
       "params": {
         "num": {
           "label": "nombre",
-          "explanation": "Ici vous utilisez trois boucles for imbriquées pour créer une grille 3D. La première boucle parcourt l'axe x, la deuxième l'axe y et la troisième l'axe z.<br/><br/>num détermine combien de formes apparaissent sur chaque axe. Si num vaut 5, vous obtenez 5×5×5 = 125 formes au total."
+          "explanation": "Ici on utilise trois <em>boucles for</em> imbriquées pour créer une grille 3D. La première boucle parcourt l'axe x, la deuxième l'axe y et la troisième l'axe z.<br/><br/><em>num</em> détermine combien de formes sont placées sur chaque axe. Si num vaut 5, on obtient 5×5×5 = 125 formes au total."
         },
         "divider": {
           "label": "rapport",
-          "explanation": "distance représente à quelle distance une forme se trouve du centre.<br/><br/>En divisant cette distance par divider, vous déterminez à quelle vitesse les formes rétrécissent vers les bords. Une valeur plus grande = les formes rétrécissent moins vite."
+          "explanation": "<em>distance</em> est la distance d'une forme par rapport au point central.<br/><br/>En divisant cette distance par <em>divider</em> on détermine à quelle vitesse les formes rétrécissent vers les bords. Une valeur plus grande = les formes rétrécissent moins vite."
         },
         "shape": {
           "label": "forme",
-          "explanation": "shapes est une liste de toutes les formes 3D disponibles. En fonction du nombre choisi par l'utilisateur via le curseur, la forme correspondante est sélectionnée.<br/><br/>Math.floor garantit que le nombre est toujours arrondi vers le bas pour obtenir un index valide."
+          "explanation": "<em>shapes</em> est une liste de toutes les formes 3D disponibles. En fonction du nombre choisi par l'utilisateur via le curseur, la forme correspondante est sélectionnée.<br/><br/><em>Math.floor</em> s'assure que le nombre est toujours arrondi vers le bas afin d'obtenir un index valide."
         },
         "material": {
           "label": "matériau",
-          "explanation": "Le matériau détermine comment la lumière se réfléchit sur les formes.<br/><br/>normalMaterial colore chaque face selon sa direction. ambientMaterial réagit à la lumière ambiante. specularMaterial ajoute des reflets brillants. emissiveMaterial émet sa propre lumière, indépendamment des sources lumineuses."
+          "explanation": "Le <em>matériau</em> détermine comment les formes reflètent la lumière.<br/><br/><em>normalMaterial</em> colore chaque face selon sa direction. <em>ambientMaterial</em> réagit à la lumière ambiante. <em>specularMaterial</em> donne des reflets brillants. <em>emissiveMaterial</em> émet lui-même de la lumière, indépendamment des sources lumineuses."
         }
       }
     },
     "tilemirror": {
-      "name": "Miroir en tuiles",
-      "desc": "Une image est divisée en tuiles qui sont reflétées ou tournées aléatoirement selon la position de la souris.",
+      "name": "Miroir de tuiles",
+      "desc": "Une image est divisée en tuiles qui sont reflétées ou pivotées aléatoirement selon la position de ta souris.",
       "params": {
         "size": {
           "label": "taille des tuiles",
-          "explanation": "size détermine la taille de chaque tuile en pixels. L'image est divisée en une grille de tuiles de size × size pixels.<br/><br/>cols et rows calculent combien de tuiles tiennent horizontalement et verticalement. img.get() découpe ensuite chaque morceau de l'image originale."
+          "explanation": "<em>size</em> détermine la taille de chaque tuile en pixels. L'image est divisée en une grille de tuiles de size × size pixels.<br/><br/><em>cols</em> et <em>rows</em> calculent combien de tuiles tiennent horizontalement et verticalement. <em>img.get()</em> découpe ensuite chaque morceau dans l'image originale."
         },
         "mode": {
           "label": "mode",
-          "explanation": "Il y a 5 modes (0–4) :<br/><br/>0 = normal, chaque tuile est droite.<br/>1 = reflet horizontal avec p.scale(-1, 1).<br/>2 = reflet vertical avec p.scale(1, -1).<br/>3 = les deux axes reflétés.<br/>4 = mode souris : les tuiles à droite de la souris reçoivent une rotation aléatoire (0°, 90°, 180° ou 270°), celles de gauche restent normales.<br/><br/>p.scale() effectue le reflet en utilisant un facteur d'échelle négatif. Il faut ensuite décaler l'image avec un décalage négatif pour qu'elle soit au bon endroit."
+          "explanation": "Il y a 5 modes (0–4) :<br/><br/><em>0</em> = normal, chaque tuile est droite.<br/><em>1</em> = reflet horizontal avec <em>p.scale(-1, 1)</em>.<br/><em>2</em> = reflet vertical avec <em>p.scale(1, -1)</em>.<br/><em>3</em> = reflet sur les deux axes.<br/><em>4</em> = mode souris : les tuiles à droite de la souris reçoivent une rotation aléatoire (0°, 90°, 180° ou 270°), celles à gauche restent normales.<br/><br/><em>p.scale()</em> effectue le reflet avec un facteur d'échelle négatif. Ensuite il faut décaler l'image avec un offset négatif pour qu'elle revienne à la bonne position."
         },
         "image": {
           "label": "image",
-          "explanation": "p.loadImage() charge l'image de manière asynchrone. Le deuxième paramètre est une fonction de rappel appelée une fois le chargement terminé.<br/><br/>C'est seulement alors que state.ready est mis à true pour que le reste du code sache que les tuiles peuvent être créées."
+          "explanation": "<em>p.loadImage()</em> charge l'image. Une fois l'image chargée, le statut de 'ready' est mis à true.<br/><br/><em>Ready</em> est un booléen, ce qui signifie qu'il ne peut être que 'true' ou 'false'."
         }
       }
     },
     "metaballs": {
       "name": "Metaballs",
-      "desc": "Des bulles en mouvement créent des formes fluides via les marching squares. Les lignes réagissent à la souris.",
+      "desc": "Des bulles en mouvement créent des formes fluides via les marching squares. Les lignes réagissent à ta souris.",
       "params": {
         "bubbleCount": {
           "label": "nombre de bulles",
-          "explanation": "Avec une boucle for nous créons une liste de bulles. Chaque bulle a une position de départ aléatoire (x, y), un rayon r qui détermine la force d'influence sur les points voisins, et une vitesse (vx, vy).<br/><br/>p.random() retourne un nombre aléatoire entre les deux valeurs données."
+          "explanation": "Avec une <em>boucle for</em> on crée une liste de bulles. Chaque bulle a une position de départ aléatoire (<em>x</em>, <em>y</em>), un rayon <em>r</em> qui détermine à quel point elle influence les points environnants, et une vitesse (<em>vx</em>, <em>vy</em>) pour se déplacer.<br/><br/><em>p.random()</em> renvoie un nombre aléatoire entre les deux valeurs données."
         },
         "strokeSize": {
           "label": "épaisseur du trait",
-          "explanation": "p.strokeWeight() définit l'épaisseur des lignes en pixels. Plus le nombre est grand, plus les contours des metaballs sont épais."
+          "explanation": "<em>p.strokeWeight()</em> définit l'épaisseur des lignes en pixels. Plus le nombre est grand, plus les contours des metaballs sont épais."
         },
         "color1": {
           "label": "couleur 1",
-          "explanation": "Les trois couleurs servent de points d'ancrage pour un dégradé de couleur sur les contours. gradientAt(t) calcule la couleur à la position t (entre 0 et 1).<br/><br/>De t=0 à t=0.5 la couleur passe de la couleur 1 à la couleur 2, de t=0.5 à t=1 de la couleur 2 à la couleur 3. lerpRgb mélange deux couleurs progressivement."
+          "explanation": "Les trois couleurs servent de points d'ancrage pour un dégradé de couleurs sur les contours. <em>gradientAt(t)</em> calcule la couleur à la position t (entre 0 et 1).<br/><br/>De t=0 à t=0.5 la couleur passe de la couleur 1 à la couleur 2, de t=0.5 à t=1 de la couleur 2 à la couleur 3. <em>lerpRgb</em> mélange deux couleurs de façon fluide."
         },
         "color2": {
           "label": "couleur 2",
-          "explanation": "Les trois couleurs servent de points d'ancrage pour un dégradé de couleur sur les contours. gradientAt(t) calcule la couleur à la position t (entre 0 et 1).<br/><br/>De t=0 à t=0.5 la couleur passe de la couleur 1 à la couleur 2, de t=0.5 à t=1 de la couleur 2 à la couleur 3. lerpRgb mélange deux couleurs progressivement."
+          "explanation": "Les trois couleurs servent de points d'ancrage pour un dégradé de couleurs sur les contours. <em>gradientAt(t)</em> calcule la couleur à la position t (entre 0 et 1).<br/><br/>De t=0 à t=0.5 la couleur passe de la couleur 1 à la couleur 2, de t=0.5 à t=1 de la couleur 2 à la couleur 3. <em>lerpRgb</em> mélange deux couleurs de façon fluide."
         },
         "color3": {
           "label": "couleur 3",
-          "explanation": "Les trois couleurs servent de points d'ancrage pour un dégradé de couleur sur les contours. gradientAt(t) calcule la couleur à la position t (entre 0 et 1).<br/><br/>De t=0 à t=0.5 la couleur passe de la couleur 1 à la couleur 2, de t=0.5 à t=1 de la couleur 2 à la couleur 3. lerpRgb mélange deux couleurs progressivement."
+          "explanation": "Les trois couleurs servent de points d'ancrage pour un dégradé de couleurs sur les contours. <em>gradientAt(t)</em> calcule la couleur à la position t (entre 0 et 1).<br/><br/>De t=0 à t=0.5 la couleur passe de la couleur 1 à la couleur 2, de t=0.5 à t=1 de la couleur 2 à la couleur 3. <em>lerpRgb</em> mélange deux couleurs de façon fluide."
         }
       }
     },
     "spirograph": {
       "name": "Spirographe",
-      "desc": "Des rectangles et des points en rotation créent un motif hypnotique qui évolue avec le temps.",
+      "desc": "Des rectangles et des points rotatifs créent un motif hypnotique qui évolue avec le temps.",
       "params": {
         "layers": {
           "label": "couches",
-          "explanation": "Deux boucles for imbriquées dessinent une grille de formes. La boucle externe (i) détermine la couche : chaque couche est un rectangle légèrement plus petit avec un angle de rotation différent.<br/><br/>La boucle interne (j) dessine une rangée de points sur chaque couche à la position (i, j). Ensemble elles créent l'effet spirale.<br/><br/>Plus de couches = plus de détails mais aussi plus lourd pour le navigateur."
+          "explanation": "On voit ici deux <em>boucles for</em>. Les boucles for s'utilisent quand on veut répéter certains éléments. La boucle externe (<em>i</em>) détermine que chaque couche est un rectangle légèrement plus petit avec un angle de rotation différent, calculé avec la fonction sinus <em>p.sin</em>.<br/><br/><em>p.rect(0, 0, 600 - i * 3, 600 - i * 3, 200 - i)</em> : Cela dessine un carré à la position x: 0, y: 0, avec la largeur et hauteur 600 - i * 3, et des coins arrondis avec le rayon 200 - i."
         },
         "baseSize": {
           "label": "taille de base",
-          "explanation": "baseSize détermine la taille du rectangle extérieur. Chaque couche suivante (i) devient 3 pixels plus petite par étape : baseSize - i * 3.<br/><br/>Les troisième et quatrième paramètres de p.rect() sont la largeur et la hauteur. Le cinquième est l'arrondi des coins, qui diminue aussi par couche : 200 - i."
+          "explanation": "<em>baseSize</em> détermine la taille du rectangle le plus grand. Chaque couche suivante (<em>i</em>) rétrécit de 3 pixels par étape : <em>baseSize - i * 3</em>.<br/><br/>Les troisième et quatrième paramètres de <em>p.rect()</em> sont la largeur et la hauteur. Le cinquième paramètre est l'arrondi des coins, qui diminue aussi par couche : <em>200 - i</em>."
         },
         "speed": {
           "label": "vitesse",
-          "explanation": "p.frameCount compte automatiquement le nombre de frames dessinées depuis le début. En multipliant par speed, l'animation tourne plus vite.<br/><br/>p.sin() retourne une valeur oscillante entre -1 et 1, ce qui crée le mouvement rotatif. Plus la vitesse est élevée, plus cette oscillation est rapide."
+          "explanation": "<em>p.frameCount</em> compte automatiquement combien de frames ont été dessinées depuis le début. En le multipliant par <em>speed</em> l'animation tourne plus vite.<br/><br/><em>p.sin()</em> renvoie une valeur ondulante entre -1 et 1, ce qui crée le mouvement de rotation. Plus la vitesse est élevée, plus cette onde se déplace rapidement."
         },
         "rotationStrength": {
           "label": "force de rotation",
-          "explanation": "p.rotate() fait pivoter le plan de dessin d'un certain angle avant de dessiner le rectangle. Cet angle est le résultat de p.sin() (un nombre entre -1 et 1) multiplié par rotationStrength.<br/><br/>Une valeur plus élevée = les rectangles s'écartent davantage de leur position initiale, créant un motif plus sauvage. À faibles valeurs, ils restent presque droits."
+          "explanation": "<em>p.rotate()</em> fait pivoter le plan de dessin d'un angle précis avant que le rectangle soit dessiné. Cet angle est le résultat de <em>p.sin()</em> (un nombre entre -1 et 1) multiplié par <em>rotationStrength</em>.<br/><br/>Plus la valeur est élevée, plus les rectangles s'éloignent de leur position de départ, créant un motif plus dynamique. Avec de faibles valeurs, ils restent presque droits."
         }
       }
     },
     "particles": {
       "name": "Particules",
-      "desc": "Des systèmes de particules suivent votre souris.",
+      "desc": "Des systèmes de particules suivent ta souris.",
       "params": {}
     }
   }

@@ -50,21 +50,20 @@ export default function Home() {
 
       <div className={style.content}>
         <div className={style.generalExplan}>
-          <div className={style.startEx}>
-            <div className={style.text}>
-              {t("home.intro1")}
-              <br />
-              <br />
-              {t("home.intro2")}
-            </div>
+          <div className={style.text}>
+            {t("home.intro1")}
+            <br />
+            <br />
+            {t("home.intro2")}
+            <br />
+            <br />
           </div>
+          <div className={style.left}>{t("home.oefeningenExplanation")}</div>
           <br />
           <br />
-          <div className={style.columns}>
-            <div className={style.left}>{t("home.oefeningenExplanation")}</div>
-            <div className={style.right}>
-              {t("home.createExplanation")}
-              <div className={style.sketchExplanation}>
+          <div className={style.right}>
+            {t("home.createExplanation")}
+            {/* <div className={style.sketchExplanation}>
                 {t("home.howItWorks")}
                 <ol>
                   <li>{t("home.step1")}</li>
@@ -72,8 +71,7 @@ export default function Home() {
                   <li>{t("home.step3")}</li>
                   <li>{t("home.step4")}</li>
                 </ol>
-              </div>
-            </div>
+              </div> */}
           </div>
         </div>
 

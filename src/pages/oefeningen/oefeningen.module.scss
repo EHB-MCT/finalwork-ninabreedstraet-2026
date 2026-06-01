@@ -11,13 +11,14 @@
 @font-face {
   font-family: "Helvetica";
   src: url("/Fonts/Helvetica.ttf");
+  font-weight: 400;
 }
 
 @font-face {
   font-family: "Helvetica";
-  src: url("/Fonts/Helvetica.ttf");
+  src: url("/Fonts/Helvetica-Bold.ttf");
+  font-weight: 700;
 }
-
 .oefeningBox {
   margin-top: 10%;
   padding: 5%;
@@ -60,10 +61,11 @@ td {
   border: 1px solid #ccc;
   padding: 10px;
   text-align: left;
+  font-family: "Helvetica", sans-serif;
 }
 
 th {
-  color: black;
+  font-family: "Tomorrow", sans-serif;
 }
 
 tr:nth-child(even) {
@@ -72,6 +74,14 @@ tr:nth-child(even) {
 
 tr:hover {
   background-color: none;
+}
+
+li {
+  font-family: "Helvetica", sans-serif;
+}
+
+em {
+  font-weight: 700;
 }
 
 .layout {

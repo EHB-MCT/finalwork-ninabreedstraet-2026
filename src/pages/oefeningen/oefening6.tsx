@@ -17,16 +17,16 @@ export default function Oefening6() {
         <p>{t("exercises.oefening6.dataStructuresDesc")}</p>
         <ul>
           <li>
-            <strong>Array:</strong> {t("exercises.oefening6.arrayDesc")}
+            <strong>Array</strong> : {t("exercises.oefening6.arrayDesc")}
           </li>
           <li>
-            <strong>Object:</strong> {t("exercises.oefening6.objectDesc")}
+            <strong>Object</strong> : {t("exercises.oefening6.objectDesc")}
           </li>
           <li>
-            <strong>Map:</strong> {t("exercises.oefening6.mapDesc")}
+            <strong>Map</strong> : {t("exercises.oefening6.mapDesc")}
           </li>
           <li>
-            <strong>Set:</strong> {t("exercises.oefening6.setDesc")}
+            <strong>Set</strong> : {t("exercises.oefening6.setDesc")}
           </li>
         </ul>
         <pre
@@ -75,7 +75,11 @@ const mensen = [
                 message: t("exercises.oefening6.val2020"),
               };
             }
-            if (!code.includes("merk") && !code.includes("brand") && !code.includes("marque")) {
+            if (
+              !code.includes("merk") &&
+              !code.includes("brand") &&
+              !code.includes("marque")
+            ) {
               return {
                 message: t("exercises.oefening6.valMerkProperty"),
               };

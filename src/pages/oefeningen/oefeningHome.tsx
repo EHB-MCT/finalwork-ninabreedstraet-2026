@@ -37,9 +37,7 @@ export default function OefeningenHome() {
             className={`${style.tabBtn} ${activeTab === tab.key ? style.active : ""}`}
             onClick={() => setActiveTab(tab.key)}
           >
-            <BracketItem>
-              {t(tab.translationKey)}
-            </BracketItem>
+            <BracketItem>{t(tab.translationKey)}</BracketItem>
           </button>
         ))}
       </aside>
@@ -48,11 +46,11 @@ export default function OefeningenHome() {
         {activeTab === "basis" && <Basis />}
         {activeTab === "oefening 1" && <Oefening1 />}
         {activeTab === "oefening 2" && <Oefening2 />}
-        {activeTab === "oefening 3" && <Oefening3 />}
-        {activeTab === "oefening 4" && <Oefening4 />}
+        {activeTab === "oefening 3" && <Oefening7 />}
+        {activeTab === "oefening 4" && <Oefening3 />}
         {activeTab === "oefening 5" && <Oefening5 />}
         {activeTab === "oefening 6" && <Oefening6 />}
-        {activeTab === "oefening 7" && <Oefening7 />}
+        {activeTab === "oefening 7" && <Oefening4 />}
         {activeTab === "oefening 8" && <Oefening8 />}
       </main>
     </div>

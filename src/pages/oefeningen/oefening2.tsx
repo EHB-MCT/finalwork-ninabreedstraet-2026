@@ -13,12 +13,8 @@ export default function Oefening2() {
         <h3>{t("exercises.common.explanation")}</h3>
         <p>{t("exercises.oefening2.classIdDesc")}</p>
         <ul>
-          <li>
-            <strong>Class</strong> (.naam): {t("exercises.oefening2.classDesc")}
-          </li>
-          <li>
-            <strong>ID</strong> (#naam): {t("exercises.oefening2.idDesc")}
-          </li>
+          <li>{t("exercises.oefening2.classDesc")}</li>
+          <li>{t("exercises.oefening2.idDesc")}</li>
         </ul>
         <pre
           style={{
