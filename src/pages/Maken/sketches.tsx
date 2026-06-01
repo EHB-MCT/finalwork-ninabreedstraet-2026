@@ -37,7 +37,7 @@ export const SKETCHES: Sketch[] = [
     params: [
       {
         name: "threshold",
-        label: "drempel",
+        label: "Drempel",
         type: "range",
         min: 0,
         max: 100,
@@ -81,7 +81,7 @@ y++;`,
       },
       {
         name: "image",
-        label: "afbeelding",
+        label: "Afbeelding",
         type: "image",
         default:
           "https://m.media-amazon.com/images/I/81nFcvY8zIL._AC_UF1000,1000_QL80_.jpg",
@@ -168,7 +168,7 @@ if (state.col < W) {
     params: [
       {
         name: "color1",
-        label: "kleur 1",
+        label: "Kleur 1",
         type: "color",
         default: "#ff6b6b",
         codeSnippet: `function hexToRgb(hex) {
@@ -216,7 +216,7 @@ if (state.col < W) {
       },
       {
         name: "color2",
-        label: "kleur 2",
+        label: "Kleur 2",
         type: "color",
         default: "#6b6bff",
         codeSnippet: `function hexToRgb(hex) {
@@ -264,7 +264,7 @@ if (state.col < W) {
       },
       {
         name: "color3",
-        label: "kleur 3",
+        label: "Kleur 3",
         type: "color",
         default: "#6bffb8",
         codeSnippet: `function hexToRgb(hex) {
@@ -313,7 +313,7 @@ if (state.col < W) {
       },
       {
         name: "circleCount",
-        label: "aantal cirkels",
+        label: "Aantal cirkels",
         type: "range",
         min: 1,
         max: 20,
@@ -367,7 +367,7 @@ if (state.col < W) {
       },
       {
         name: "blurAmount",
-        label: "blurriness",
+        label: "Blurriness",
         type: "range",
         min: 1,
         max: 30,
@@ -648,89 +648,78 @@ for (let i = 0; i < cols; i++) {
     desc: "Een afbeelding omgezet naar ASCII-tekens op basis van helderheid.",
     animate: true,
     params: [
-      {
-        name: "size",
-        label: "tekengrootte",
-        type: "range",
-        min: 4,
-        max: 20,
-        step: 1,
-        default: 8,
-        codeSnippet: `ctx.font = \`\${size}px monospace\`;
-`,
-        explanation: (
-          <>
-            Aangezien de afbeelding gewoon uit tekens, zoals we op ons
-            toetsenbord kunnen zien, is opgebouwd, kunnen we de grootte van de
-            tekens instellen door gewoon <em>de grootte van het lettertype</em>{" "}
-            in te stellen.
-            <br />
-            <br />
-            Dat is wat je hier ziet. Daarnaast zie je ook veel '\' en een
-            dollarteken en accolade's.
-            <br />
-            <br />
-            Het dollarteken en de accolade's worden gebruikt om een waarde in
-            een tekst te plakken. Als we zonder die opstelling het woord{" "}
-            <em>size</em>
-            in de code zouden plakken, zou dit niet herkend worden.
-            <br />
-            <br />
-            De slashes worden nu gebruikt zodat ik deze tekens aan jullie kan
-            tonene, zodat dat het foutmeldingen geeft in mijn code. Als ik dit
-            niet zou doen, zou mijn code verwachten dat hier nog een waarde in
-            komt. Terwijl deze code enkel ter demonstratie is.
-          </>
-        ),
-      },
+      //       {
+      //         name: "size",
+      //         label: "tekengrootte",
+      //         type: "range",
+      //         min: 4,
+      //         max: 20,
+      //         step: 1,
+      //         default: 8,
+      //         codeSnippet: `ctx.font = \`\${size}px monospace\`;
+      // `,
+      //         explanation: (
+      //           <>
+      //             Aangezien de afbeelding gewoon uit tekens, zoals we op ons
+      //             toetsenbord kunnen zien, is opgebouwd, kunnen we de grootte van de
+      //             tekens instellen door gewoon <em>de grootte van het lettertype</em>{" "}
+      //             in te stellen.
+      //             <br />
+      //             <br />
+      //             Dat is wat je hier ziet. Daarnaast zie je ook veel '\' en een
+      //             dollarteken en accolade's.
+      //             <br />
+      //             <br />
+      //             Het dollarteken en de accolade's worden gebruikt om een waarde in
+      //             een tekst te plakken. Als we zonder die opstelling het woord{" "}
+      //             <em>size</em>
+      //             in de code zouden plakken, zou dit niet herkend worden.
+      //             <br />
+      //             <br />
+      //             De slashes worden nu gebruikt zodat ik deze tekens aan jullie kan
+      //             tonene, zodat dat het foutmeldingen geeft in mijn code. Als ik dit
+      //             niet zou doen, zou mijn code verwachten dat hier nog een waarde in
+      //             komt. Terwijl deze code enkel ter demonstratie is.
+      //           </>
+      //         ),
+      //       },
       {
         name: "charset",
-        label: "tekenstijl",
+        label: "Tekenstijl",
         type: "range",
         min: 0,
-        max: 2,
+        max: 1,
         step: 1,
         default: 0,
         codeSnippet: `const charsets = [
   '█▓▒░ ',
-  '#$%&*+=−:;,. ',
-  '$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/|()1{}[]?-_+~<>i!lI;:,^. ',
+  '#$%&*+=-:;,. ',
 ];
 
-const asciiChar = charsets[Math.min(Math.floor(charset), 2)];
+const baseCharset = charsets[charset];
+const hoverCharset = '$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/|()1{}[]?-_+~<>i!lI;:,^. ';
 
 `,
         explanation: (
           <>
-            <em>charsets</em> is een lijst van 3 verschillende sets van tekens,
-            van donker naar licht gerangschikt.
+            <em>charsets</em> is een lijst (ook wel array genoemd) van twee
+            verschillende sets van tekens, van donker naar licht gerangschikt.
             <br />
             <br />
-            Die tekens worden later gebruikt om pixels voor te stellen als
-            ASCII-kunst.
+            Die tekens worden later gebruikt om de het beeld te genereren.
             <br />
             <br />
-            <em>charsets[Math.min(Math.floor(charset), 2)]</em> kiest één van
-            die drie sets op basis van 'charset'.
-            <br />
-            <br />
-            Charset is hetgeen de gebruiker aangeeft, dit is ofwel: 0, 1 of 2.
-            Waarin 0 de eerste optie voorstelt.
-            <br />
-            <br />
-            <em>charsets[...]</em> gebruikt dat getal om de juiste set uit de
-            lijst te halen, zoals charsets[0] de eerste set geeft.
-            <br />
-            <br />
-            <em>Math.floor </em>rond het getal af naar beneden en{" "}
-            <em>Math.min(..., 2)</em> zorgt dat je nooit boven index 2 gaat
-            (want de lijst heeft maar 3 items: 0, 1 en 2).
+            <em>charsets[charset]</em> Als je een element uit een array wilt
+            selecteren dan doe je dat zo: charsets[0]. Dit betekent, ik wil het
+            eerste element van de lijst 'charsets' (aangezien een array altijd
+            begint bij 0). 'charset' verwijst naar de slider, dit is dus ofwel 0
+            of 1.
           </>
         ),
       },
       {
         name: "color1",
-        label: "tekstkleur",
+        label: "Tekstkleur",
         type: "color",
         default: "#ffffff",
         codeSnippet: `ctx.fillStyle = color1;
@@ -745,7 +734,7 @@ const asciiChar = charsets[Math.min(Math.floor(charset), 2)];
       },
       {
         name: "image",
-        label: "afbeelding",
+        label: "Afbeelding",
         type: "image",
         default:
           "https://m.media-amazon.com/images/I/81nFcvY8zIL._AC_UF1000,1000_QL80_.jpg",
@@ -772,28 +761,31 @@ img.src = image;
         "0 = blokken (█▓▒░), 1 = symbolen (#$%&*), 2 = gedetailleerd ($@B%8&...)",
       color1: "De kleur van de ASCII-tekens.",
     },
-    code: `
-const charsets = [
+    code: `const charsets = [
   '█▓▒░ ',
-  '#$%&*+=−:;,. ',
-  '$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/|()1{}[]?-_+~<>i!lI;:,^. ',
+  '#$%&*+=-:;,. ',
 ];
-const asciiChar = charsets[Math.min(Math.floor(charset), 2)];
+
+const baseCharset = charsets[charset];
+const hoverCharset = '$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/|()1{}[]?-_+~<>i!lI;:,^. ';
 
 if (!state.ready) {
   const img = new Image();
   img.crossOrigin = 'anonymous';
   img.src = image;
+
   img.onload = () => {
-   console.log('image loaded!');
     const offscreen = document.createElement('canvas');
     offscreen.width = 80;
     offscreen.height = 80;
+
     const octx = offscreen.getContext('2d');
     octx.drawImage(img, 0, 0, 80, 80);
+
     state.imageData = octx.getImageData(0, 0, 80, 80);
     state.ready = true;
   };
+
   ctx.fillStyle = '#000';
   ctx.fillRect(0, 0, W, H);
   return;
@@ -806,23 +798,44 @@ const d = state.imageData.data;
 const imgW = state.imageData.width;
 const imgH = state.imageData.height;
 
+const cellW = W / imgW;
+const cellH = H / imgH;
+
 ctx.fillStyle = color1;
-ctx.font = \`\${size}px monospace\`;
 ctx.textAlign = 'center';
 ctx.textBaseline = 'middle';
+ctx.font = Math.max(cellW, cellH) + 'px monospace';
 
 for (let i = 0; i < imgW; i++) {
   for (let j = 0; j < imgH; j++) {
+
     const idx = (i + j * imgW) * 4;
-    const bright = (d[idx] + d[idx+1] + d[idx+2]) / 3;
-    const tIndex = Math.floor((bright / 255) * (asciiChar.length - 1));
-    const ch = asciiChar.charAt(tIndex);
-    const x = i * size + size / 2;
-    const y = j * size + size / 2;
+
+    const r = d[idx];
+    const g = d[idx + 1];
+    const b = d[idx + 2];
+
+    const bright = (r + g + b) / 3;
+
+    const tIndex = Math.floor(
+      (bright / 255) * (baseCharset.length - 1)
+    );
+
+    const x = i * cellW + cellW / 2;
+    const y = j * cellH + cellH / 2;
+
+    const dx = mouse.x - x;
+    const dy = mouse.y - y;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+
+    const isHover = dist < Math.max(cellW, cellH) * 0.6;
+
+    const charset = isHover ? hoverCharset : baseCharset;
+    const ch = charset[tIndex];
+
     ctx.fillText(ch, x, y);
   }
-}
-  `,
+}`,
     previewImage: "/Images/ascii.png",
   },
   {
@@ -833,7 +846,7 @@ for (let i = 0; i < imgW; i++) {
     params: [
       {
         name: "spacing",
-        label: "stippelgrootte",
+        label: "Stippelgrootte",
         type: "range",
         min: 2,
         max: 8,
@@ -883,7 +896,7 @@ for (let i = 0; i < imgW; i++) {
       },
       {
         name: "mouseRadius",
-        label: "muisstraal",
+        label: "Muisstraal",
         type: "range",
         min: 20,
         max: 200,
@@ -919,7 +932,7 @@ for (let i = 0; i < imgW; i++) {
       },
       {
         name: "maxGrow",
-        label: "max groei",
+        label: "Max groei",
         type: "range",
         min: 5,
         max: 50,
@@ -953,7 +966,7 @@ for (let i = 0; i < imgW; i++) {
       },
       {
         name: "color1",
-        label: "kleur",
+        label: "Kleur",
         type: "color",
         default: "#4db43c",
         codeSnippet: `const r0 = parseInt(color1.slice(1,3),16);
@@ -1143,7 +1156,7 @@ for (const d of state.dots) {
     params: [
       {
         name: "num",
-        label: "aantal",
+        label: "Aantal",
         type: "range",
         min: 1,
         max: 15,
@@ -1158,6 +1171,13 @@ for (const d of state.dots) {
 }`,
         explanation: (
           <>
+            Hier zie je drie <em>for-loops</em> staan. for-loops ga je gebruiken
+            als je wilt dat er bepaalde elementen zich moeten herhalen. Als je
+            een rij van bollen wilt, gebruik je een for-loop. Als je een
+            raster/grid wilt, gebruik je twee for-loops in elkaar, zodat de
+            verticale rijen zich ook horizontaal herhalen, of omgekeerd.
+            <br />
+            <br />
             Hier gebruik je drie <em>for-loops</em> in elkaar om een 3D-raster
             te maken. De eerste loop gaat over de x-as, de tweede over de y-as
             en de derde over de z-as.
@@ -1170,16 +1190,23 @@ for (const d of state.dots) {
       },
       {
         name: "divider",
-        label: "verhouding",
+        label: "Verhouding",
         type: "range",
         min: 1,
         max: 15,
         step: 0.5,
         default: 5,
-        codeSnippet: `let sphereSize = spacing - distance / divider;`,
+        codeSnippet: `const s = Math.max(1, spacing - distance / divider);`,
         explanation: (
           <>
-            <em>distance</em> is hoe ver een vorm van het middelpunt staat.
+            <em>distance</em> Dit is hoe ver een vorm van het middelpunt staat.
+            <br />
+            <br />
+            <em>distance / divider</em> Dit deelt de afstand tot het centrum
+            door de divider om te bepalen hoeveel de grootte afneemt. Een
+            grotere divider wilt zeggen dat de vormen dezelfde grootte blijven,
+            een kleinere divider wilt zeggen dat de grootte afneemt, naarmate de
+            afstand van het centrum.
             <br />
             <br />
             Door die afstand te delen door <em>divider</em> bepaal je hoe snel
@@ -1190,7 +1217,7 @@ for (const d of state.dots) {
       },
       {
         name: "shape",
-        label: "vorm",
+        label: "Vorm",
         type: "range",
         min: 0,
         max: 6,
@@ -1200,23 +1227,33 @@ for (const d of state.dots) {
 const shapeName = shapes[Math.floor(shape)];
 
 if (shapeName === 'torus') p.torus(s, s * 0.4, 6, 4);
-else if (shapeName === 'sphere') p.sphere(s, 6, 4);
-// ...`,
+else if (shapeName === 'sphere') p.sphere(s, 6, 4);`,
         explanation: (
           <>
-            <em>shapes</em> is een lijst van alle beschikbare 3D-vormen. Op
-            basis van het getal dat de gebruiker kiest via de slider, wordt de
-            bijhorende vorm geselecteerd.
+            <em>shapes</em> is een lijst (wordt ook een 'array' genoemd) van
+            alle beschikbare 3D-vormen. Op basis van het getal dat de gebruiker
+            kiest via de slider, wordt de bijhorende vorm geselecteerd.
+            <br />
+            <br />
+            Het woordt 'shape' staat hier voor de slider. Het getal dat uit de
+            slider komt, wordt dus geïmplementeerd op de plaats waar 'shape'
+            staat.
             <br />
             <br />
             <em>Math.floor</em> zorgt ervoor dat het getal altijd naar beneden
-            wordt afgerond zodat je altijd een geldige index krijgt.
+            wordt afgerond zodat je altijd een geldige index krijgt. Dit kan je
+            onthouden door dat het getal altijd naar de vloer (floor) wordt
+            getrokken.
+            <br />
+            <br />
+            Het getal dat uit de slider komt kan bijvoorbeeld '1,3 'zijn, als we
+            hier dan <em>Math.floor</em> voorzetten, wordt dit '1'.
           </>
         ),
       },
       {
         name: "material",
-        label: "materiaal",
+        label: "Materiaal",
         type: "range",
         min: 0,
         max: 3,
@@ -1230,12 +1267,25 @@ else if (matName === 'ambientMaterial') p.ambientMaterial(150, 100, 200);
 // ...`,
         explanation: (
           <>
-            Het <em>materiaal</em> bepaalt hoe licht de vormen weerkaatsen.
+            Het <em>materiaal</em> bepaalt hoe de vormen licht weerkaatsen.
             <br />
             <br />
-            <em>normalMaterial</em> kleurt elke zijde op basis van zijn
-            richting. <em>ambientMaterial</em> reageert op omgevingslicht.{" "}
-            <em>specularMaterial</em> geeft glanzende highlights.{" "}
+            <em>normalMaterial</em> Dit kleurt elk vlakje van een 3D-object op
+            basis van de richting het vlakje "uitkijkt": <br />
+            naar rechts/links: rood
+            <br />
+            naar voor/achter: groen
+            <br />
+            naar boven/onder: blauw
+            <br />
+            <br />
+            <em>ambientMaterial</em> reageert op omgevingslicht. We hebben geen
+            lichtbron toegevoegd, dus dit wordt gewoon wit.
+            <br />
+            <br />
+            <em>specularMaterial</em> geeft glanzende highlights.
+            <br />
+            <br />
             <em>emissiveMaterial</em> straalt zelf licht uit, onafhankelijk van
             lichtbronnen.
           </>
@@ -1303,7 +1353,7 @@ for (let i = 0; i < num; i++) {
     params: [
       {
         name: "size",
-        label: "tegelgrootte",
+        label: "Tegelgrootte",
         type: "range",
         min: 10,
         max: 80,
@@ -1311,12 +1361,7 @@ for (let i = 0; i < num; i++) {
         default: 20,
         codeSnippet: `cols = p.width / size;
 rows = p.height / size;
-
-for (let i = 0; i < cols; i++) {
-  for (let j = 0; j < rows; j++) {
-    tiles[i][j] = img.get(i * size, j * size, size, size);
-  }
-}`,
+`,
         explanation: (
           <>
             <em>size</em> bepaalt hoe groot elke tegel is in pixels. De
@@ -1327,12 +1372,19 @@ for (let i = 0; i < cols; i++) {
             <em>cols</em> en <em>rows</em> berekenen hoeveel tegels er
             horizontaal en verticaal passen. <em>img.get()</em> knipt dan elk
             stukje uit de originele afbeelding.
+            <br />
+            <br />
+            <em>p.width</em> en <em>p.height</em> staan voor de breedte en
+            hoogte van het scherm, je zegt dus: hoeveel kolommen en hoeveel
+            rijen passen er op het scherm als de vakjes de grootte van 'size'
+            hebben. 'size' verwijst dan naar de waarde die jij ingeeft met de
+            slider.
           </>
         ),
       },
       {
         name: "mode",
-        label: "modus",
+        label: "Modus",
         type: "range",
         min: 0,
         max: 4,
@@ -1354,6 +1406,12 @@ for (let i = 0; i < cols; i++) {
 }`,
         explanation: (
           <>
+            Je gebruikt hier if-statements, daarme zeg je: als 'mode' (dit is de
+            waarde van slider die jij ingeeft) 0 is, voer dan de opdracht uit
+            tussen de accolades. Maar als de 'mode' 1 is voer dan hetgeen dat
+            tussen die accolades staat, en zo verder.
+            <br />
+            <br />
             Er zijn 5 modi (0–4):
             <br />
             <br />
@@ -1378,7 +1436,7 @@ for (let i = 0; i < cols; i++) {
       },
       {
         name: "image",
-        label: "afbeelding",
+        label: "Afbeelding",
         type: "image",
         default: "/Images/natuur.jpeg",
         codeSnippet: `const img = p.loadImage(image, () => {
@@ -1386,13 +1444,20 @@ for (let i = 0; i < cols; i++) {
 });`,
         explanation: (
           <>
-            <em>p.loadImage()</em> laadt de afbeelding asynchroon. De tweede
-            parameter is een callback-functie die wordt opgeroepen zodra de
-            afbeelding klaar is met laden.
+            <em>p.loadImage()</em> laadt de afbeelding. Zodra de afbeelding
+            klaar is met laden, wordt er aangeduid dat deze actie klaar is,
+            daarom: de status van 'ready' is true.
             <br />
             <br />
-            Pas dan wordt <em>state.ready</em> op true gezet zodat de rest van
-            de code weet dat de tegels aangemaakt kunnen worden.
+            <em>Ready</em> is een boolean, dit wilt zeggen dat die enkel 'true'
+            of 'false' kan zijn. Ready is het woord en 'true' of 'false' is de
+            waarde die je hieraan meegeeft.
+            <br />
+            <br />
+            Eerder in de code zeggen we dus dat we met het woord 'Ready', de
+            waarde 'false' meegeven. Dit verandert dus enkel als de afbeelding
+            geladen is. Hierdoor weet de rest van de code dat ze enkel dan pas
+            verder uitgevoerd kan worden.
           </>
         ),
       },
@@ -1485,7 +1550,7 @@ for (let i = 0; i < state.cols; i++) {
     params: [
       {
         name: "bubbleCount",
-        label: "aantal bellen",
+        label: "Aantal bellen",
         type: "range",
         min: 1,
         max: 30,
@@ -1500,15 +1565,31 @@ for (let i = 0; i < state.cols; i++) {
 }`,
         explanation: (
           <>
-            Met een <em>for-loop</em> maken we een lijst van bellen aan. Elke
-            bel heeft een willekeurige startpositie (<em>x</em>, <em>y</em>),
-            een straal <em>r</em> die bepaalt hoe sterk hij andere punten
+            Hier zie je een <em>for-loop</em> staan. Een for-loop ga je
+            gebruiken als je wilt dat er bepaalde elementen zich moeten
+            herhalen. Als je een rij van bellen wilt, gebruik je een for-loop.
+            <br />
+            <br />
+            Met de <em>for-loop</em> maken we een lijst van bellen aan, die
+            lijst noemt 'bubbels'. Elke bel die wordt aangemaakt wordt geduwt in
+            die lijst, daarom: bubbles.push.
+            <br />
+            <br />
+            Met de functie <em>p.random()</em> kunnen we een random getal
+            genereren. Hetgeen dat tussen de haakjes komt is de max. Je zegt
+            dus: geef mij een random getal en het mag niet hoger zijn dan het
+            getal tussen de haakjes. W en H staan voor de width en height van
+            het scherm.
+            <br />
+            <br />
+            Als er twee getallen staan tussen de haakjes, zeg je: geef mij een
+            random getal en het moet tussen die twee getallen liggen.
+            <br />
+            <br />
+            Elke bel heeft een willekeurige startpositie (<em>x</em>, <em>y</em>
+            ) en een straal <em>r</em> die bepaalt hoe sterk hij andere punten
             beïnvloedt, en een snelheid (<em>vx</em>, <em>vy</em>) om te
             bewegen.
-            <br />
-            <br />
-            <em>p.random()</em> geeft een willekeurig getal terug tussen de twee
-            opgegeven waarden.
           </>
         ),
       },
@@ -1524,7 +1605,7 @@ for (let i = 0; i < state.cols; i++) {
         explanation: (
           <>
             <em>p.strokeWeight()</em> stelt de dikte van de lijnen in pixels in.
-            Hoe groter het getal, hoe dikker de contouren van de metaballs.
+            Hoe groter het getal, hoe dikker de contouren.
           </>
         ),
       },
@@ -1547,14 +1628,38 @@ for (let i = 0; i < state.cols; i++) {
 }`,
         explanation: (
           <>
-            De drie kleuren worden gebruikt als ankerpunten voor een
-            kleurverloop over de contouren. <em>gradientAt(t)</em> berekent de
-            kleur op positie t (tussen 0 en 1).
+            Hier maken we een eigen functie, dit betekent dat wij een opdracht
+            opstellen waarvan we later in de code kunnen vragen of die
+            uitgevoerd kan worden. Hoe steekt een functie in elkaar? We zeggen
+            eerst dat het een functie is door 'function', daarna geven we die
+            functie zelf een naam, hier is dat 'gradientAt', maar dit kan dus
+            ook 'blablabla' zijn. Alles wat tussen de haakjes komt, kunnen we
+            later invullen. We kunnen dus zeggen: Ik wil dat deze functie wordt
+            uitgevoerd met het getal 5, door zo de functie op te roepen:
+            gradientAt(5). Dan wordt 't' overal in de code '5'.
             <br />
             <br />
-            Van t=0 tot t=0.5 loopt de kleur van kleur 1 naar kleur 2, van t=0.5
-            tot t=1 van kleur 2 naar kleur 3. <em>lerpRgb</em> mengt twee
-            kleuren vloeiend.
+            Met <em>c0, c1 en c2</em> gaan we de drie kleuren benoemen. De
+            kleurwaarde die uit de slider komt is een HEX-waarde (dit is
+            bijvoorbeeld de HEX-waarde van zwart: #000000). Voor deze code
+            hebben we een RGB-waarde nodig (dit is de RGB-waarde voor zwart:
+            rgb(0, 0,0)). RGB staat voor rood, groen, blauw. We hebben dus de
+            functie <em>hexToRgb()</em> nodig om die waarde om te zetten naar
+            hetgeen we nodig hebben.
+            <br />
+            <br />
+            Hierna zie je if-statements, hiermee zeg je: als hetgeen tussen de
+            haakjes klopt, voer dan hetgeen uit dat tussen de accolades staat.
+            Voer anders uit wat tussen de accolades staat die naast 'else'
+            staan.
+            <br />
+            <br />
+            Wat gebeurt er door de if-statements?: Van t=0 tot t=0.5 loopt de
+            kleur van kleur 1 naar kleur 2, van t=0.5 tot t=1 van kleur 2 naar
+            kleur 3.
+            <br />
+            <br />
+            <em>lerpRgb</em> mengt twee kleuren vloeiend.
           </>
         ),
       },
@@ -1577,14 +1682,38 @@ for (let i = 0; i < state.cols; i++) {
 }`,
         explanation: (
           <>
-            De drie kleuren worden gebruikt als ankerpunten voor een
-            kleurverloop over de contouren. <em>gradientAt(t)</em> berekent de
-            kleur op positie t (tussen 0 en 1).
+            Hier maken we een eigen functie, dit betekent dat wij een opdracht
+            opstellen waarvan we later in de code kunnen vragen of die
+            uitgevoerd kan worden. Hoe steekt een functie in elkaar? We zeggen
+            eerst dat het een functie is door 'function', daarna geven we die
+            functie zelf een naam, hier is dat 'gradientAt', maar dit kan dus
+            ook 'blablabla' zijn. Alles wat tussen de haakjes komt, kunnen we
+            later invullen. We kunnen dus zeggen: Ik wil dat deze functie wordt
+            uitgevoerd met het getal 5, door zo de functie op te roepen:
+            gradientAt(5). Dan wordt 't' overal in de code '5'.
             <br />
             <br />
-            Van t=0 tot t=0.5 loopt de kleur van kleur 1 naar kleur 2, van t=0.5
-            tot t=1 van kleur 2 naar kleur 3. <em>lerpRgb</em> mengt twee
-            kleuren vloeiend.
+            Met <em>c0, c1 en c2</em> gaan we de drie kleuren benoemen. De
+            kleurwaarde die uit de slider komt is een HEX-waarde (dit is
+            bijvoorbeeld de HEX-waarde van zwart: #000000). Voor deze code
+            hebben we een RGB-waarde nodig (dit is de RGB-waarde voor zwart:
+            rgb(0, 0,0)). RGB staat voor rood, groen, blauw. We hebben dus de
+            functie <em>hexToRgb()</em> nodig om die waarde om te zetten naar
+            hetgeen we nodig hebben.
+            <br />
+            <br />
+            Hierna zie je if-statements, hiermee zeg je: als hetgeen tussen de
+            haakjes klopt, voer dan hetgeen uit dat tussen de accolades staat.
+            Voer anders uit wat tussen de accolades staat die naast 'else'
+            staan.
+            <br />
+            <br />
+            Wat gebeurt er door de if-statements?: Van t=0 tot t=0.5 loopt de
+            kleur van kleur 1 naar kleur 2, van t=0.5 tot t=1 van kleur 2 naar
+            kleur 3.
+            <br />
+            <br />
+            <em>lerpRgb</em> mengt twee kleuren vloeiend.
           </>
         ),
       },
@@ -1607,14 +1736,38 @@ for (let i = 0; i < state.cols; i++) {
 }`,
         explanation: (
           <>
-            De drie kleuren worden gebruikt als ankerpunten voor een
-            kleurverloop over de contouren. <em>gradientAt(t)</em> berekent de
-            kleur op positie t (tussen 0 en 1).
+            Hier maken we een eigen functie, dit betekent dat wij een opdracht
+            opstellen waarvan we later in de code kunnen vragen of die
+            uitgevoerd kan worden. Hoe steekt een functie in elkaar? We zeggen
+            eerst dat het een functie is door 'function', daarna geven we die
+            functie zelf een naam, hier is dat 'gradientAt', maar dit kan dus
+            ook 'blablabla' zijn. Alles wat tussen de haakjes komt, kunnen we
+            later invullen. We kunnen dus zeggen: Ik wil dat deze functie wordt
+            uitgevoerd met het getal 5, door zo de functie op te roepen:
+            gradientAt(5). Dan wordt 't' overal in de code '5'.
             <br />
             <br />
-            Van t=0 tot t=0.5 loopt de kleur van kleur 1 naar kleur 2, van t=0.5
-            tot t=1 van kleur 2 naar kleur 3. <em>lerpRgb</em> mengt twee
-            kleuren vloeiend.
+            Met <em>c0, c1 en c2</em> gaan we de drie kleuren benoemen. De
+            kleurwaarde die uit de slider komt is een HEX-waarde (dit is
+            bijvoorbeeld de HEX-waarde van zwart: #000000). Voor deze code
+            hebben we een RGB-waarde nodig (dit is de RGB-waarde voor zwart:
+            rgb(0, 0,0)). RGB staat voor rood, groen, blauw. We hebben dus de
+            functie <em>hexToRgb()</em> nodig om die waarde om te zetten naar
+            hetgeen we nodig hebben.
+            <br />
+            <br />
+            Hierna zie je if-statements, hiermee zeg je: als hetgeen tussen de
+            haakjes klopt, voer dan hetgeen uit dat tussen de accolades staat.
+            Voer anders uit wat tussen de accolades staat die naast 'else'
+            staan.
+            <br />
+            <br />
+            Wat gebeurt er door de if-statements?: Van t=0 tot t=0.5 loopt de
+            kleur van kleur 1 naar kleur 2, van t=0.5 tot t=1 van kleur 2 naar
+            kleur 3.
+            <br />
+            <br />
+            <em>lerpRgb</em> mengt twee kleuren vloeiend.
           </>
         ),
       },
@@ -1767,7 +1920,7 @@ for (let k = 0; k < thresholds.length - 2; k++) {
     params: [
       {
         name: "layers",
-        label: "lagen",
+        label: "Lagen",
         type: "range",
         min: 10,
         max: 100,
@@ -1777,27 +1930,34 @@ for (let k = 0; k < thresholds.length - 2; k++) {
   for (let j = 0; j < layers; j++) {
     p.rotate(p.sin(p.frameCount + i) * 100);
     p.rect(0, 0, 600 - i * 3, 600 - i * 3, 200 - i);
-    p.circle(i, j, 1);
   }
 }`,
         explanation: (
           <>
-            Twee <em>for-loops</em> in elkaar tekenen een raster van vormen. De
-            buitenste loop (<em>i</em>) bepaalt de laag: elke laag is een iets
-            kleinere rechthoek en heeft een andere rotatiehoek.
+            Hier zie je twee <em>for-loops</em> staan. for-loops ga je gebruiken
+            als je wilt dat er bepaalde elementen zich moeten herhalen. Als je
+            een rij van vakjes wilt, gebruik je een for-loop. Als je een
+            raster/grid wilt, gebruik je twee for-loops in elkaar, zodat de
+            verticale rijen zich ook horizontaal herhalen, of omgekeerd.
             <br />
             <br />
-            De binnenste loop (<em>j</em>) tekent op elke laag een rij stippen
-            op positie (i, j). Samen zorgen ze voor het spiraaleffect.
+            De buitenste loop (<em>i</em>) bepaalt dat elke laag een iets
+            kleinere rechthoek is en een andere rotatiehoek heeft. Dit wordt
+            berekent aan de hand van de sinus-functie <em>p.sin</em>. Je zegt
+            hier dus: naarmate de animatie vordert (p.frameCount), wordt de hoek
+            vermenigvuldigd met 100.
             <br />
             <br />
-            Meer lagen = meer detail maar ook zwaarder voor de browser.
+            <em>p.rect(0, 0, 600 - i * 3, 600 - i * 3, 200 - i);</em> Hiermee
+            zeg je: maak een vierkant met x-positie: 0, y-positie: 0; met
+            breedte: "600 - i * 3" en met hoogte: "600 - i * 3"; en met
+            afgeronde hoeken met een radius: 200 - i.
           </>
         ),
       },
       {
         name: "baseSize",
-        label: "basisgrootte",
+        label: "Basisgrootte",
         type: "range",
         min: 100,
         max: 1200,
@@ -1808,7 +1968,8 @@ for (let k = 0; k < thresholds.length - 2; k++) {
           <>
             <em>baseSize</em> bepaalt hoe groot de buitenste rechthoek is. Elke
             volgende laag (<em>i</em>) wordt met 3 pixels per stap kleiner:{" "}
-            <em>baseSize - i * 3</em>.
+            <em>baseSize - i * 3</em>. Door "-i" te doen, zeg je ga naar het
+            volgende vierkant, dat drie keer kleiner moet zijn.
             <br />
             <br />
             De derde en vierde parameter van <em>p.rect()</em> zijn de breedte
@@ -1819,14 +1980,13 @@ for (let k = 0; k < thresholds.length - 2; k++) {
       },
       {
         name: "speed",
-        label: "snelheid",
+        label: "Snelheid",
         type: "range",
         min: 1,
         max: 10,
         step: 1,
         default: 1,
-        codeSnippet: `p.rotate(p.sin((p.frameCount * speed) + i) * 100);
-let r = p.map(p.sin(p.frameCount * speed), -1, 1, 50, 255);`,
+        codeSnippet: `p.rotate(p.sin((p.frameCount * speed) + i) * 100);`,
         explanation: (
           <>
             <em>p.frameCount</em> telt automatisch hoeveel frames er al getekend
@@ -1836,13 +1996,14 @@ let r = p.map(p.sin(p.frameCount * speed), -1, 1, 50, 255);`,
             <br />
             <em>p.sin()</em> geeft een golvende waarde terug tussen -1 en 1, wat
             zorgt voor de draaibeweging. Hoe hoger de speed, hoe sneller die
-            golf beweegt.
+            golf beweegt. "Speed" verwijst dan naar de waarde die uit de slider
+            komt.
           </>
         ),
       },
       {
         name: "rotationStrength",
-        label: "rotatiekracht",
+        label: "Rotatiekracht",
         type: "range",
         min: 10,
         max: 360,
@@ -1851,15 +2012,20 @@ let r = p.map(p.sin(p.frameCount * speed), -1, 1, 50, 255);`,
         codeSnippet: `p.rotate(p.sin(p.frameCount + i) * rotationStrength);`,
         explanation: (
           <>
-            <em>p.rotate()</em> draait het tekenvlak met een bepaalde hoek
-            voordat de rechthoek getekend wordt. Die hoek is de uitkomst van{" "}
-            <em>p.sin()</em> (een getal tussen -1 en 1) vermenigvuldigd met{" "}
-            <em>rotationStrength</em>.
+            <em>p.rotate()</em> draait het tekenvlak met een bepaalde hoek. Die
+            hoek is de uitkomst van <em>p.sin()</em> (een getal tussen -1 en 1)
+            vermenigvuldigd met <em>rotationStrength</em>.
             <br />
             <br />
-            Een hogere waarde = de rechthoeken draaien verder weg van hun
-            startpositie, wat een wilder patroon geeft. Bij lage waarden blijven
-            ze bijna recht.
+            Met de berekening 'p.frameCount + i' zeg je dat de frames mogen
+            optellen, met frames bedoelen we stilstaande beelden. Als
+            stilstaande beelden achterelkaar worden afgespeeld, krijgen we een
+            animatie.
+            <br />
+            <br />
+            Hoe hoger de waarde van "rotationStrength" (de waarde die uit de
+            slider komt), hoe meer de rechthoeken verder wegdraaien van hun
+            startpositie. Bij lage waarden blijven ze bijna recht.
           </>
         ),
       },
@@ -1900,26 +2066,114 @@ for (let i = 0; i < layers; i++) {
     useP5: true,
     animate: true,
     desc: "Deeltjessystemen volgen je muis.",
-    params: [],
-    paramDocs: {},
     previewImage: "/Images/particles.png",
-    code: `
-    if (p.random() < 0.3) {xz
-      state.ps = state.ps || [];
-      state.ps.push(new System(p, mouse.x, mouse.y));
-    }
+    params: [
+      {
+        name: "particleCount",
+        label: "Cirkeltjes per systeem",
+        type: "range",
+        min: 10,
+        max: 100,
+        step: 5,
+        default: 50,
+        codeSnippet: `for (let i = 0; i < particleCount; i++) {
+  particles.push(new Particle(p, x, y));
+}`,
+        explanation: <>...</>,
+      },
+      {
+        name: "spawnChance",
+        label: "Geboortekans",
+        type: "range",
+        min: 0,
+        max: 1,
+        step: 1,
+        default: 0.3,
+        codeSnippet: `if (p.random(100) < spawnChance) {
+  state.ps.push(new System(p, mouse.x, mouse.y, particleCount));
+}`,
+        explanation: <>...</>,
+      },
+    ],
+    paramDocs: {
+      particleCount: "Aantal deeltjes per systeem.",
+      spawnChance: "Kans (0-100) dat er elk frame een nieuw systeem spawnt.",
+    },
+    code: `class Particle {
+  constructor(p, x, y) {
+    this.p = p;
+    this.pos = p.createVector(x, y);
+    const angle = this.p.random(Math.PI * 2);
+    this.vel = p.createVector(p.random(-3, 3), p.random(-3, 3));
+    this.vel.mult(p.random(0.2, 0.8));
+    const angle2 = p.random(Math.PI * 2);
+    this.acc = p.createVector(p.cos(angle2), p.sin(angle2));
+    this.acc.mult(p.random(0.05, 0.2));
+    this.life = 255;
+    this.done = false;
+    this.hueValue = 0;
+    console.log("vel:", this.vel.x, this.vel.y);
+  }
 
-    p.background(0);
-    p.colorMode(p.HSB, 255);
+  update() {
+  if (this.life < 0) { this.done = true; return; }
+  this.done = false;
+  const angle = this.p.random(Math.PI * 2);
+  this.acc = p.createVector(p.random(angle), p.random(angle));
+  this.acc.mult(this.p.random(0.05, 0.2));
+  this.vel.add(this.acc);
+  this.vel.mult(0.99);
+  this.pos.add(this.vel);
+  this.life -= 1;
+  this.hueValue = (this.hueValue + 1) % 256;
+}
 
-    state.ps = state.ps || [];
-    for (let i = state.ps.length - 1; i >= 0; i--) {
-      state.ps[i].update();
-      state.ps[i].display();
-      if (state.ps[i].done) {
-        state.ps.splice(i, 1);
-      }
+  display() {
+    const s = this.p.map(this.life, 255, 0, 1, 20);
+    this.p.fill(this.hueValue, 255, 255);
+    this.p.ellipse(this.pos.x, this.pos.y, s, s);
+  }
+}
+
+class System {
+  constructor(p, x, y, num) {
+    this.p = p;
+    this.particles = [];
+    this.done = false;
+    for (let i = 0; i < num; i++) {
+      this.particles.push(new Particle(p, x, y));
     }
-  `,
+  }
+
+  update() {
+    this.p.noStroke();
+    for (let i = this.particles.length - 1; i >= 0; i--) {
+      this.particles[i].update();
+      if (this.particles[i].done) this.particles.splice(i, 1);
+    }
+    this.done = this.particles.length === 0;
+  }
+
+  display() {
+    for (let i = 0; i < this.particles.length; i++) {
+      this.particles[i].display();
+    }
+  }
+}
+
+state.ps = state.ps || [];
+
+if (p.random() < 0.3) {
+  state.ps.push(new System(p, mouse.x, mouse.y, particleCount));
+}
+
+p.background(0);
+p.colorMode(p.HSB, 255);
+
+for (let i = state.ps.length - 1; i >= 0; i--) {
+  state.ps[i].update();
+  state.ps[i].display();
+  if (state.ps[i].done) state.ps.splice(i, 1);
+}`,
   },
 ];

@@ -1,8 +1,6 @@
 import { useEffect, useRef, useCallback } from "react";
 import type { Sketch, ParamValues } from "../pages/Maken/sketches";
 import p5 from "p5";
-import System from "../pages/Home/sketches/System";
-import Particle from "../pages/Home/sketches/particle";
 
 // hetgeen dat deze functie moet ontvangen voor muis-animaties
 interface MousePos {
@@ -83,8 +81,8 @@ export function useSketch(
             "t",
             "mouse",
             "state",
-            "System",
-            "Particle",
+            // "System",
+            // "Particle",
             ...paramKeys,
             code,
           );
@@ -107,6 +105,11 @@ export function useSketch(
             };
 
             p.draw = () => {
+              mouseRef.current = {
+                x: p.mouseX,
+                y: p.mouseY,
+                down: mouseRef.current.down,
+              };
               // roept de gebruikerscode op met alle nodige elementen
               fn(
                 p,
@@ -115,12 +118,19 @@ export function useSketch(
                 tRef.current,
                 mouseRef.current,
                 stateRef.current,
-                System,
-                Particle,
+                // System,
+                // Particle,
                 ...paramVals,
               );
               // verhoogt elke keer de framecount
               tRef.current++;
+            };
+
+            p.mousePressed = () => {
+              mouseRef.current.down = true;
+            };
+            p.mouseReleased = () => {
+              mouseRef.current.down = false;
             };
           });
         } catch (e) {
