@@ -95,6 +95,7 @@
   border-radius: 56px;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  filter: invert(1);
   z-index: -1;
 }
 
@@ -106,12 +107,13 @@
   gap: 6%;
   list-style: none;
   text-decoration: none;
+  color: rgb(255, 255, 255);
 }
 
 .copyright {
   display: flex;
   flex-direction: row;
-  color: black;
+  color: rgb(255, 255, 255);
   gap: 6%;
   text-decoration: none;
   border-bottom: none;
