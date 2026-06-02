@@ -21,16 +21,16 @@ export default function Home() {
   const [showLogin, setShowLogin] = useState(false);
   const [Sketch] = useState(() => {
     const sketchArr = [
-      // Sketch1,
+      Sketch1,
       Sketch2,
-      // Sketch3,
-      // Sketch4,
-      // Sketch5,
-      // Sketch6,
-      // Sketch7,
-      // Sketch8,
-      // Sketch9,
-      // Sketch10,
+      Sketch3,
+      Sketch4,
+      Sketch5,
+      Sketch6,
+      Sketch7,
+      Sketch8,
+      Sketch9,
+      Sketch10,
     ];
     return sketchArr[Math.floor(Math.random() * sketchArr.length)];
   });
