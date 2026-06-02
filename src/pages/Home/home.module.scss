@@ -148,9 +148,18 @@ input {
   color: rgb(255, 255, 255);
   backdrop-filter: blur(12px);
   background-color: black;
-  -webkit-backdrop-filter: blur(12px);
   mix-blend-mode: difference;
   filter: invert(1);
+}
+
+.content::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 36px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: -1;
 }
 
 .loginBtn {
