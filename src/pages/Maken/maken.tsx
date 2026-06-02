@@ -142,21 +142,21 @@ export default function Maken() {
   }
 
   // dit gaat de huidge state opslaan op het account van de huidige gebruiker.
-  async function handleSave() {
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-    if (!user) return;
+  // async function handleSave() {
+  //   const {
+  //     data: { user },
+  //   } = await supabase.auth.getUser();
+  //   if (!user) return;
 
-    await supabase.from("projects").insert({
-      user_id: user.id,
-      user: user.user_metadata.first_name,
-      sketch_id: activeId,
-      name: `${sketch.name} - ${new Date().toLocaleDateString()}`,
-      params,
-      code,
-    });
-  }
+  //   await supabase.from("projects").insert({
+  //     user_id: user.id,
+  //     user: user.user_metadata.first_name,
+  //     sketch_id: activeId,
+  //     name: `${sketch.name} - ${new Date().toLocaleDateString()}`,
+  //     params,
+  //     code,
+  //   });
+  // }
 
   // dit is wat er wordt uitgevoerd als de gebruiker op de reset knop drukt.
   function handleReset() {
