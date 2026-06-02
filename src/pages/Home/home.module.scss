@@ -145,9 +145,8 @@ input {
 
   border-radius: 36px;
   pointer-events: all;
-  color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
   backdrop-filter: blur(12px);
-  background-color: black;
   mix-blend-mode: difference;
   filter: invert(1);
 }
@@ -156,9 +155,11 @@ input {
   content: "";
   position: absolute;
   inset: 0;
-  border-radius: 36px;
+  border-radius: 56px;
+  background-color: black;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  filter: invert(1);
   z-index: -1;
 }
 
