@@ -46,10 +46,10 @@
   border-radius: 36px;
   pointer-events: all;
   color: rgb(255, 255, 255);
+  backdrop-filter: blur(12px);
   background-color: black;
   mix-blend-mode: difference;
   filter: invert(1);
-  height: 2rem;
 }
 
 .nav::before {
@@ -77,16 +77,25 @@
   border-top: none;
   z-index: 999;
   position: relative;
-  border-radius: 56px;
+  margin: 2%;
 
+  border-radius: 56px;
+  pointer-events: all;
   color: rgb(255, 255, 255);
-  background-color: black;
   backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background-color: black;
   mix-blend-mode: difference;
   filter: invert(1);
+}
 
-  margin: 2%;
+.footer::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 56px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: -1;
 }
 
 .footerlinks {

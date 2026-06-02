@@ -22,8 +22,6 @@
   justify-content: center;
   gap: 0.4rem;
 
-  border-radius: 36px;
-
   font-family: "Tomorrow", sans-serif;
   font-size: 0.95rem;
   font-weight: bold;
@@ -31,11 +29,23 @@
 
   user-select: none;
 
-  color: rgb(0, 0, 0);
+  border-radius: 36px;
+  pointer-events: all;
+  color: rgb(255, 255, 255);
   backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background-color: black;
   mix-blend-mode: difference;
   filter: invert(1);
+}
+
+.floater::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 36px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: -1;
 }
 
 .activeSwatch {
@@ -60,7 +70,6 @@
   right: 0;
 
   z-index: 100;
-  border-radius: 0.5rem;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   pointer-events: all;
@@ -70,11 +79,23 @@
   // mix-blend-mode: difference;
   font-family: "Tomorrow", sans-serif;
 
-  color: rgb(0, 0, 0);
+  border-radius: 0.5rem;
+  pointer-events: all;
+  color: rgb(255, 255, 255);
   backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background-color: black;
   mix-blend-mode: difference;
   filter: invert(1);
+}
+
+.dropdown::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 0.5rem;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: -1;
 }
 
 .dropdownItem {
