@@ -5,7 +5,7 @@ import enSketches from "../locales/en/sketches.json";
 import frSketches from "../locales/fr/sketches.json";
 import i18n from "../i18n";
 
-const translations = { nl: nlSketches, en: enSketches, fr: frSketches };
+// const translations = { nl: nlSketches, en: enSketches, fr: frSketches };
 
 type ParamTranslation = {
   label: string;

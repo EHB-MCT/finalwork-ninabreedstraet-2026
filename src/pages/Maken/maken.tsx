@@ -22,10 +22,17 @@ export default function Maken() {
 
   // Geheugen van het project, onthoudt wat de actieve parameter is die moet worden opgengeklapt bijvoorbeeld
   const [activeId, setActiveId] = useState(initialId);
-  const [codeTab, setCodeTab] = useState<"full" | "explained" | "slider">(
-    "slider",
+
+  const setCodeTab = useCallback(
+    (_tab: "full" | "explained" | "slider") => {},
+    [],
   );
-  const [activeParam, setActiveParam] = useState<string | null>(null);
+  const setActiveParam = useCallback((_param: string | null) => {}, []);
+
+  // const [codeTab, setCodeTab] = useState<"full" | "explained" | "slider">(
+  //   "slider",
+  // );
+  // const [activeParam, setActiveParam] = useState<string | null>(null);
   const [params, setParams] = useState<ParamValues>(() => {
     const sketch =
       localizedSketches.find((s) => s.id === initialId) ?? localizedSketches[0];
@@ -75,7 +82,7 @@ export default function Maken() {
   }, [projectParam]);
 
   // uitvoering op canvas en executeSketch voert het effectief uit, en vangt fouten op.
-  const { run, stop } = useSketch(canvasRef, sketch, params);
+  const { run, stop } = useSketch(canvasRef, sketch);
 
   const executeSketch = useCallback(
     (currentCode: string, currentParams: ParamValues, resetState = true) => {
@@ -135,21 +142,21 @@ export default function Maken() {
   }
 
   // dit gaat de huidge state opslaan op het account van de huidige gebruiker.
-  // async function handleSave() {
-  //   const {
-  //     data: { user },
-  //   } = await supabase.auth.getUser();
-  //   if (!user) return;
+  async function handleSave() {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    if (!user) return;
 
-  //   await supabase.from("projects").insert({
-  //     user_id: user.id,
-  //     user: user.user_metadata.first_name,
-  //     sketch_id: activeId,
-  //     name: `${sketch.name} - ${new Date().toLocaleDateString()}`,
-  //     params,
-  //     code,
-  //   });
-  // }
+    await supabase.from("projects").insert({
+      user_id: user.id,
+      user: user.user_metadata.first_name,
+      sketch_id: activeId,
+      name: `${sketch.name} - ${new Date().toLocaleDateString()}`,
+      params,
+      code,
+    });
+  }
 
   // dit is wat er wordt uitgevoerd als de gebruiker op de reset knop drukt.
   function handleReset() {

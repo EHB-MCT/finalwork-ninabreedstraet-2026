@@ -42,7 +42,8 @@ function setGradientBlock(
 function getColorForPosition(
   p: p5,
   x: number,
-  y: number,
+  // door de underscore zeg je dat je weet dat die niet wordt aangeroepen maar dat dat nier erg is
+  _y: number,
   c1: p5.Color,
   c2: p5.Color,
   c3: p5.Color,
