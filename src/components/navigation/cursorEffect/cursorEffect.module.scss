@@ -35,9 +35,8 @@
   cursor: pointer;
   user-select: none;
   pointer-events: all;
-  color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
   backdrop-filter: blur(12px);
-  background-color: black;
   mix-blend-mode: difference;
   filter: invert(1);
 }
@@ -46,9 +45,11 @@
   content: "";
   position: absolute;
   inset: 0;
-  border-radius: 36px;
+  border-radius: 56px;
+  background-color: black;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  filter: invert(1);
   z-index: -1;
 }
 
@@ -88,9 +89,8 @@
 
   font-family: "Tomorrow", sans-serif;
 
-  color: rgb(255, 255, 255);
+  color: rgb(0, 0, 0);
   backdrop-filter: blur(12px);
-  background-color: black;
   mix-blend-mode: difference;
   filter: invert(1);
 }
@@ -99,9 +99,11 @@
   content: "";
   position: absolute;
   inset: 0;
-  border-radius: 0.5rem;
+  border-radius: 56px;
+  background-color: black;
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  filter: invert(1);
   z-index: -1;
 }
 
