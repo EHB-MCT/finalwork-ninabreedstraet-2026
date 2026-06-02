@@ -5,11 +5,11 @@
       "desc": "Pixels worden gesorteerd op helderheid kolom per kolom.",
       "params": {
         "threshold": {
-          "label": "drempel",
+          "label": "Drempel",
           "explanation": "<em>const bn = (d[i]*299 + d[i+1]*587 + d[i+2]*114) / 1000 / 2.55</em> berekent hoe helder een pixel is, een getal tussen 0 (zwart) en 100 (wit).<br/><br/><em>d</em> is de lijst van alle pixelwaarden van de afbeelding, eerder opgeslagen als state.d. Het is gewoon een lange rij getallen waarbij elke 4 getallen samen één pixel voorstellen.<br/><br/><em>d[i]</em> is de rode waarde van de pixel, <em>d[i+1]</em> de groene en <em>d[i+2]</em> de blauwe. Elke pixel in de array heeft dus 4 plekjes naast elkaar: rood, groen, blauw en transparantie. De getallen 299, 587 en 114 zijn gewichten die bepalen hoe zwaar elke kleur meetelt voor de helderheid. Groen telt het zwaarst mee omdat ons oog daar het gevoeligst voor is.<br/><br/><em>if (bn > threshold) break</em>: Dit is een if-statement. Als de pixel te licht is, stop dan met verder gaan. y++: Ga één pixel naar beneden."
         },
         "image": {
-          "label": "afbeelding",
+          "label": "Afbeelding",
           "explanation": "<em>new Image()</em> maakt een leeg afbeelding-object aan in de browser en <em>img.src = image</em> vertelt hem welke afbeelding hij moet laden door de URL in te stellen.<br/><br/>Een object is een container voor meerdere waarden die bij elkaar horen, je groepeert ze onder één naam."
         }
       }
@@ -19,23 +19,23 @@
       "desc": "Vloeiende kleurcirkels volgen je muis en stoten elkaar af op een gradiëntachtergrond.",
       "params": {
         "color1": {
-          "label": "kleur 1",
+          "label": "Kleur 1",
           "explanation": "<em>hexToRgb</em> is een functie die een hexkleur zoals #FF8A00 opsplitst in drie losse getallen: rood, groen en blauw. Die drie getallen worden teruggegeven als een lijstje [r, g, b].<br/><br/><em>colorAt(x)</em> geeft de kleur terug op een bepaalde x-positie op het scherm. Het scherm heeft drie kleuren (color1, color2, color3) die vloeiend in elkaar overlopen van links naar rechts.<br/><br/><em>const amt = Math.max(0, Math.min(1, x / W))</em> berekent hoe ver je bent op het scherm als een getal tussen 0 en 1. Helemaal links is 0, helemaal rechts is 1.<br/><br/>Als je in de linkerhelft van het scherm zit, mix je tussen kleur 1 en kleur 2. In de rechterhelft mix je tussen kleur 2 en kleur 3."
         },
         "color2": {
-          "label": "kleur 2",
+          "label": "Kleur 2",
           "explanation": "<em>hexToRgb</em> is een functie die een hexkleur zoals #FF8A00 opsplitst in drie losse getallen: rood, groen en blauw. Die drie getallen worden teruggegeven als een lijstje [r, g, b].<br/><br/><em>colorAt(x)</em> geeft de kleur terug op een bepaalde x-positie op het scherm. Het scherm heeft drie kleuren (color1, color2, color3) die vloeiend in elkaar overlopen van links naar rechts.<br/><br/><em>const amt = Math.max(0, Math.min(1, x / W))</em> berekent hoe ver je bent op het scherm als een getal tussen 0 en 1. Helemaal links is 0, helemaal rechts is 1.<br/><br/>Als je in de linkerhelft van het scherm zit, mix je tussen kleur 1 en kleur 2. In de rechterhelft mix je tussen kleur 2 en kleur 3."
         },
         "color3": {
-          "label": "kleur 3",
+          "label": "Kleur 3",
           "explanation": "<em>hexToRgb</em> is een functie die een hexkleur zoals #FF8A00 opsplitst in drie losse getallen: rood, groen en blauw. Die drie getallen worden teruggegeven als een lijstje [r, g, b].<br/><br/><em>colorAt(x)</em> geeft de kleur terug op een bepaalde x-positie op het scherm. Het scherm heeft drie kleuren (color1, color2, color3) die vloeiend in elkaar overlopen van links naar rechts.<br/><br/><em>const amt = Math.max(0, Math.min(1, x / W))</em> berekent hoe ver je bent op het scherm als een getal tussen 0 en 1. Helemaal links is 0, helemaal rechts is 1.<br/><br/>Als je in de linkerhelft van het scherm zit, mix je tussen kleur 1 en kleur 2. In de rechterhelft mix je tussen kleur 2 en kleur 3."
         },
         "circleCount": {
-          "label": "aantal cirkels",
+          "label": "Aantal cirkels",
           "explanation": "<em>state.circleCount = circleCount</em> slaat het huidige aantal cirkels op in het project, zodat de code later kan controleren of het aantal veranderd is.<br/><br/><em>Array.from({ length: circleCount }, (_, i) => ...)</em> maakt een lijst aan van het aantal cirkels die de gebruiker heeft aangeduid. Voor elk item wordt de opdracht uitgevoerd, waarbij i het volgnummer is (0, 1, 2...). De _ is gewoon een leeg argument dat we niet gebruiken.<br/><br/><em>const angle = (i / circleCount) * Math.PI * 2</em> verdeelt een volledige cirkel eerlijk over alle cirkels. Als er 4 cirkels zijn krijgen ze hoeken 0°, 90°, 180° en 270°.<br/><br/><em>return { x, y, r, ox, oy }</em> maakt een object aan voor elke cirkel met 5 eigenschappen: x en y is de startpositie, r is de straal (grootte), ox en oy is de verschuiving door muis of botsingen, begint op 0.<br/><br/>Een object is een container voor meerdere waarden die bij elkaar horen, je groepeert ze onder één naam."
         },
         "blurAmount": {
-          "label": "blurriness",
+          "label": "Blurriness",
           "explanation": "Het blur-effect pas je normaal toe in de styling, maar in deze programmeertaal wordt het toegepast op <em>de context van het canvas</em>. Dat is wat er wordt bedoeld met ctx. Door er een punt achter te zetten en te verwijzen naar de filter, verwijs je naar welke filter er op de context/canvas moet worden toegepast.<br/><br/>Door <em>blur(10px)</em> te doen wordt er een blur-effect toegepast op <em>de 10 pixels van de randen van elke cirkel</em>. Het dollarteken en de accolades worden gebruikt om een waarde in een tekst te plakken. Als we zonder die opstelling het woord 'size' in de code zouden plakken, zou dit niet herkend worden."
         }
       }
@@ -45,11 +45,11 @@
       "desc": "Een raster van afgeronde rechthoeken die krimpen naarmate de muis dichterbij komt.",
       "params": {
         "spacing": {
-          "label": "rastergrootte",
+          "label": "Rastergrootte",
           "explanation": "Met const duid je aan dat je een waarde, zoals een cijfer of een kleur, wilt koppelen aan een specifiek woord, waardoor het makkelijker opgeroepen kan worden in latere code.<br/><br/><em>W / spacing</em> berekent hoeveel vakjes er horizontaal passen. Als het scherm 800px breed is en spacing 20, dan is dat 40. <em>Math.floor</em> rond dat naar beneden af want je kan geen half vakje hebben.<br/><br/>Hetzelfde geldt voor rows maar dan verticaal met de hoogte H.<br/><br/>De spacing is hetgeen de gebruiker met de slider zelf aanpast."
         },
         "scale": {
-          "label": "gevoeligheid",
+          "label": "Gevoeligheid",
           "explanation": "Met const duid je aan dat je een waarde, zoals een cijfer of een kleur, wilt koppelen aan een specifiek woord, waardoor het makkelijker opgeroepen kan worden in latere code.<br/><br/>Je gaat het woord 'size' koppelen aan de effectieve grootte van de vakjes. Dit bereken je met: <em>Math.max(4, maxSize * Math.min(1, dist / (scale * 2)))</em><br/><br/><em>dist / (scale * 2)</em> berekent hoe ver de muis is als een verhouding. Als de muis heel dichtbij is, is dit een klein getal. Ver weg geeft een groot getal. Scale is dus hetgeen de gebruiker met de slider aanduidt.<br/><br/><em>Math.min(1, ...)</em> zorgt ervoor dat die verhouding nooit groter is dan 1, want anders zou het vierkantje groter worden dan het vakje zelf.<br/><br/><em>vakje</em> = de ruimte die gereserveerd is in het raster voor één element, bepaald door spacing.<br/><em>vierkantje</em> = het witte afgeronde vierkant dat binnen dat vakje getekend wordt, bepaald door size.<br/><br/><em>maxSize * ...</em> vermenigvuldigt die verhouding met de maximale grootte van het vakje, zodat je de echte grootte in pixels krijgt.<br/><br/><em>Math.max(4, ...)</em>: het resultaat mag nooit kleiner zijn dan 4 pixels, want anders zou het vierkantje bijna onzichtbaar worden."
         }
       }
@@ -59,7 +59,7 @@
       "desc": "Een afbeelding omgezet naar ASCII-tekens op basis van helderheid.",
       "params": {
         "charset": {
-          "label": "tekenstijl",
+          "label": "Tekenstijl",
           "explanation": "<em>charsets</em> is een lijst van twee verschillende sets van tekens, van donker naar licht gerangschikt.<br/><br/>Die tekens worden later gebruikt om het beeld te genereren.<br/><br/><em>charsets[charset]</em>: Als je een element uit een array wilt selecteren dan doe je dat zo: charsets[0]. Dit betekent: ik wil het eerste element van de lijst 'charsets' (aangezien een array altijd begint bij 0). 'charset' verwijst naar de slider, dit is dus ofwel 0 of 1."
         },
         "color1": {
@@ -77,23 +77,23 @@
       "desc": "Typ een woord en zie het verschijnen als stippen die reageren op je muis.",
       "params": {
         "spacing": {
-          "label": "stippelgrootte",
+          "label": "Stippelgrootte",
           "explanation": "Hier stel je het woord dots gelijk aan de effectieve bolletjes die je zal zien verschijnen op het scherm. Door het woord hieraan te verbinden, wordt het makkelijker om deze later in de code te gebruiken.<br/><br/><em>buildDots</em> is de functie die de bolletjes aanmaakt. Deze functie heeft twee elementen nodig: het woord dat de bolletjes moeten vormen en de grootte van de bolletjes.<br/><br/>Verder zie je twee <em>for-loops</em> staan. For-loops gebruik je als je wilt dat bepaalde elementen zich herhalen. Als je een rij van vakjes wilt, gebruik je een for-loop. Als je een raster/grid wilt, gebruik je twee for-loops in elkaar.<br/><br/>In de eerste for-loop zie je duidelijk de <em>y</em> en in de tweede de <em>x</em>. De <em>W</em> en <em>H</em> staan voor width en height."
         },
         "mouseRadius": {
-          "label": "muisstraal",
+          "label": "Muisstraal",
           "explanation": "Hier berekenen we de invloed die de muis heeft op de bolletjes. Met 'invloed' wordt verwezen naar hoe groot de straal is van het oppervlak onder de muis waar de bolletjes groter worden.<br/><br/><em>dist</em> is de afstand tussen het bolletje en de muis. mouseRadius wordt ingesteld door de gebruiker met de slider en bepaalt hoe groot die straal is.<br/><br/><em>dist / mouseRadius</em> berekent hoe ver de muis is als een verhouding: als de muis op de rand van de cirkel zit is dat 1, als hij er middenin zit is dat 0.<br/><br/>Door <em>1 -</em> ervoor te zetten draai je dat om: dicht bij de muis = hoge influence, ver weg = lage influence.<br/><br/><em>Math.max(0, ...)</em> zorgt ervoor dat de influence nooit negatief wordt als de muis buiten de cirkel is."
         },
         "maxGrow": {
-          "label": "max groei",
+          "label": "Max groei",
           "explanation": "Met const duid je aan dat je een waarde wilt koppelen aan een specifiek woord, waardoor het makkelijker opgeroepen kan worden in latere code.<br/><br/>Hier berekenen we de target-radius. <em>d.baseR</em> staat voor de normale straal van de bolletjes die de letters opmaken, <em>influence</em> staat voor de invloed die de muis heeft en <em>maxGrow</em> is hetgeen de gebruiker instelt via de sliders en verwijst naar de maximale grootte van de bolletjes.<br/><br/>Je doet influence maal maxGrow om te berekenen hoeveel het bolletje extra groeit op basis van hoe dicht de muis is, daar tel je dan de basisgrootte van het bolletje bij op."
         },
         "color1": {
-          "label": "kleur",
+          "label": "Kleur",
           "explanation": "Met const duid je aan dat je een waarde wilt koppelen aan een specifiek woord.<br/><br/>Hier zie je een const met r, g en b. Dit staat voor: rood, groen en blauw.<br/><br/><em>Color1</em> stelt de waarde voor die de gebruiker aanduidt met de slider. Een kleurwaarde kan je op verschillende manieren voorstellen. Hier geeft de slider dit soort kleurwaarde mee: <em>#FF8A00</em>.<br/><br/>In deze code hebben we echter een kleurwaarde nodig zoals <em>rgb(255, 138, 0)</em>. Hierin staat de eerste waarde voor de hoeveelheid rood, de tweede voor groen, enzovoort.<br/><br/>Eerst voeren we een <em>slice</em>-functie uit op de kleurwaarde die we krijgen via de slider. Dit betekent dat er <em>een specifiek deel uit een geheel wordt geknipt, gekopieerd of geselecteerd</em>.<br/><br/>Daarna voeren we een <em>parse</em>-functie uit die de geselecteerde waarden, die nog hexadecimaal zijn (0 1 2 3 4 5 6 7 8 9 A B C D E F), omzet naar een normaal decimaal getal."
         },
         "text": {
-          "label": "tekst",
+          "label": "Tekst",
           "explanation": "Het woord <em>text</em> staat hier voor het woord dat ingetypt wordt. Je stelt dat woord in de code voor als 'word', zodat je er in de code makkelijk naar kan verwijzen.<br/><br/>Hetzelfde doe je voor de ruimte tussen de bolletjes, de spacing dus.<br/><br/>Daarna roep je de functie op die de bolletjes opstelt en geef je het woord en de spacing mee."
         }
       }
@@ -103,19 +103,19 @@
       "desc": "Een 3D-raster van vormen die groter worden naarmate ze dichter bij het midden zitten. Draai met je muis.",
       "params": {
         "num": {
-          "label": "aantal",
+          "label": "Aantal",
           "explanation": "Hier gebruik je drie <em>for-loops</em> in elkaar om een 3D-raster te maken. De eerste loop gaat over de x-as, de tweede over de y-as en de derde over de z-as.<br/><br/><em>num</em> bepaalt hoeveel vormen er op elke as staan. Als num 5 is, krijg je 5×5×5 = 125 vormen in totaal."
         },
         "divider": {
-          "label": "verhouding",
+          "label": "Verhouding",
           "explanation": "<em>distance</em> is hoe ver een vorm van het middelpunt staat.<br/><br/>Door die afstand te delen door <em>divider</em> bepaal je hoe snel de vormen kleiner worden richting de randen. Een grotere waarde = vormen worden minder snel kleiner."
         },
         "shape": {
-          "label": "vorm",
+          "label": "Vorm",
           "explanation": "<em>shapes</em> is een lijst van alle beschikbare 3D-vormen. Op basis van het getal dat de gebruiker kiest via de slider, wordt de bijhorende vorm geselecteerd.<br/><br/><em>Math.floor</em> zorgt ervoor dat het getal altijd naar beneden wordt afgerond zodat je altijd een geldige index krijgt."
         },
         "material": {
-          "label": "materiaal",
+          "label": "Materiaal",
           "explanation": "Het <em>materiaal</em> bepaalt hoe licht de vormen weerkaatsen.<br/><br/><em>normalMaterial</em> kleurt elke zijde op basis van zijn richting. <em>ambientMaterial</em> reageert op omgevingslicht. <em>specularMaterial</em> geeft glanzende highlights. <em>emissiveMaterial</em> straalt zelf licht uit, onafhankelijk van lichtbronnen."
         }
       }
@@ -125,15 +125,15 @@
       "desc": "Een afbeelding wordt opgedeeld in tegels die gespiegeld of willekeurig geroteerd worden op basis van je muispositie.",
       "params": {
         "size": {
-          "label": "tegelgrootte",
-          "explanation": "<em>size</em> bepaalt hoe groot elke tegel is in pixels. De afbeelding wordt opgedeeld in een raster van tegels van size × size pixels.<br/><br/><em>cols</em> en <em>rows</em> berekenen hoeveel tegels er horizontaal en verticaal passen. <em>img.get()</em> knipt dan elk stukje uit de originele afbeelding."
+          "label": "Tegelgrootte",
+          "explanation": "<em>size</em> bepaalt hoe groot elke tegel is in pixels. De afbeelding wordt opgedeeld in een raster van tegels van size × size pixels.<br/><br/><em>cols</em> en <em>rows</em> berekenen hoeveel tegels er horizontaal en verticaal passen. <em>Math.floor()</em> rond het getal dat tussen de haakjes staat naar beneden af."
         },
         "mode": {
-          "label": "modus",
+          "label": "Modus",
           "explanation": "Er zijn 5 modi (0–4):<br/><br/><em>0</em> = normaal, elke tegel staat rechtop.<br/><em>1</em> = horizontaal gespiegeld met <em>p.scale(-1, 1)</em>.<br/><em>2</em> = verticaal gespiegeld met <em>p.scale(1, -1)</em>.<br/><em>3</em> = beide assen gespiegeld.<br/><em>4</em> = muismodus: tegels rechts van je muis krijgen een willekeurige rotatie (0°, 90°, 180° of 270°), links blijven ze normaal.<br/><br/><em>p.scale()</em> spiegelt door een negatieve schaalfactor te gebruiken. Daarna moet je de afbeelding verschuiven met een negatieve offset zodat hij weer op de juiste plek staat."
         },
         "image": {
-          "label": "afbeelding",
+          "label": "Afbeelding",
           "explanation": "<em>p.loadImage()</em> laadt de afbeelding. Zodra de afbeelding klaar is met laden, wordt er aangeduid dat deze actie klaar is: de status van 'ready' is true.<br/><br/><em>Ready</em> is een boolean, dit wilt zeggen dat die enkel 'true' of 'false' kan zijn."
         }
       }
@@ -143,23 +143,23 @@
       "desc": "Bewegende bellen maken vloeiende vormen via marching squares. De lijnen reageren op je muis.",
       "params": {
         "bubbleCount": {
-          "label": "aantal bellen",
+          "label": "Aantal bellen",
           "explanation": "Met een <em>for-loop</em> maken we een lijst van bellen aan. Elke bel heeft een willekeurige startpositie (<em>x</em>, <em>y</em>), een straal <em>r</em> die bepaalt hoe sterk hij andere punten beïnvloedt, en een snelheid (<em>vx</em>, <em>vy</em>) om te bewegen.<br/><br/><em>p.random()</em> geeft een willekeurig getal terug tussen de twee opgegeven waarden."
         },
         "strokeSize": {
-          "label": "lijndikte",
+          "label": "Lijndikte",
           "explanation": "<em>p.strokeWeight()</em> stelt de dikte van de lijnen in pixels in. Hoe groter het getal, hoe dikker de contouren van de metaballs."
         },
         "color1": {
-          "label": "kleur 1",
+          "label": "Kleur 1",
           "explanation": "De drie kleuren worden gebruikt als ankerpunten voor een kleurverloop over de contouren. <em>gradientAt(t)</em> berekent de kleur op positie t (tussen 0 en 1).<br/><br/>Van t=0 tot t=0.5 loopt de kleur van kleur 1 naar kleur 2, van t=0.5 tot t=1 van kleur 2 naar kleur 3. <em>lerpRgb</em> mengt twee kleuren vloeiend."
         },
         "color2": {
-          "label": "kleur 2",
+          "label": "Kleur 2",
           "explanation": "De drie kleuren worden gebruikt als ankerpunten voor een kleurverloop over de contouren. <em>gradientAt(t)</em> berekent de kleur op positie t (tussen 0 en 1).<br/><br/>Van t=0 tot t=0.5 loopt de kleur van kleur 1 naar kleur 2, van t=0.5 tot t=1 van kleur 2 naar kleur 3. <em>lerpRgb</em> mengt twee kleuren vloeiend."
         },
         "color3": {
-          "label": "kleur 3",
+          "label": "Kleur 3",
           "explanation": "De drie kleuren worden gebruikt als ankerpunten voor een kleurverloop over de contouren. <em>gradientAt(t)</em> berekent de kleur op positie t (tussen 0 en 1).<br/><br/>Van t=0 tot t=0.5 loopt de kleur van kleur 1 naar kleur 2, van t=0.5 tot t=1 van kleur 2 naar kleur 3. <em>lerpRgb</em> mengt twee kleuren vloeiend."
         }
       }
@@ -169,19 +169,19 @@
       "desc": "Roterende rechthoeken en stippen maken een hypnotiserend patroon dat meebeweegt met de tijd.",
       "params": {
         "layers": {
-          "label": "lagen",
+          "label": "Lagen",
           "explanation": "Hier zie je twee <em>for-loops</em> staan. For-loops gebruik je als je wilt dat bepaalde elementen zich herhalen. De buitenste loop (<em>i</em>) bepaalt dat elke laag een iets kleinere rechthoek is met een andere rotatiehoek, berekend via de sinus-functie <em>p.sin</em>.<br/><br/><em>p.rect(0, 0, 600 - i * 3, 600 - i * 3, 200 - i)</em>: Hiermee maak je een vierkant met x-positie: 0, y-positie: 0, breedte en hoogte: 600 - i * 3, en afgeronde hoeken met een radius: 200 - i."
         },
         "baseSize": {
-          "label": "basisgrootte",
+          "label": "Basisgrootte",
           "explanation": "<em>baseSize</em> bepaalt hoe groot de buitenste rechthoek is. Elke volgende laag (<em>i</em>) wordt met 3 pixels per stap kleiner: <em>baseSize - i * 3</em>.<br/><br/>De derde en vierde parameter van <em>p.rect()</em> zijn de breedte en hoogte. De vijfde parameter is de afronding van de hoeken, die ook afneemt per laag: <em>200 - i</em>."
         },
         "speed": {
-          "label": "snelheid",
+          "label": "Snelheid",
           "explanation": "<em>p.frameCount</em> telt automatisch hoeveel frames er al getekend zijn sinds de start. Door dit te vermenigvuldigen met <em>speed</em> gaat de animatie sneller draaien.<br/><br/><em>p.sin()</em> geeft een golvende waarde terug tussen -1 en 1, wat zorgt voor de draaibeweging. Hoe hoger de speed, hoe sneller die golf beweegt."
         },
         "rotationStrength": {
-          "label": "rotatiekracht",
+          "label": "Rotatiekracht",
           "explanation": "<em>p.rotate()</em> draait het tekenvlak met een bepaalde hoek. Die hoek is de uitkomst van <em>p.sin()</em> (een getal tussen -1 en 1) vermenigvuldigd met <em>rotationStrength</em>.<br/><br/>Hoe hoger de waarde, hoe meer de rechthoeken wegdraaien van hun startpositie, wat een wilder patroon geeft. Bij lage waarden blijven ze bijna recht."
         }
       }

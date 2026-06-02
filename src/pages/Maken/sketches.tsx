@@ -1359,8 +1359,8 @@ for (let i = 0; i < num; i++) {
         max: 80,
         step: 5,
         default: 20,
-        codeSnippet: `cols = p.width / size;
-rows = p.height / size;
+        codeSnippet: `const cols = Math.floor(W / size);
+      const rows = Math.floor(H / size);
 `,
         explanation: (
           <>
@@ -1370,15 +1370,14 @@ rows = p.height / size;
             <br />
             <br />
             <em>cols</em> en <em>rows</em> berekenen hoeveel tegels er
-            horizontaal en verticaal passen. <em>img.get()</em> knipt dan elk
-            stukje uit de originele afbeelding.
+            horizontaal en verticaal passen. <em>Math.floor()</em> rond het
+            getal dat tussen de haakjes staat naar beneden af.
             <br />
             <br />
-            <em>p.width</em> en <em>p.height</em> staan voor de breedte en
-            hoogte van het scherm, je zegt dus: hoeveel kolommen en hoeveel
-            rijen passen er op het scherm als de vakjes de grootte van 'size'
-            hebben. 'size' verwijst dan naar de waarde die jij ingeeft met de
-            slider.
+            <em>W</em> en <em>H</em> staan voor de breedte en hoogte van het
+            scherm, je zegt dus: hoeveel kolommen en hoeveel rijen passen er op
+            het scherm als de vakjes de grootte van 'size' hebben. 'size'
+            verwijst dan naar de waarde die jij ingeeft met de slider.
           </>
         ),
       },
@@ -1391,19 +1390,25 @@ rows = p.height / size;
         step: 1,
         default: 4,
         codeSnippet: `if (mode === 0) {
-  p.image(tiles[i][j], 0, 0);            // normaal
-} else if (mode === 1) {
-  p.scale(-1, 1);
-  p.image(tiles[i][j], -size, 0);        // horizontaal gespiegeld
-} else if (mode === 2) {
-  p.scale(1, -1);
-  p.image(tiles[i][j], 0, -size);        // verticaal gespiegeld
-} else if (mode === 3) {
-  p.scale(-1, -1);
-  p.image(tiles[i][j], -size, -size);    // beide gespiegeld
-} else {
-  // muis-modus: willekeurige rotaties rechts van de muis
-}`,
+      p.image(tile, 0, 0);                    // normaal
+    } else if (mode === 1) {
+      p.scale(-1, 1);
+      p.image(tile, -size, 0);
+    } else if (mode === 2) {
+      p.scale(1, -1);              
+      p.image(tile, 0, -size);               // horizontaal gespiegeld
+    } else if (mode === 3) {
+      p.scale(-1, -1);
+      p.image(tile, -size, -size);          // verticaal gespiegeld  
+    } else {
+      if (i > mx / size) {
+        p.translate(size / 2, size / 2);
+        p.rotate(state.rotations[i][j]);    // beide gespiegeld
+        p.image(tile, -size / 2, -size / 2);
+      } else {
+        p.image(tile, 0, 0);
+      }
+    }`,
         explanation: (
           <>
             Je gebruikt hier if-statements, daarme zeg je: als 'mode' (dit is de
@@ -1439,9 +1444,13 @@ rows = p.height / size;
         label: "Afbeelding",
         type: "image",
         default: "/Images/natuur.jpeg",
-        codeSnippet: `const img = p.loadImage(image, () => {
-  state.ready = true;
-});`,
+        codeSnippet: `p.loadImage(
+    image,
+    (loadedImg) => { 
+    // hier komt de rest van de code
+     state.ready = true;
+
+      }`,
         explanation: (
           <>
             <em>p.loadImage()</em> laadt de afbeelding. Zodra de afbeelding
@@ -1466,23 +1475,28 @@ rows = p.height / size;
       size: "Grootte van elke tegel in pixels. Kleiner = meer detail, meer tegels.",
       mode: "0=normaal, 1=horizontaal gespiegeld, 2=verticaal gespiegeld, 3=beide gespiegeld, 4=muismodus",
     },
-    code: `
-const paramsChanged =
+    code: `const paramsChanged =
   state.lastImage !== image ||
   state.lastSize !== size;
-
+ 
+if (state.loading) return;
+ 
 if (!state.ready || paramsChanged) {
   state.ready = false;
+  state.loading = true;
   state.lastImage = image;
   state.lastSize = size;
   state.tiles = null;
-
-  const img = p.loadImage(
+  state.rotations = null;
+ 
+  p.loadImage(
     image,
     (loadedImg) => {
       loadedImg.resize(W, 0);
       const cols = Math.floor(W / size);
       const rows = Math.floor(H / size);
+ 
+      // tiles opbouwen
       const tiles = [];
       for (let i = 0; i < cols; i++) {
         tiles[i] = [];
@@ -1490,29 +1504,44 @@ if (!state.ready || paramsChanged) {
           tiles[i][j] = loadedImg.get(i * size, j * size, size, size);
         }
       }
+ 
+      const rotations = [];
+      for (let i = 0; i < cols; i++) {
+        rotations[i] = [];
+        for (let j = 0; j < rows; j++) {
+          rotations[i][j] = p.floor(p.random(4)) * 90;
+        }
+      }
+ 
       state.tiles = tiles;
+      state.rotations = rotations;
       state.cols = cols;
       state.rows = rows;
       state.ready = true;
+      state.loading = false;
+    },
+    () => {
+      state.loading = false;
     }
   );
   return;
 }
-
+ 
 if (!state.tiles) return;
-
+ 
 const mx = mouse.x ?? W / 2;
-
+ 
 for (let i = 0; i < state.cols; i++) {
   for (let j = 0; j < state.rows; j++) {
+    const tile = state.tiles[i][j];
+    if (!tile) continue;
+ 
     const x = i * size;
     const y = j * size;
+ 
     p.push();
     p.translate(x, y);
-
-    const tile = state.tiles[i][j];
-    if (!tile) { p.pop(); continue; }
-
+ 
     if (mode === 0) {
       p.image(tile, 0, 0);
     } else if (mode === 1) {
@@ -1527,18 +1556,17 @@ for (let i = 0; i < state.cols; i++) {
     } else {
       if (i > mx / size) {
         p.translate(size / 2, size / 2);
-        const angle = (p.floor(p.random(4)) * p.PI) / 2;
-        p.rotate(angle);
+        p.rotate(state.rotations[i][j]);
         p.image(tile, -size / 2, -size / 2);
       } else {
         p.image(tile, 0, 0);
       }
     }
-
+ 
     p.pop();
   }
 }
-  `,
+ `,
     previewImage: "/Images/tilemirror.png",
   },
   {
@@ -1959,10 +1987,10 @@ for (let k = 0; k < thresholds.length - 2; k++) {
         name: "baseSize",
         label: "Basisgrootte",
         type: "range",
-        min: 100,
-        max: 1200,
-        step: 50,
-        default: 600,
+        min: 2,
+        max: 5,
+        step: 1,
+        default: 2,
         codeSnippet: `p.rect(0, 0, baseSize - i * 3, baseSize - i * 3, 200 - i);`,
         explanation: (
           <>
@@ -2051,9 +2079,12 @@ for (let i = 0; i < layers; i++) {
     const r = p.map(p.sin(p.frameCount * speed),       -1, 1, 50, 255);
     const g = p.map(p.cos((p.frameCount * speed) / 2), -1, 1, 50, 255);
     const b = p.map(p.sin((p.frameCount * speed) / 4), -1, 1, 50, 255);
-
+    p.strokeWeight(p.map(i, 0, 100, 4, 0.2));
     p.stroke(r, g, b);
-    p.rect(0, 0, baseSize - i * 3, baseSize - i * 3, 200 - i);
+    const size =
+              p.max(p.width, p.height) * baseSize -
+              i * ((p.max(p.width, p.height) * baseSize) / 100);
+    p.rect(0, 0, size, size, 200 - i * 2);
     p.pop();
   }
 }

@@ -45,10 +45,7 @@ input {
 
 .glassPanel {
   position: relative;
-  border: solid rgb(255, 255, 255) 5px;
   border-radius: 16px;
-  backdrop-filter: blur(4.4px);
-  -webkit-backdrop-filter: blur(4.4px);
   padding: 24px;
   max-width: 400px;
   margin: 20px auto;
@@ -57,6 +54,10 @@ input {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  color: rgb(0, 0, 0);
+  background-color: white;
+  mix-blend-mode: difference;
+  filter: invert(1);
 }
 
 .glassPanel h2 {
@@ -67,12 +68,13 @@ input {
 .glassPanel input {
   width: 100%;
   padding: 10px;
-  border: 5px solid #ffffff;
   border-radius: 25px;
   margin-bottom: 10px;
   box-sizing: border-box;
-  background-color: transparent !important;
-  color: white !important;
+  color: rgb(0, 0, 0);
+  background-color: white;
+  mix-blend-mode: difference;
+  filter: invert(1);
 }
 
 .glassPanel button {
@@ -81,15 +83,23 @@ input {
   align-items: center;
   width: fit-content;
   padding: 10px;
-  color: rgb(255, 255, 255);
   border: none;
   cursor: pointer;
   margin: 8px 0;
+  color: rgb(0, 0, 0);
+  background-color: white;
+  mix-blend-mode: difference;
+  filter: invert(1);
+  font-family: "Helvetica", sans-serif;
 }
 
 .glassPanel p {
   text-align: center;
-  font-family: "Tomorrow", sans-serif;
+  font-family: "Helvetica", sans-serif;
+  color: rgb(0, 0, 0);
+  background-color: white;
+  mix-blend-mode: difference;
+  filter: invert(1);
 }
 
 .formGroup {
@@ -102,7 +112,6 @@ input {
 .formGroup label {
   font-size: 14px;
   font-weight: 600;
-  color: #333;
 }
 
 .divider {
@@ -144,10 +153,15 @@ input {
 
 .loginBtn {
   pointer-events: auto;
-  color: white;
   cursor: pointer;
   font-size: 1rem;
   font-weight: bold;
+
+  color: rgb(0, 0, 0);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  mix-blend-mode: difference;
+  filter: invert(1);
 }
 
 .modalOverlay {
@@ -182,9 +196,12 @@ input {
   clip-path: none;
   border-radius: 0;
 
+  color: rgb(0, 0, 0);
+  background-color: white;
+  mix-blend-mode: difference;
+  filter: invert(1);
+
   width: 10%;
-  background-color: transparent;
-  color: white;
   border: none;
   cursor: pointer;
   margin: 2px 0;

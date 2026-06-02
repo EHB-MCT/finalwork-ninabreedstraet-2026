@@ -8,7 +8,7 @@
   },
   "home": {
     "welcomeUser": "Welcome {{name}}!",
-    "welcomeGuest": "Welcome to Visual Learning!",
+    "welcomeGuest": "Welcome to Glimpse!",
     "closeExplanation": "Close explanation",
     "openExplanation": "Click here for a brief explanation!",
     "login": "Login",
