@@ -103,8 +103,22 @@ export default function Maken() {
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+
+    const setSize = () => {
+      canvas.width = canvas.offsetParent
+        ? (canvas.parentElement?.clientWidth ?? window.innerWidth)
+        : window.innerWidth;
+      canvas.height = canvas.offsetParent
+        ? (canvas.parentElement?.clientHeight ?? window.innerHeight)
+        : window.innerHeight;
+      executeSketch(code, params, false);
+    };
+
+    const observer = new ResizeObserver(setSize);
+    observer.observe(canvas.parentElement ?? document.body);
+    setSize();
+
+    return () => observer.disconnect();
   }, []);
 
   // als het een animatie is, verhoogt dit elke 200ms de frameteller waardoor de sketch opnieuw wordt gerendert.
