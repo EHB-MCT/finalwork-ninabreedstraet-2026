@@ -7,6 +7,14 @@ import cssWorker from "monaco-editor/esm/vs/language/css/css.worker?worker";
 import htmlWorker from "monaco-editor/esm/vs/language/html/html.worker?worker";
 import tsWorker from "monaco-editor/esm/vs/language/typescript/ts.worker?worker";
 
+interface CodeEditorProps {
+  initialCode: string;
+  language?: string;
+  validation: (code: string) => {
+    message: string;
+  };
+}
+
 window.MonacoEnvironment = {
   getWorker(_, label) {
     if (label === "json") return new jsonWorker();
@@ -23,8 +31,8 @@ export function CodeEditor({
   initialCode,
   language = "javascript",
   validation,
-}) {
-  const editorRef = useRef(null);
+}: Readonly<CodeEditorProps>) {
+  const editorRef = useRef<monaco.editor.IStandaloneCodeEditor | null>(null);
   const containerRef = useRef(null);
   const [feedback, setFeedback] = useState("");
 
@@ -53,7 +61,11 @@ export function CodeEditor({
       const result = validation(code);
       setFeedback(result.message);
     } catch (err) {
-      setFeedback(`Fout: ${err.message}`);
+      if (err instanceof Error) {
+        setFeedback(`Fout: ${err.message}`);
+      } else {
+        setFeedback("Onbekende fout");
+      }
     }
   }
 

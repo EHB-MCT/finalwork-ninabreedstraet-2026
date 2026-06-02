@@ -4,11 +4,6 @@
 import { useEffect, useRef } from "react";
 import p5 from "p5";
 
-let r = 180;
-let angle = 0;
-let amt = 0;
-let startAngle = 0;
-
 interface Circle {
   x: number;
   y: number;
@@ -41,23 +36,6 @@ function setGradientBlock(
     let c3 = p.lerpColor(c1, c2, amt);
     p.stroke(c3);
     p.line(i, y, i, y + h);
-  }
-}
-
-function setGradientEllipse(
-  p: p5,
-  min: number,
-  max: number,
-  c1: p5.Color,
-  c2: p5.Color,
-) {
-  for (let i = min; i <= max; i += 2) {
-    let amt = p.map(i, min, max, 0, 1);
-    let c3 = p.lerpColor(c1, c2, amt);
-    p.stroke(c3);
-    let x = r * p.cos(i);
-    let y = r * p.sin(i);
-    p.line(0, 0, x, y);
   }
 }
 
@@ -124,10 +102,6 @@ function separateCircles(circles: Circle[]) {
       }
     }
   }
-}
-
-function easeInQuad(t: number): number {
-  return t * t;
 }
 
 export default function Sketch4() {

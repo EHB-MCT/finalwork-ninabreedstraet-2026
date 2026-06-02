@@ -12,7 +12,6 @@ interface MousePos {
 export function useSketch(
   canvasRef: React.RefObject<HTMLCanvasElement>,
   sketch: Sketch,
-  params: ParamValues,
 ) {
   // id van het huidige animatie-frame zodat die gestopt kan worden
   const animRef = useRef<number | null>(null);

@@ -3,6 +3,7 @@ import { supabase } from "../../lib/supabaseClient";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import style from "../../pages/Home/home.module.scss";
+import type { AuthChangeEvent } from "@supabase/supabase-js";
 
 export default function ResetPassword() {
   const { t } = useTranslation();
@@ -20,7 +21,7 @@ export default function ResetPassword() {
     // Als Supabase het event PASSWORD_RECOVERY stuurt (wat gebeurt als de gebruiker via de reset-link in de mail klikt),
     // dan wordt validSession op true gezet.
     // De lege array [] zorgt dat dit maar één keer wordt uitgevoerd bij het laden.
-    supabase.auth.onAuthStateChange((event) => {
+    supabase.auth.onAuthStateChange((event: AuthChangeEvent) => {
       if (event === "PASSWORD_RECOVERY") {
         setValidSession(true);
       }

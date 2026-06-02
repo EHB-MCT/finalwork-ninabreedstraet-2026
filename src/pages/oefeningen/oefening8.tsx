@@ -57,7 +57,7 @@ for (const fr of fruit) {
           initialCode={`// ${t("exercises.oefening1.placeholder")}
 
 `}
-          validation={(code) => {
+          validation={(code: string) => {
             if (!code.includes("for")) {
               return { message: t("exercises.oefening8.valUseFor") };
             }
@@ -79,7 +79,7 @@ for (const fr of fruit) {
               };
             }
             return {
-              message: t("exercises.oefening8.valSuccess1"),
+              message: t("exercises.oefeningen8.valSuccess1"),
             };
           }}
         />
@@ -100,7 +100,7 @@ for (const fr of fruit) {
 // ${t("exercises.oefening1.placeholder")}
 
 `}
-          validation={(code) => {
+          validation={(code: string) => {
             if (!code.includes("for") && !code.includes("of")) {
               return { message: t("exercises.oefening8.valUseForOf") };
             }

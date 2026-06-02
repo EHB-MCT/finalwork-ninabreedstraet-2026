@@ -71,7 +71,7 @@ console.log(dubbels); // ["appelappel", "peerpeer", ...]`}
           initialCode={`// ${t("exercises.oefening1.placeholder")}
 
 `}
-          validation={(code) => {
+          validation={(code: string) => {
             if (!code.includes("[") || !code.includes("]")) {
               return {
                 valid: false,
@@ -122,7 +122,7 @@ console.log(dubbels); // ["appelappel", "peerpeer", ...]`}
 // ${t("exercises.oefening1.placeholder")}
 
 `}
-          validation={(code) => {
+          validation={(code: string) => {
             if (!code.includes("push")) {
               return {
                 valid: false,

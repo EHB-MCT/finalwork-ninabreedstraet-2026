@@ -24,7 +24,7 @@ export default function Account() {
       .from("projects")
       .select("*")
       .order("created_at", { ascending: false })
-      .then(({ data }) => setProjects(data ?? []));
+      .then(({ data }: { data: any }) => setProjects(data ?? []));
   }, [user]);
 
   useEffect(() => {

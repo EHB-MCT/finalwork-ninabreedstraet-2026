@@ -1,7 +1,7 @@
 //Bronnen:
 // - https://www.youtube.com/watch?v=AVMSCFMCz9w&t=328s
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import p5 from "p5";
 
 export default function Sketch3() {

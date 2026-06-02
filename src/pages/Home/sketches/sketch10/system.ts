@@ -7,12 +7,10 @@ export default class System {
   num: number;
   particles: Particle[] = [];
   done: boolean = false;
+  p: p5;
 
-  constructor(
-    private p: p5,
-    x: number,
-    y: number,
-  ) {
+  constructor(p: p5, x: number, y: number) {
+    this.p = p;
     this.x = x;
     this.y = y;
 

@@ -199,8 +199,6 @@ export function CursorEffectFloater() {
     return () => window.removeEventListener("mousemove", onMove);
   }, [spawnParticles]);
 
-  const cfg = EFFECTS[active];
-
   return (
     <div className={style.wrapper}>
       <canvas ref={canvasRef} className={style.canvas} />

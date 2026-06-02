@@ -32,9 +32,15 @@ export function useLocalizedSketches() {
   const [sketches, setSketches] = useState(() => getLocalized(i18n.language));
 
   useEffect(() => {
-    const handler = (lang: string) => setSketches(getLocalized(lang));
+    const handler = (lang: string) => {
+      setSketches(getLocalized(lang));
+    };
+
     i18n.on("languageChanged", handler);
-    return () => i18n.off("languageChanged", handler);
+
+    return () => {
+      i18n.off("languageChanged", handler);
+    };
   }, []);
 
   return sketches;

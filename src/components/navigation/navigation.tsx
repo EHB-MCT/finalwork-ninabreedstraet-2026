@@ -7,9 +7,7 @@ import { useTranslation } from "react-i18next";
 import { LanguageSwitcher } from "../laguageSwitch/languageSwitch";
 
 const Navigation = () => {
-  const location = useLocation();
-  const isActive = (path: string) => location.pathname === path;
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <div className={style.alles}>

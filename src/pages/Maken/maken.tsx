@@ -63,7 +63,7 @@ export default function Maken() {
       // eq is een filter van supabase, die doet eigenlijk dit in SQL: WHERE id = projectParam
       .eq("id", projectParam)
       .single()
-      .then(({ data }) => {
+      .then(({ data }: { data: any }) => {
         if (!data) return;
         setActiveId(data.sketch_id);
         setParams(data.params);

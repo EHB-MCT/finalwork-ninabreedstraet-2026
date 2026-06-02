@@ -5,16 +5,14 @@ type BracketType = "square" | "curly";
 interface BracketItemProps {
   children: React.ReactNode;
   onClick?: () => void;
-  className?: string;
   bracketType?: BracketType;
 }
 
 export function BracketItem({
   children,
   onClick,
-  className = "",
   bracketType = "square",
-}: BracketItemProps) {
+}: Readonly<BracketItemProps>) {
   return (
     <div
       className={`${style["bracket-item"]} ${style[`bracket-item--${bracketType}`]}`}

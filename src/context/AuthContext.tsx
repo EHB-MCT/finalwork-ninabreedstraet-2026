@@ -8,6 +8,7 @@ import {
   type ReactNode,
 } from "react";
 import { supabase } from "../lib/supabaseClient";
+import type { AuthChangeEvent, Session } from "@supabase/supabase-js";
 
 interface AuthContextType {
   user: any;
@@ -39,7 +40,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     // Dit luistert naar wijzigingen in het account, voor moest er worden uitgelogd bijvoorbeeld.
     // een underscore bij event omdat je die parameter niet gebruikt > dient enkel om te kijken of er ingelogd of uitgelogd is.
     const { data: listener } = supabase.auth.onAuthStateChange(
-      (_event, session) => {
+      (_event: AuthChangeEvent, session: Session | null) => {
         setUser(session?.user ?? null);
       },
     );

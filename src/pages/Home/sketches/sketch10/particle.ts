@@ -5,17 +5,15 @@ export default class Particle {
   vel: p5.Vector;
   acc: p5.Vector;
   life: number;
-  done: Boolean;
+  done: boolean;
   hueValue: number;
   scale: number;
+  p: p5;
 
-  constructor(
-    private p: p5,
-    x: number,
-    y: number,
-  ) {
+  constructor(p: p5, x: number, y: number) {
+    this.p = p;
+
     this.pos = p.createVector(x, y);
-    // this.vel = p.createVector(0, 0);
     this.vel = p5.Vector.random2D();
     this.vel.mult(p.random(0.2, 0.8));
 

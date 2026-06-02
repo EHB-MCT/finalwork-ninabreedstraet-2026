@@ -73,8 +73,8 @@ export default function Sketch2() {
             let bright = (r + g + b) / 3;
             let tIndex = p.floor(p.map(bright, 0, 100, 0, asciiChar.length));
 
-            let x = i * size + size / 2;
-            let y = j * size + size / 2;
+            let x = i * charWidth + charWidth / 2;
+            let y = j * charWidth + charWidth / 2;
             p.textSize(size);
             p.textAlign(p.CENTER, p.CENTER);
             p.text(asciiChar.charAt(tIndex), x, y);
