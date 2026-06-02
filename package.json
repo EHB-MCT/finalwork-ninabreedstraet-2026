@@ -21,6 +21,7 @@
     "react-dom": "^19.2.5",
     "react-i18next": "^17.0.8",
     "react-router-dom": "^7.15.0",
+    "sass-embedded": "^1.100.0",
     "tweakpane": "^4.0.5"
   },
   "devDependencies": {

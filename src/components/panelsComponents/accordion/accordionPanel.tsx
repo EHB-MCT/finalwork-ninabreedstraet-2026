@@ -5,7 +5,7 @@ import { useAccordionParams } from "../../../hooks/useaccordionparams";
 import { AccordionRow } from "./accordionRow";
 import { CodeModal } from "./codeModal";
 import { saveProject } from "./projectService";
-import styles from "./AccordionPanel.module.scss";
+import styles from "./accordionPanel.module.scss";
 import type { AccordionPanelProps } from "./types";
 import { useTranslation } from "react-i18next";
 
