@@ -7,23 +7,46 @@ import i18n from "../i18n";
 
 const translations = { nl: nlSketches, en: enSketches, fr: frSketches };
 
+type ParamTranslation = {
+  label: string;
+  explanation: string;
+};
+
+type SketchTranslation = {
+  name: string;
+  desc: string;
+  params: Record<string, ParamTranslation>;
+};
+
+type TranslationFile = {
+  sketches: Record<string, SketchTranslation>;
+};
+
 function getLocalized(lang: string) {
+  const translations: Record<"nl" | "en" | "fr", TranslationFile> = {
+    nl: nlSketches,
+    en: enSketches,
+    fr: frSketches,
+  };
   const t = translations[lang as "nl" | "en" | "fr"] ?? translations.nl;
 
   return SKETCHES.map((sketch) => {
-    const tr = t.sketches[sketch.id as keyof typeof t.sketches];
+    const tr = t.sketches[sketch.id];
     if (!tr) return sketch;
+
     return {
       ...sketch,
       name: tr.name,
       desc: tr.desc,
-      params: sketch.params.map((p) => ({
-        ...p,
-        label: tr.params[p.name as keyof typeof tr.params]?.label ?? p.label,
-        explanation:
-          tr.params[p.name as keyof typeof tr.params]?.explanation ??
-          p.explanation,
-      })),
+      params: sketch.params.map((p) => {
+        const trParam = tr.params[p.name];
+
+        return {
+          ...p,
+          label: trParam?.label ?? p.label,
+          explanation: trParam?.explanation ?? p.explanation,
+        };
+      }),
     };
   });
 }

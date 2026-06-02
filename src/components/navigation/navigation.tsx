@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import style from "./nav.module.scss";
 import { BracketItem } from "./bracketItem/bracketItem";
 import { CursorEffectFloater } from "./cursorEffect/cursorEffect";

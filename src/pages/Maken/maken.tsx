@@ -2,7 +2,6 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { useSearchParams } from "react-router-dom";
 import { SKETCHES } from "./sketches";
 import { useLocalizedSketches } from "../../hooks/useTranslatedSketches";
-
 import type { ParamValues } from "./sketches";
 import { useSketch } from "../../hooks/useSketch";
 import { useTweakpane } from "../../hooks/useTweakpane";
@@ -63,13 +62,13 @@ export default function Maken() {
       // eq is een filter van supabase, die doet eigenlijk dit in SQL: WHERE id = projectParam
       .eq("id", projectParam)
       .single()
-      .then(({ data }: { data: any }) => {
+      .then(({ data }) => {
         if (!data) return;
         setActiveId(data.sketch_id);
         setParams(data.params);
         setCode(
           data.code ??
-            useLocalizedSketches.find((s) => s.id === data.sketch_id)?.code ??
+            localizedSketches.find((s) => s.id === data.sketch_id)?.code ??
             "",
         );
       });
@@ -136,21 +135,21 @@ export default function Maken() {
   }
 
   // dit gaat de huidge state opslaan op het account van de huidige gebruiker.
-  async function handleSave() {
-    const {
-      data: { user },
-    } = await supabase.auth.getUser();
-    if (!user) return;
+  // async function handleSave() {
+  //   const {
+  //     data: { user },
+  //   } = await supabase.auth.getUser();
+  //   if (!user) return;
 
-    await supabase.from("projects").insert({
-      user_id: user.id,
-      user: user.user_metadata.first_name,
-      sketch_id: activeId,
-      name: `${sketch.name} - ${new Date().toLocaleDateString()}`,
-      params,
-      code,
-    });
-  }
+  //   await supabase.from("projects").insert({
+  //     user_id: user.id,
+  //     user: user.user_metadata.first_name,
+  //     sketch_id: activeId,
+  //     name: `${sketch.name} - ${new Date().toLocaleDateString()}`,
+  //     params,
+  //     code,
+  //   });
+  // }
 
   // dit is wat er wordt uitgevoerd als de gebruiker op de reset knop drukt.
   function handleReset() {
@@ -160,7 +159,7 @@ export default function Maken() {
     executeSketch(sketch.code, newParams);
   }
 
-  const activeParamData = sketch.params.find((p) => p.name === activeParam);
+  // const activeParamData = sketch.params.find((p) => p.name === activeParam);
 
   return (
     // dit is wat er effectief wordt getoond

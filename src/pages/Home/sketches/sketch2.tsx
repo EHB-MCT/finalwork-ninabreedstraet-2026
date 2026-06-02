@@ -4,7 +4,8 @@
 import { useEffect, useRef } from "react";
 import p5 from "p5";
 
-let img: p5.Image;
+let img: p5.Image | null = null;
+let isLoaded = false;
 
 export default function Sketch2() {
   // verwijst naar div element waar p5 zijn sketch in gaat zetten
@@ -18,12 +19,16 @@ export default function Sketch2() {
       // Dit zijn de instellingen van de visual
       let asciiChar = "█▓▒░ ";
 
+      let cols = 250;
+      let cellW = 0;
+      let rows = 0;
+
       // "█▓▒░ ";
       // "#$%&*+=−:;,. ";
       // "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,^`'. ";
 
       let size = 6;
-      let charWidth = size; // wordt hieronder overschreven na font-load
+      // let charWidth = size; // wordt hieronder overschreven na font-load
 
       p.setup = () => {
         p.createCanvas(p.windowWidth, p.windowHeight);
@@ -34,33 +39,24 @@ export default function Sketch2() {
         p.textAlign(p.LEFT, p.TOP);
         p.noLoop();
 
-        // Laad eerst de afbeelding, dan pas canvas aanmaken met de juiste grootte
-        img = p.loadImage("/Images/natuur.jpeg", (loaded) => {
+        cellW = p.width / cols;
+        rows = Math.floor(p.height / cellW);
+
+        // Eerst de afbeelding laden, dan pas canvas aanmaken met de juiste grootte
+        p.loadImage("/Images/natuur.jpeg", (loaded) => {
           img = loaded;
-          img.resize(300, 0);
+          isLoaded = true;
 
-          // Meet de werkelijke tekenbreedte ná font-load
-          charWidth = p.textWidth("M");
-
-          const canvasWidth = img.width * size;
-          const canvasHeight = img.height * size;
-          p.resizeCanvas(canvasWidth, canvasHeight);
-
-          // Reset de inline stijl die p5 zet
-          const canvasEl = document.querySelector(
-            "canvas",
-          ) as HTMLCanvasElement;
-          canvasEl.style.width = "";
-          canvasEl.style.height = "";
+          img.resize(cols, rows);
 
           p.redraw();
         });
       };
 
       p.draw = () => {
-        if (!img) return;
+        if (!isLoaded || !img) return;
         p.fill(1);
-        p.background(500);
+        p.background(255);
         img.loadPixels();
 
         for (let i = 0; i < img.width; i++) {
@@ -71,10 +67,12 @@ export default function Sketch2() {
             let b = img.pixels[pixelsIndex + 2];
 
             let bright = (r + g + b) / 3;
-            let tIndex = p.floor(p.map(bright, 0, 100, 0, asciiChar.length));
+            let tIndex = p.floor(
+              p.map(bright, 0, 255, 0, asciiChar.length - 1),
+            );
 
-            let x = i * charWidth + charWidth / 2;
-            let y = j * charWidth + charWidth / 2;
+            let x = i * cellW;
+            let y = j * cellW;
             p.textSize(size);
             p.textAlign(p.CENTER, p.CENTER);
             p.text(asciiChar.charAt(tIndex), x, y);

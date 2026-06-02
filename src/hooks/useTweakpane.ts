@@ -3,7 +3,7 @@ import { Pane } from "tweakpane";
 import type { Sketch, ParamValues } from "../pages/Maken/sketches";
 
 export function useTweakpane(
-  paneContainerRef: React.RefObject<HTMLDivElement>,
+  paneContainerRef: React.RefObject<HTMLDivElement | null>,
   sketch: Sketch,
   params: ParamValues,
   paramsRef: React.MutableRefObject<ParamValues>,

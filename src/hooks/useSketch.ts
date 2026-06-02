@@ -1,5 +1,11 @@
-import { useEffect, useRef, useCallback } from "react";
-import type { Sketch, ParamValues } from "../pages/Maken/sketches";
+import {
+  useEffect,
+  useRef,
+  useCallback,
+  type ReactNode,
+  type RefObject,
+} from "react";
+import type { Sketch, ParamValues, ParamType } from "../pages/Maken/sketches";
 import p5 from "p5";
 
 // hetgeen dat deze functie moet ontvangen voor muis-animaties
@@ -10,8 +16,9 @@ interface MousePos {
 }
 
 export function useSketch(
-  canvasRef: React.RefObject<HTMLCanvasElement>,
+  canvasRef: React.RefObject<HTMLCanvasElement | null>,
   sketch: Sketch,
+  params: ParamValues,
 ) {
   // id van het huidige animatie-frame zodat die gestopt kan worden
   const animRef = useRef<number | null>(null);
