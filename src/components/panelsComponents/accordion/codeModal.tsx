@@ -1,4 +1,4 @@
-import styles from "./AccordionPanel.module.scss";
+import styles from "./accordionPanel.module.scss";
 
 // dit definieert wat dit component verwacht te ontvangen, zodat die kan functioneren
 // void betekent dat de functie niks teruggeeft, voor de rest wordt er verwezen naar de andere types die al gedefinieerd staan in de andere componenten

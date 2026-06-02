@@ -4,7 +4,7 @@ import type {
   ParamValues,
 } from "../../../pages/Maken/sketches.tsx";
 import { ParamControl } from "./paramcontrol.tsx";
-import styles from "./AccordionPanel.module.scss";
+import styles from "./accordionPanel.module.scss";
 import { useTranslation } from "react-i18next";
 
 // dit definieert wat dit component verwacht te ontvangen, zodat die kan functioneren
