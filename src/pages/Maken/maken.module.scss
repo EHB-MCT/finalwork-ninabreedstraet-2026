@@ -407,6 +407,10 @@ button {
 }
 
 .btnRun {
+  z-index: 999;
+  font-family: "Tomorrow", sans-serif;
+  width: fit-content;
+
   padding: 7px 18px;
   border: none;
   border-radius: 36px;
@@ -432,6 +436,10 @@ button {
 }
 
 .btnReset {
+  z-index: 999;
+  font-family: "Tomorrow", sans-serif;
+  width: fit-content;
+
   padding: 7px 14px;
   background: transparent;
   border: 0.5px solid var(--border);
