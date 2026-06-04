@@ -77,76 +77,189 @@
 - https://p5js.org/reference/p5/drawingContext/
 - https://codemirror.net/docs/guide/
 
-# React + TypeScript + Vite
+# 1. Inleiding
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# 1.1. Doel van dit document
 
-Currently, two official plugins are available:
+Deze onderhoudsdocumentatie biedt technische beheerders een volledig overzicht van de architectuur, processen en procedures die nodig zijn om de website stabiel, veilig en up-to-date te houden.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+# 1.2. Technologiestack (P5.js, JavaScript, ...)
 
-## React Compiler
+• React 19: bibliotheek voor de opbouw van de ­gebruikersinterface
+• Vite 8: build tool en lokale ontwikkelomgeving
+• TypeScript 6: getypeerde versie van JavaScript voor meer robuuste code
+• P5.js 2: bibliotheek voor het genereren van visuele animaties via code
+• Tweakpane 4: UI-bibliotheek voor de sliders en bedieningspanelen
+• Monaco Editor 0.55: ingebouwde code-editor in de browser
+• React Router 7: navigatie en routing tussen pagina’s
+• i18next 26: meertaligheid en vertalingen
+• Leva 0.10: aanvullende UI-bibliotheek voor bedieningspanelen
+• Opentype.js 2: verwerking en manipulatie van lettertypes
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+# 2. Installatie en configuratie
 
-## Expanding the ESLint configuration
+# 2.1. Vereisten en dependencies
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+Om de website lokaal te kunnen uitvoeren, zijn de volgende ­vereisten nodig:
 
-```js
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
+• Node.js (versie 18 of hoger)
+• npm (wordt meegeleverd met Node.js)
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+Alle overige dependencies staan vermeld in het bestand package.json, worden automatisch geïnstalleerd via npm en staan hierboven vermeld.
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
-```
+# 2.2. Lokale omgeving opzetten
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+1.  Clone de repository naar je lokale machine.
+2.  Open een terminal en navigeer naar de projectmap.
+3.  Voer het volgende commando uit om alle dependencies
+    te ­installeren: npm install
+4.       Start de lokale ontwikkelomgeving met: npm run dev
+5.       Open de browser en ga naar http://localhost:5173
+    om de ­website te bekijken.
 
-```js
-// eslint.config.js
-import reactX from "eslint-plugin-react-x";
-import reactDom from "eslint-plugin-react-dom";
+# 3. Structuur van de codebase
 
-export default defineConfig([
-  globalIgnores(["dist"]),
-  {
-    files: ["**/*.{ts,tsx}"],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs["recommended-typescript"],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ["./tsconfig.node.json", "./tsconfig.app.json"],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-]);
-```
+# 3.1. Overzicht van de mappenstructuur
+
+── public/
+│ ── Fonts/
+│ ── Images/
+── src/
+│ ── components/
+│ ── accordion/
+│ ── bgEffect/
+│ ── bracketItem/
+│ ── cursorEffect/
+│ ── languageSwitch/
+│ ── navigation/
+│ ── symbolsNav/
+│ ── context/
+│ ── hooks/
+│ ── lib/
+│ ── locales/
+│ ── nl/
+│ ── fr/
+│ ── en/
+│ ── pages/
+│ │ ── Account/
+│ │ ── Home/
+│ │ └── sketches/
+│ │ ── Maken/
+│ │ ── oefeningen/
+│ ── App.css
+│ ── App.tsx
+│ ── i18n.ts
+│ ── index.css
+│ ── main.tsx
+│ ── router.tsx
+── .env
+── .gitignore
+── eslint.config.js
+── index.html
+── package.json
+── README.md
+── tsconfig.app.json
+── tsconfig.json
+── tsconfig.node.json
+── vite.config.ts
+README.md
+
+# 3.2. Beschrijving van de belangrijkste bestanden
+
+src/pages/Maken/sketches.tsx
+Dit is een van de belangrijkste bestanden van het project. Hierin staan alle beschikbare sketches (animaties) gedefinieerd die de gebruiker kan selecteren op de ‘Creëren’-pagina. Per sketch worden ook alle bijhorende parameters beschreven: de naam, de standaardwaarde, het type slider en de bijhorende uitleg die zichtbaar is in het panel. Indien er een nieuwe animatie of parameter toegevoegd moet worden, gebeurt dit in dit bestand.
+
+src/router.tsx
+In dit bestand staat de volledige routeconfiguratie van de website. Hier wordt bepaald welke pagina gekoppeld is aan welk URL-pad. Indien er een nieuwe pagina toegevoegd wordt aan het project, moet die hier ook geregistreerd worden.
+
+src/pages/
+Deze map bevat alle pagina’s van de website, opgedeeld per submap:
+
+    Home/
+    De startpagina met de achtergrondanimatie en de ­introductieknop
+
+    Maken/
+    De creatieve pagina met het panel, de parameters en het canvas
+    Account/
+    De accountpagina met de gebruikersgegevens en de opgeslagen animaties
+
+    oefeningen/
+    De oefenpagina met de uitleg en de interactieve ­code-oefeningen
+
+# 4. Functionaliteiten technisch toegelicht
+
+# 4.1. De animaties en presets
+
+Alle beschikbare animaties zijn gedefinieerd in src/pages/Maken/sketches.tsx als een lijst van objecten onder de naam SKETCHES. Elke animatie heeft de volgende structuur:
+
+{
+id: string; // unieke identifier
+name: string; // zichtbare naam in het panel
+desc: string; // korte beschrijving
+animate: boolean; // of de animatie continu loopt
+params: SketchParam[] // lijst van instelbare parameters
+paramDocs: Record<string, string> // korte uitleg per parameter
+code: string; // de volledige P5.js-code van de animatie
+previewImage: string; // pad naar de previewafbeelding
+}
+
+Momenteel zijn de volgende animaties beschikbaar:
+• Pixel Sorting: pixels worden gesorteerd op helderheid kolom per kolom
+• Gradiënt: vloeiende kleurcirkels die reageren op de muis
+• Grid: een raster van afgeronde rechthoeken die krimpen bij muisnabijheid
+• ASCII: een afbeelding omgezet naar ASCII-tekens op basis van helderheid
+• Stippeltekst: een woord opgebouwd uit stippen die reageren op de muis
+• 3D Grid: een 3D-raster van vormen die draaibaar zijn met de muis
+• Tile Mirror: een animatie waarbij de vakjes van een afbeelding gespiegeld worden tot een dynamisch patroon
+• Spiraal: een spiraalvormige compositie van rechthoeken, ­opgebouwd met behulp van sinus- en cosinusfuncties.
+• Marching Squares: een interactieve noise-animatie die reageert op de beweging van de muis.
+• Particles: deeltjes die vanuit de muis verschijnen en ­geleidelijk groter worden naarmate ze zich verder van de cursor ­verwijderen.
+
+Elke parameter binnen een animatie heeft de volgende structuur:
+
+{
+name: string; interne naam
+label: string; zichtbare naam in het panel
+type: ParamType; slider, kleur, afbeelding, tekst
+min?: number; minimumwaarde (voor de slider)
+max?: number; maximumwaarde (voor de slider)
+step?: number; stapgrootte (voor range)
+default: number | string; standaardwaarde
+codeSnippet: ReactNode; codevoorbeeld zichtbaar in het panel
+explanation: string | ReactNode; uitleg zichtbaar in het panel
+}
+
+Om een nieuwe animatie toe te voegen, volstaat het om een nieuw object toe te voegen aan de SKETCHES-lijst in sketches.tsx volgens dezelfde structuur.
+
+# 4.2. De coding workspace
+
+De coding workspace is beschikbaar op de ‘Creëren’-pagina en laat de gebruiker toe om de volledige code van de geselecteerde ­animatie te bekijken en aan te passen. Deze workspace is geïmplementeerd als een venster via het component CodeModal.
+
+De modal wordt geopend wanneer de gebruiker op de knop ‘Toon hele code’ klikt in het panel. Het venster bestaat uit drie delen:
+• Een header: met de naam van de geselecteerde animatie en een sluitknop
+• Een teksteditor: een bewerkbaar tekstveld waarin de volledige P5.js-code zichtbaar is en aangepast kan worden
+• Een footer: met een knop om de wijzigingen toe te passen en uit te voeren, en een knop om te annuleren
+
+Wanneer de gebruiker op ‘Toepassen & uitvoeren’ klikt, wordt de aangepaste code doorgegeven aan de parent-component en onmiddellijk uitgevoerd op het canvas. Indien de gebruiker annuleert of de modal sluit, blijven de originele parameters ongewijzigd.
+
+Per parameter is er daarnaast ook een kleinere codeweergave ­beschikbaar in het panel zelf. Door op het pijltje naast een parameter te klikken, wordt de bijhorende code-snippet zichtbaar samen met de bijhorende uitleg. Dit is niet bewerkbaar en dient enkel als introductie tot de onderliggende code.
+
+# 5. Updates en onderhoud
+
+• Dependencies kunnen bijgewerkt worden via het volgende ­commando: npm update
+• Voor een volledige controle op verouderde packages:
+npm outdated
+
+# 6. Contacten
+
+Indien er in deze documentatie geen antwoord wordt aangeboden op jouw probleem kan men altijd contact openemen met de maker: breedstraetnina@gmail.com
+• React 19: bibliotheek voor de opbouw van de ­ gebruikersinterface
+• Vite 8: build tool en lokale ontwikkelomgeving
+• TypeScript 6: getypeerde versie van JavaScript voor meer robuuste code
+• P5.js 2: bibliotheek voor het genereren van visuele animaties via code
+• Tweakpane 4: UI-bibliotheek voor de sliders en bedieningspanelen
+• Monaco Editor 0.55: ingebouwde code-editor in de browser
+• React Router 7: navigatie en routing tussen pagina’s
+• i18next 26: meertaligheid en vertalingen
+• Leva 0.10: aanvullende UI-bibliotheek voor bedieningspanelen
+• Opentype.js 2: verwerking en manipulatie van lettertypes
