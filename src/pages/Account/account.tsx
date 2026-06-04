@@ -5,6 +5,7 @@ import { useAuth } from "../../context/AuthContext";
 import { useTranslation } from "react-i18next";
 import style from "./account.module.scss";
 import { BracketItem } from "../../components/navigation/bracketItem/bracketItem";
+import { SKETCHES } from "../Maken/sketches";
 
 export default function Account() {
   const { t } = useTranslation();
@@ -138,21 +139,31 @@ export default function Account() {
             {projects.length === 0 ? (
               <p>{t("account.noProjects")}</p>
             ) : (
-              projects.map((project) => (
-                <div key={project.id} className={style.projectCard}>
-                  <p>{project.projectName}</p>
-                  <button
-                    onClick={() =>
-                      navigate(
-                        `/maken?sketch=${project.sketch_id}&project=${project.id}`,
-                      )
-                    }
-                    className={style.tabProject}
-                  >
-                    <BracketItem>{t("account.open")}</BracketItem>
-                  </button>
-                </div>
-              ))
+              projects.map((project) => {
+                const sketch = SKETCHES.find((s) => s.id === project.sketch_id);
+                return (
+                  <div key={project.id} className={style.projectCard}>
+                    {sketch?.previewImage && (
+                      <img
+                        src={sketch.previewImage}
+                        alt={sketch.name}
+                        className={style.projectCardImage}
+                      />
+                    )}
+                    <p>{project.projectName}</p>
+                    <button
+                      onClick={() =>
+                        navigate(
+                          `/maken?sketch=${project.sketch_id}&project=${project.id}`,
+                        )
+                      }
+                      className={style.tabProject}
+                    >
+                      <BracketItem>{t("account.open")}</BracketItem>
+                    </button>
+                  </div>
+                );
+              })
             )}
           </div>
         </div>

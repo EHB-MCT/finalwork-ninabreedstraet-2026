@@ -172,6 +172,7 @@ export function CursorEffectFloater() {
   // wordt maximaal 1 keer per 60 seconden uitgevoerd
   const spawnParticles = useCallback((x: number, y: number) => {
     if (!enabledRef.current) return;
+    if (activeRef.current === "none") return;
     const now = Date.now();
     if (now - lastSpawnRef.current < 60) return;
     lastSpawnRef.current = now;

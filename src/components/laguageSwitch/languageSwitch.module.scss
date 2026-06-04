@@ -111,6 +111,51 @@
   z-index: -1;
 }
 
+@supports (-webkit-hyphens: none) {
+  .floater,
+  .dropdown {
+    mix-blend-mode: normal;
+    filter: none;
+    background-color: rgba(0, 0, 0, 0.85);
+    color: white;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .floater::before,
+  .dropdown::before {
+    display: none;
+  }
+
+  .dropdownItem {
+    filter: none;
+    mix-blend-mode: normal;
+    color: white;
+  }
+}
+
+@-moz-document url-prefix() {
+  .floater,
+  .dropdown {
+    mix-blend-mode: normal;
+    filter: none;
+    background-color: rgba(0, 0, 0, 0.85);
+    color: white;
+    backdrop-filter: blur(12px);
+  }
+
+  .floater::before,
+  .dropdown::before {
+    display: none;
+  }
+
+  .dropdownItem {
+    filter: none;
+    mix-blend-mode: normal;
+    color: white;
+  }
+}
+
 .flag {
   font-size: 1.1rem;
   line-height: 1;
