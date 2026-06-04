@@ -2132,26 +2132,25 @@ for (let i = 0; i < layers; i++) {
       spawnChance: "Kans (0-100) dat er elk frame een nieuw systeem spawnt.",
     },
     code: `class Particle {
-  constructor(p, x, y) {
-    this.p = p;
-    this.pos = p.createVector(x, y);
-    const angle = this.p.random(Math.PI * 2);
-    this.vel = p.createVector(p.random(-3, 3), p.random(-3, 3));
-    this.vel.mult(p.random(0.2, 0.8));
-    const angle2 = p.random(Math.PI * 2);
-    this.acc = p.createVector(p.cos(angle2), p.sin(angle2));
-    this.acc.mult(p.random(0.05, 0.2));
-    this.life = 255;
-    this.done = false;
-    this.hueValue = 0;
-    console.log("vel:", this.vel.x, this.vel.y);
-  }
+constructor(p, x, y) {
+  this.p = p;
+  this.pos = p.createVector(x, y);
+  this.vel = p.createVector(p.random(-1, 1), p.random(-1, 1));
+  this.vel.normalize();
+  this.vel.mult(p.random(0.2, 0.8));
+  this.acc = p.createVector(p.random(-1, 1), p.random(-1, 1));
+  this.acc.normalize();
+  this.acc.mult(p.random(0.05, 0.2));
+  this.life = 255;
+  this.done = false;
+  this.hueValue = 0;
+}
 
-  update() {
+update() {
   if (this.life < 0) { this.done = true; return; }
   this.done = false;
-  const angle = this.p.random(Math.PI * 2);
-  this.acc = p.createVector(p.random(angle), p.random(angle));
+  this.acc = this.p.createVector(this.p.random(-1, 1), this.p.random(-1, 1));
+  this.acc.normalize();
   this.acc.mult(this.p.random(0.05, 0.2));
   this.vel.add(this.acc);
   this.vel.mult(0.99);

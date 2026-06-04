@@ -76,6 +76,7 @@
 - https://www.youtube.com/watch?v=Qf4dIN99e2w
 - https://p5js.org/reference/p5/drawingContext/
 - https://codemirror.net/docs/guide/
+- https://p5js.org/reference/p5.Vector/normalize/ 
 
 # 1. Inleiding
 
