@@ -1,3 +1,4 @@
+import { CodeMirrorEditor } from "../../CodeMirrorEditor";
 import styles from "./accordionPanel.module.scss";
 
 // dit definieert wat dit component verwacht te ontvangen, zodat die kan functioneren
@@ -39,13 +40,10 @@ export function CodeModal({
           </button>
         </div>
 
-        <textarea
-          className={styles.codeEditor}
+        <CodeMirrorEditor
           value={editableCode}
-          onChange={(e) => onCodeChange(e.target.value)}
-          spellCheck={false}
-          autoCapitalize="off"
-          autoCorrect="off"
+          onChange={onCodeChange}
+          height="400px"
         />
 
         <div className={styles.codeModalFooter}>

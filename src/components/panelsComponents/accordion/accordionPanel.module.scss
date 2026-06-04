@@ -30,6 +30,10 @@
   color: rgba(255, 255, 255, 0.35);
 }
 
+.projectNameInput {
+  width: 50%;
+}
+
 .dropdown {
   width: 100%;
   background: rgba(255, 255, 255, 0.06);
@@ -172,6 +176,11 @@
   text-align: left;
 }
 
+.codeMirrorEditor {
+  text-align: left;
+  font-size: medium;
+}
+
 code {
   font-size: 10px;
   width: 100%;
@@ -208,7 +217,7 @@ code {
 }
 
 .codeModal {
-  height: 200vh;
+  height: 100vh;
   background: #111;
   display: flex;
   flex-direction: column;
@@ -221,16 +230,16 @@ code {
   max-width: unset;
 }
 
-@keyframes modalUp {
-  from {
-    transform: translateY(60px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
+// @keyframes modalUp {
+//   from {
+//     transform: translateY(60px);
+//     opacity: 0;
+//   }
+//   to {
+//     transform: translateY(0);
+//     opacity: 1;
+//   }
+// }
 
 .codeModalHeader {
   display: flex;
@@ -273,12 +282,12 @@ code {
   font-family: "JetBrains Mono", "Fira Code", "Menlo", monospace;
   font-size: 13px;
   line-height: 1.65;
-  padding: 20px;
+  // padding: 20px;
   border: none;
   resize: none;
   outline: none;
   tab-size: 2;
-  white-space: pre;
+  // white-space: pre;
   overflow: auto;
 
   &::selection {

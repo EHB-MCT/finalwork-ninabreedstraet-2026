@@ -28,6 +28,7 @@ export default function LoginForm({ onClose }: LoginFormProps) {
     setSuccessMessage("");
 
     if (formMode === "forgotPassword") {
+      // als er een error is weet die dat die de error moet sturen, ipv bijvoorbeeld result.error te moeten doen
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
         redirectTo: `${window.location.origin}/reset-password`,
       });
@@ -56,12 +57,13 @@ export default function LoginForm({ onClose }: LoginFormProps) {
       });
       if (error) return setError(error.message);
       if (onClose) onClose();
-      else navigate("/dashboard");
+      else navigate("/accountsettings");
     }
   };
 
+  // als er een gebruiker is herkend en het loginform is dicht > dan naar home-pagina
   if (user && !onClose) {
-    navigate("/dashboard");
+    navigate("/home");
   }
 
   const titles: Record<FormMode, string> = {
@@ -108,6 +110,7 @@ export default function LoginForm({ onClose }: LoginFormProps) {
         onChange={(e) => setEmail(e.target.value)}
       />
 
+      {/* als formMode niet forgotPassword is > dan gewoon wachtwoord invullen */}
       {formMode !== "forgotPassword" && (
         <input
           type="password"
@@ -116,7 +119,7 @@ export default function LoginForm({ onClose }: LoginFormProps) {
           onChange={(e) => setPassword(e.target.value)}
         />
       )}
-
+      {/* als formMode login is dan knop naar forgotPassword */}
       {formMode === "login" && (
         <span
           onClick={() => setFormMode("forgotPassword")}
@@ -131,6 +134,7 @@ export default function LoginForm({ onClose }: LoginFormProps) {
         </span>
       )}
 
+      {/* als formMode forgotPassword is dan sendResetEmail-knop, als anders de formMode Register is > toon dan de registreer-knop, en anders de login-knop */}
       <button onClick={handleSubmit}>
         {formMode === "forgotPassword"
           ? t("login.sendResetEmail")
@@ -141,6 +145,7 @@ export default function LoginForm({ onClose }: LoginFormProps) {
 
       {formMode === "forgotPassword" ? (
         <p>
+          {/* eerst knop als je terug naar login wilt gaan */}
           <span
             onClick={() => setFormMode("login")}
             style={{ color: "grey", cursor: "pointer" }}
@@ -149,10 +154,13 @@ export default function LoginForm({ onClose }: LoginFormProps) {
           </span>
         </p>
       ) : (
+        // als formMode niet forgotpassword is > dan register mode
+        // als register mode dan knop met have accoung > anders no account knop
         <p>
           {formMode === "register"
             ? t("login.haveAccount")
             : t("login.noAccount")}
+          {/* als formMode register > dan login knop, anders register knop */}
           <span
             onClick={() =>
               setFormMode(formMode === "register" ? "login" : "register")

@@ -59,18 +59,7 @@ export default function Home() {
           <div className={style.left}>{t("home.oefeningenExplanation")}</div>
           <br />
           <br />
-          <div className={style.right}>
-            {t("home.createExplanation")}
-            {/* <div className={style.sketchExplanation}>
-                {t("home.howItWorks")}
-                <ol>
-                  <li>{t("home.step1")}</li>
-                  <li>{t("home.step2")}</li>
-                  <li>{t("home.step3")}</li>
-                  <li>{t("home.step4")}</li>
-                </ol>
-              </div> */}
-          </div>
+          <div className={style.right}>{t("home.createExplanation")}</div>
         </div>
 
         {!user && (

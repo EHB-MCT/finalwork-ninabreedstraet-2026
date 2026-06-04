@@ -22,11 +22,15 @@ form {
 }
 
 input {
-  padding: 10px;
-  border: 5px solid #ffffff;
-  border-radius: 5px;
   color: white;
   background-color: black;
+
+  width: 100%;
+  padding: 10px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+  border: none;
 }
 
 .buttonGroup {
@@ -45,18 +49,8 @@ input {
   margin: auto;
   display: flex;
   flex-direction: column;
-}
-
-.accountForm input {
-  width: 100%;
-  padding: 10px;
-  border: 5px solid #ffffff;
-  background-color: black;
-  border-radius: 20px;
-  margin-bottom: 10px;
-  box-sizing: border-box;
-  mix-blend-mode: difference;
-  color: white;
+  justify-content: center;
+  align-items: center;
 }
 
 .accountForm h2,
@@ -69,13 +63,21 @@ h2 {
   mix-blend-mode: difference;
 }
 
+input[type="password"] {
+  -webkit-text-fill-color: white;
+  -webkit-box-shadow: 0 0 0px 1000px black inset;
+}
+
 .formGroup {
   display: flex;
   flex-direction: column;
   gap: 6px;
   margin-bottom: 16px;
+  width: 100%;
+  color: rgb(0, 0, 0);
+  background-color: white;
   mix-blend-mode: difference;
-  color: white;
+  filter: invert(1);
 }
 
 .formGroup label {

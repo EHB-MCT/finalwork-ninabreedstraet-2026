@@ -74,18 +74,6 @@ export function AccordionPanel({
             <li>{t("maken.vier")}</li>
           </ol>
         </div>
-        {/* Dropdown menu waarmee je tussen de sketches kan kiezen: */}
-        {/* <select
-          className={styles.dropdown}
-          value={activeId}
-          onChange={(e) => onSwitchSketch(e.target.value)}
-        >
-          {SKETCHES.map((s) => (
-            <option key={s.id} value={s.id}>
-              {s.name}
-            </option>
-          ))}
-        </select> */}
         <span className={styles.sketchLabel}>{t("maken.voorbeelden")}</span>
         <div className={styles.sketchScrollWrapper}>
           {/* ipv een dropdown-menu een horizontaal menu met previewbeelden, 

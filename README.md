@@ -74,7 +74,8 @@
 - https://claude.ai/share/7e26454e-ef77-4193-8674-a21fbdf49f34 (switch sketches liep vast)
 - https://www.gorillasun.de/blog/an-introduction-to-perlin-noise-in-p5js-and-processing/
 - https://www.youtube.com/watch?v=Qf4dIN99e2w
-- https://p5js.org/reference/p5/drawingContext/ 
+- https://p5js.org/reference/p5/drawingContext/
+- https://codemirror.net/docs/guide/
 
 # React + TypeScript + Vite
 

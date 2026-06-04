@@ -161,12 +161,12 @@ export default function Sketch1() {
         onKeyUp={(e) => e.stopPropagation()}
         style={{
           position: "absolute",
-          bottom: "16px",
+          bottom: "1%",
           left: "50%",
           transform: "translateX(-50%)",
           fontSize: "16px",
           padding: "6px 14px",
-          borderRadius: "8px",
+          borderRadius: "22px",
           border: "1px solid rgba(255,255,255,0.2)",
           background: "rgba(255,255,255,0.08)",
           color: "#fff",

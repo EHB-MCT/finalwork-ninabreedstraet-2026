@@ -115,6 +115,8 @@ export default function Account() {
             <button onClick={handleUpdateProfile} className={style.tab}>
               <BracketItem>{t("account.updateProfile")}</BracketItem>
             </button>
+            <br />
+            <br />
 
             <div className={style.formGroup}>
               <label>{t("account.newPassword")}</label>
@@ -133,6 +135,7 @@ export default function Account() {
             {updateMsg && <p className={style.updateMsg}>{updateMsg}</p>}
           </div>
         </div>
+
         <div className={style.projects}>
           <h2>{t("account.projects")}</h2>
           <div className={style.projectList}>

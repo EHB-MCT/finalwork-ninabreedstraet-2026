@@ -5,7 +5,7 @@ import { useLocalizedSketches } from "../../hooks/useTranslatedSketches";
 import type { ParamValues } from "./sketches";
 import { useSketch } from "../../hooks/useSketch";
 import { useTweakpane } from "../../hooks/useTweakpane";
-import { NEWRunBar } from "../../components/panelsComponents/runBar";
+import { RunBar } from "../../components/panelsComponents/runBar";
 import { getDefaultParams } from "./helpers";
 import styles from "./maken.module.scss";
 import { supabase } from "../../lib/supabaseClient";
@@ -210,7 +210,7 @@ export default function Maken() {
             />
           )}
         </div>
-        <NEWRunBar
+        <RunBar
           onExecute={() => executeSketch(code, params)}
           onReset={handleReset}
           error={error}

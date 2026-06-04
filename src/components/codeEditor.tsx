@@ -6,6 +6,7 @@ import jsonWorker from "monaco-editor/esm/vs/language/json/json.worker?worker";
 import cssWorker from "monaco-editor/esm/vs/language/css/css.worker?worker";
 import htmlWorker from "monaco-editor/esm/vs/language/html/html.worker?worker";
 import tsWorker from "monaco-editor/esm/vs/language/typescript/ts.worker?worker";
+import { CodeMirrorEditor } from "./CodeMirrorEditor";
 
 interface CodeEditorProps {
   initialCode: string;
@@ -35,6 +36,7 @@ export function CodeEditor({
   const editorRef = useRef<monaco.editor.IStandaloneCodeEditor | null>(null);
   const containerRef = useRef(null);
   const [feedback, setFeedback] = useState("");
+  const [code, setCode] = useState(initialCode);
 
   useEffect(() => {
     if (!containerRef.current) return;
@@ -71,14 +73,8 @@ export function CodeEditor({
 
   return (
     <div>
-      <div
-        ref={containerRef}
-        style={{
-          height: "150px",
-          border: "1px solid #ccc",
-          marginBottom: "10px",
-        }}
-      />
+      <CodeMirrorEditor value={code} onChange={setCode} height="150px" />
+
       <button onClick={runCode} style={btnStyle}>
         Run Code
       </button>

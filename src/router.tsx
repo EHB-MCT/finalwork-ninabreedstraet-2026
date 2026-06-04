@@ -1,6 +1,5 @@
 import { createBrowserRouter, Outlet, Navigate } from "react-router-dom";
 import Navigation from "./components/navigation/navigation";
-import Dashboard from "./pages/Account/dashboard";
 import Home from "./pages/Home/home";
 import OefeningenHome from "./pages/oefeningen/oefeningHome";
 import Maken from "./pages/Maken/maken";
@@ -56,7 +55,6 @@ const router = createBrowserRouter([
   {
     element: <ProtectedLayout />,
     children: [
-      { path: "dashboard", element: <Dashboard /> },
       { path: "oefeningen", element: <OefeningenHome /> },
       { path: "maken", element: <Maken /> },
       { path: "accountsettings", element: <Account /> },

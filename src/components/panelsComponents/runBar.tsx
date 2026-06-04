@@ -8,13 +8,7 @@ interface Props {
   frame: number;
 }
 
-export function NEWRunBar({
-  onExecute,
-  onReset,
-  error,
-  animate,
-  frame,
-}: Props) {
+export function RunBar({ onExecute, onReset, error, animate, frame }: Props) {
   return (
     <>
       <div className={styles.runBar}>
