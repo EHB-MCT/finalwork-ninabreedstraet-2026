@@ -12,51 +12,57 @@ export default function basis() {
         style={{ padding: "15px", borderRadius: "8px", marginBottom: "20px" }}
       >
         <h3>{t("exercises.basis.websiteStructure")}</h3>
-        <p>
-          {t("exercises.basis.buildingBlocks")}
-          <br />
-          <br />
-          <strong>{t("exercises.basis.htmlTitle")}</strong> :{" "}
-          {t("exercises.basis.htmlDesc")} <br />
-          <br />
-          <strong>{t("exercises.basis.cssTitle")}</strong> :{" "}
-          {t("exercises.basis.cssDesc")} <br />
-          <br />
-          <strong>{t("exercises.basis.jsTitle")}</strong> :{" "}
-          {t("exercises.basis.jsDesc")}
-        </p>
+        <p>{t("exercises.basis.buildingBlocks")}</p>
         <br />
+        <ul>
+          <li>
+            {" "}
+            <strong>{t("exercises.basis.htmlTitle")}</strong> :{" "}
+            {t("exercises.basis.htmlDesc")}
+          </li>
+          <li>
+            <strong>{t("exercises.basis.cssTitle")}</strong> :{" "}
+            {t("exercises.basis.cssDesc")}
+          </li>
+          <li>
+            <strong>{t("exercises.basis.jsTitle")}</strong> :{" "}
+            {t("exercises.basis.jsDesc")}
+          </li>
+        </ul>
         <h3>{t("exercises.basis.technicalTitle")}</h3>
-        <p>
-          <br /> {t("exercises.basis.technicalIntro")}
-          <ol>
-            <li>{t("exercises.basis.step1")}</li>
-            <li>{t("exercises.basis.step2")}</li>
-            <li>{t("exercises.basis.step3")}</li>
-          </ol>
-        </p>
+        <p>{t("exercises.basis.technicalIntro")}</p>
+        <ol>
+          <li>{t("exercises.basis.step1")}</li>
+          <li>{t("exercises.basis.step2")}</li>
+          <li>{t("exercises.basis.step3")}</li>
+        </ol>
         <h3>{t("exercises.basis.frontendVsBackend")}</h3>
         <table>
-          <tr>
-            <th></th>
-            <th>{t("exercises.basis.wat")}</th>
-            <th>{t("exercises.basis.wieZietHet")}</th>
-          </tr>
-          <tr>
-            <td>{t("exercises.basis.frontend")}</td>
-            <td>{t("exercises.basis.frontendDesc")}</td>
-            <td>{t("exercises.basis.frontendVisible")}</td>
-          </tr>
-          <tr>
-            <td>{t("exercises.basis.backend")}</td>
-            <td>{t("exercises.basis.backendDesc")}</td>
-            <td>{t("exercises.basis.backendVisible")}</td>
-          </tr>
+          <thead>
+            <tr>
+              <th></th>
+              <th>{t("exercises.basis.wat")}</th>
+              <th>{t("exercises.basis.wieZietHet")}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>{t("exercises.basis.frontend")}</td>
+              <td>{t("exercises.basis.frontendDesc")}</td>
+              <td>{t("exercises.basis.frontendVisible")}</td>
+            </tr>
+            <tr>
+              <td>{t("exercises.basis.backend")}</td>
+              <td>{t("exercises.basis.backendDesc")}</td>
+              <td>{t("exercises.basis.backendVisible")}</td>
+            </tr>
+          </tbody>
         </table>
         <br />
         <br />
         <p>{t("exercises.basis.simpleVsComplex")}</p>
         <br />
+
         <p>{t("exercises.basis.summary")}</p>
       </div>
     </div>

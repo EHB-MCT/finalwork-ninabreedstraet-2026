@@ -3,7 +3,6 @@ import { useAuth } from "../../context/AuthContext";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import Sketch1 from "./sketches/sketch1";
-import Sketch2 from "./sketches/sketch2";
 import Sketch4 from "./sketches/sketch4";
 import Sketch3 from "./sketches/sketch3";
 import Sketch5 from "./sketches/sketch5";
@@ -22,7 +21,6 @@ export default function Home() {
   const [Sketch] = useState(() => {
     const sketchArr = [
       Sketch1,
-      Sketch2,
       Sketch3,
       Sketch4,
       Sketch5,

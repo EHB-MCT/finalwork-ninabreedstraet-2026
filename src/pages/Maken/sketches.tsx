@@ -84,7 +84,7 @@ y++;`,
         label: "Afbeelding",
         type: "image",
         default:
-          "https://m.media-amazon.com/images/I/81nFcvY8zIL._AC_UF1000,1000_QL80_.jpg",
+          "https://www.windowslatest.com/wp-content/uploads/2024/10/Windows-XP-4K-modified-scaled.jpg",
         codeSnippet: `
 const img = new Image();
 img.src = image;
@@ -1443,7 +1443,8 @@ for (let i = 0; i < num; i++) {
         name: "image",
         label: "Afbeelding",
         type: "image",
-        default: "/Images/natuur.jpeg",
+        default:
+          "https://www.windowslatest.com/wp-content/uploads/2024/10/Windows-XP-4K-modified-scaled.jpg",
         codeSnippet: `p.loadImage(
     image,
     (loadedImg) => { 

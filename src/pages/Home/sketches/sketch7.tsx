@@ -25,7 +25,7 @@ export default function Sketch7() {
         canvas.parent(sketchRef.current!);
         cols = p.width / size;
         rows = p.height / size;
-        p.loadImage("/Images/natuur.jpeg", (loadedImg) => {
+        p.loadImage("/Images/natuur4.jpg", (loadedImg) => {
           img = loadedImg;
           img.resize(p.windowWidth, 0);
           imgLoaded = true;

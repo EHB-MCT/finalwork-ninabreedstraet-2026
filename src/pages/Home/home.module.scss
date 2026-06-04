@@ -133,7 +133,6 @@ input {
 }
 
 .content {
-  isolation: isolate;
   position: relative;
   z-index: 1;
   display: flex;
@@ -142,12 +141,16 @@ input {
   align-items: center;
   gap: 16px;
   width: fit-content;
+  padding: 2%;
 
   border-radius: 36px;
   pointer-events: all;
   color: rgb(0, 0, 0);
+  -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   mix-blend-mode: difference;
+  -webkit-filter: invert(1);
+  isolation: isolate;
   filter: invert(1);
 }
 
@@ -157,8 +160,9 @@ input {
   inset: 0;
   border-radius: 56px;
   background-color: black;
-  backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+  -webkit-filter: invert(1);
   filter: invert(1);
   z-index: -1;
 }
@@ -260,4 +264,45 @@ input {
   z-index: 1;
   pointer-events: all;
   color: white;
+}
+
+@supports (-webkit-hyphens: none) {
+  .content,
+  .nav {
+    mix-blend-mode: normal;
+    filter: none;
+    background-color: rgba(0, 0, 0, 0.85);
+    color: white;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .content::before,
+  .nav::before {
+    display: none;
+  }
+
+  .loginBtn {
+    filter: invert(1);
+  }
+}
+
+@-moz-document url-prefix() {
+  .content,
+  .nav {
+    mix-blend-mode: normal;
+    filter: none;
+    background-color: rgba(0, 0, 0, 0.85);
+    color: white;
+    backdrop-filter: blur(12px);
+  }
+
+  .content::before,
+  .nav::before {
+    display: none;
+  }
+
+  .loginBtn {
+    filter: invert(1);
+  }
 }

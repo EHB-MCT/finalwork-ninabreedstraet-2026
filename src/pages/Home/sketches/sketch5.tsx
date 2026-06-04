@@ -4,7 +4,7 @@
 import { useEffect, useRef } from "react";
 import p5 from "p5";
 
-let threshold = 80;
+let threshold = 40;
 let currentColumn = 0;
 
 function sortColumn(x: number, img: p5.Image, p: p5) {
@@ -81,15 +81,12 @@ export default function Sketch5() {
         canvas.parent(sketchRef.current!);
         p.noLoop(); // tijdelijk pauzeren tot afbeelding geladen is
 
-        p.loadImage(
-          "https://m.media-amazon.com/images/I/81nFcvY8zIL._AC_UF1000,1000_QL80_.jpg",
-          (loaded) => {
-            img = loaded;
-            img.resize(p.windowWidth, 0);
-            img.loadPixels();
-            p.loop(); // start animatie pas als afbeelding klaar is
-          },
-        );
+        p.loadImage("/Images/natuur4.jpg", (loaded) => {
+          img = loaded;
+          img.resize(p.windowWidth, 0);
+          img.loadPixels();
+          p.loop(); // start animatie pas als afbeelding klaar is
+        });
       };
 
       p.draw = () => {

@@ -19,6 +19,7 @@
   src: url("/Fonts/Helvetica-Bold.ttf");
   font-weight: 700;
 }
+
 .oefeningBox {
   margin-top: 10%;
   padding: 5%;
@@ -100,11 +101,54 @@ em {
   gap: 0.2rem;
   padding: 1rem;
   min-width: 160px;
-  color: white;
-  mix-blend-mode: difference;
-  border: solid white 5px;
-  border-radius: 20px;
   margin: 2%;
+  border-radius: 36px;
+  pointer-events: all;
+  color: rgb(0, 0, 0);
+  backdrop-filter: blur(12px);
+  mix-blend-mode: difference;
+  filter: invert(1);
+}
+
+.sidebar::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 56px;
+  background-color: black;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  filter: invert(1);
+  z-index: -1;
+}
+
+@supports (-webkit-hyphens: none) {
+  .sidebar {
+    mix-blend-mode: normal;
+    filter: none;
+    background-color: rgba(0, 0, 0, 0.85);
+    color: white;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+
+  .sidebar::before {
+    display: none;
+  }
+}
+
+@-moz-document url-prefix() {
+  .sidebar {
+    mix-blend-mode: normal;
+    filter: none;
+    background-color: rgba(0, 0, 0, 0.85);
+    color: white;
+    backdrop-filter: blur(12px);
+  }
+
+  .sidebar::before {
+    display: none;
+  }
 }
 
 .tabBtn {
@@ -117,12 +161,12 @@ em {
   font-weight: bold;
   color: white;
   padding: 0;
-  opacity: 0.45;
+  opacity: 0.65;
   transition: opacity 0.15s ease;
   mix-blend-mode: difference;
 
   &:hover {
-    opacity: 0.75;
+    opacity: 0.95;
   }
 }
 
