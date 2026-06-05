@@ -1,8 +1,8 @@
-import { useState, useRef, useEffect } from "react";
-import * as monaco from "monaco-editor";
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import style from "./oefeningen.module.scss";
 import NextButton from "../../components/nextButton";
+import { CodeMirrorEditor } from "../../components/CodeMirrorEditor";
 
 const initialCode = `let leeftijd = 20;
 
@@ -31,29 +31,10 @@ const btnStyle = {
 
 function Oefening3() {
   const { t } = useTranslation();
-  const editorRef = useRef<monaco.editor.IStandaloneCodeEditor | null>(null);
-  const containerRef = useRef<HTMLDivElement | null>(null);
+  const [code, setCode] = useState(initialCode);
   const [feedback, setFeedback] = useState("");
 
-  useEffect(() => {
-    if (!containerRef.current) return;
-
-    const editor = monaco.editor.create(containerRef.current, {
-      value: initialCode,
-      language: "javascript",
-      theme: "vs-dark",
-      minimap: { enabled: false },
-      fontSize: 14,
-      automaticLayout: true,
-    });
-
-    editorRef.current = editor;
-
-    return () => editor.dispose();
-  }, []);
-
   function runCode() {
-    const code = editorRef.current?.getValue() || "";
     setFeedback("");
 
     try {
@@ -91,12 +72,12 @@ function Oefening3() {
   }
 
   function showAnswer() {
-    editorRef.current?.setValue(solutionCode);
+    setCode(solutionCode);
   }
 
   function resetCode() {
     setFeedback("");
-    editorRef.current?.setValue(initialCode);
+    setCode(initialCode);
   }
 
   return (
@@ -111,7 +92,6 @@ function Oefening3() {
         <p>{t("exercises.oefening3.ifStatementDesc")}</p>
         <ul>
           <li key="if">
-            {" "}
             <strong>if </strong> : {t("exercises.oefening3.ifKeyword")}
           </li>
           <li key="else">
@@ -133,7 +113,7 @@ function Oefening3() {
             <strong>===</strong> : {t("exercises.oefening3.eq")}
           </li>
           <li key="neq">
-            <strong>!==</strong> :{t("exercises.oefening3.neq")}
+            <strong>!==</strong> : {t("exercises.oefening3.neq")}
           </li>
         </ul>
         <pre
@@ -153,25 +133,18 @@ if (leeftijd >= 18) {
 }`}
         </pre>
       </div>
+
       <h3>{t("exercises.oefening3.exercise1Title")}</h3>
       <p>{t("exercises.oefening3.assignment")}</p>
-
       <ul>
         <li key="var">{t("exercises.oefening3.varDefined")}</li>
         <li key="check">{t("exercises.oefening3.checkAge")}</li>
         <li key="show">{t("exercises.oefening3.showResult")}</li>
       </ul>
 
-      <div
-        ref={containerRef}
-        style={{
-          height: "300px",
-          border: "1px solid #ccc",
-          marginBottom: "15px",
-        }}
-      />
+      <CodeMirrorEditor value={code} onChange={setCode} height="300px" />
 
-      <div style={{ display: "flex", gap: "10px" }}>
+      <div style={{ display: "flex", gap: "10px", marginTop: "15px" }}>
         <button onClick={runCode} style={btnStyle}>
           {t("exercises.common.runCode")}
         </button>
